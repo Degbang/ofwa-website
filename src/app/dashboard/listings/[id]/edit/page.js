@@ -6,7 +6,7 @@ import { getOwnedListingById } from "@/lib/private-data";
 
 export default async function EditListingPage({ params }) {
   const session = await requireSession(["registered_vendor", "registered_seller", "snug_haven_partner"]);
-  const { id } = await params;
+  const { id } = params;
   const listing = await getOwnedListingById(session, id);
   if (!listing) notFound();
 

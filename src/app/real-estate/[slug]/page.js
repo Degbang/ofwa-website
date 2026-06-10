@@ -5,7 +5,7 @@ import { getCurrentSession } from "@/lib/auth";
 import { findListing } from "@/lib/public-data";
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const { slug } = params;
   const listing = await findListing("real-estate", slug);
   return {
     title: listing ? `${listing.title} · GhanaExpats.com` : "Property listing · GhanaExpats.com",
@@ -20,7 +20,7 @@ function formatPrice(listing) {
 
 export default async function PropertyDetailPage({ params }) {
   const session = await getCurrentSession();
-  const { slug } = await params;
+  const { slug } = params;
   const listing = await findListing("real-estate", slug);
   if (!listing) notFound();
 

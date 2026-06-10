@@ -6,7 +6,7 @@ import { findListing } from "@/lib/public-data";
 
 export default async function SnugHavenPropertyPage({ params }) {
   const session = await getCurrentSession();
-  const { propertySlug } = await params;
+  const { propertySlug } = params;
   const listing = await findListing("snug-haven", propertySlug);
   if (!listing) notFound();
   const images = Array.isArray(listing.meta.images) ? listing.meta.images.filter(Boolean).slice(0, 4) : [];

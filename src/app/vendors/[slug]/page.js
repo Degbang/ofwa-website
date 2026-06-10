@@ -7,7 +7,7 @@ import { findVendorProfile } from "@/lib/public-data";
 
 export default async function VendorProfilePage({ params }) {
   const session = await getCurrentSession();
-  const { slug } = await params;
+  const { slug } = params;
   const vendor = await findVendorProfile(slug);
   if (!vendor) notFound();
 

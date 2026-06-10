@@ -7,7 +7,7 @@ import { currency } from "@/lib/utils";
 
 export default async function MarketplaceDetailPage({ params }) {
   const session = await getCurrentSession();
-  const { slug } = await params;
+  const { slug } = params;
   const listing = await findListing("marketplace", slug);
   if (!listing) notFound();
   const images = Array.isArray(listing.meta.images) ? listing.meta.images.filter(Boolean).slice(0, 4) : [];

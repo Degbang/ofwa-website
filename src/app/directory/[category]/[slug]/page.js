@@ -5,7 +5,7 @@ import { getCurrentSession } from "@/lib/auth";
 import { findListing } from "@/lib/public-data";
 
 export async function generateMetadata({ params }) {
-  const { category, slug } = await params;
+  const { category, slug } = params;
   const listing = await findListing("directory", slug);
   return {
     title: listing ? `${listing.title} · ${category} · GhanaExpats.com` : "Directory listing · GhanaExpats.com",
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
 
 export default async function DirectoryListingPage({ params }) {
   const session = await getCurrentSession();
-  const { category, slug } = await params;
+  const { category, slug } = params;
   const listing = await findListing("directory", slug);
   if (!listing || listing.category_slug !== category) notFound();
 

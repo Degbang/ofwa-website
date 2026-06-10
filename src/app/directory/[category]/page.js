@@ -7,7 +7,7 @@ import { directoryCategories } from "@/lib/catalog";
 import { listDirectoryByCategory } from "@/lib/public-data";
 
 export async function generateMetadata({ params }) {
-  const { category } = await params;
+  const { category } = params;
   const found = directoryCategories.find((item) => item.slug === category);
   return {
     title: found ? `${found.label} in Ghana · GhanaExpats.com` : "Directory category · GhanaExpats.com",
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
 
 export default async function DirectoryCategoryPage({ params }) {
   const session = await getCurrentSession();
-  const { category } = await params;
+  const { category } = params;
   const categoryItem = directoryCategories.find((item) => item.slug === category);
   if (!categoryItem) notFound();
   const listings = await listDirectoryByCategory(category);
