@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Foundation West Africa | Home</title>
+  <meta name="description" content="Open Foundation West Africa – growing women's participation in open knowledge across Africa." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ░░ FLOATING DONATE ░░ -->
+<a class="float-donate" href="donate.html">♥ Donate Now</a>
+
+<!-- ░░ VIDEO MODAL ░░ -->
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Video player">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" id="videoClose" aria-label="Close video">✕</button>
+    <div class="video-modal-frame">
+      <iframe id="videoIframe" src="" title="OFWA Video" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ░░ NAV ░░ -->
+<nav class="site-nav" data-open="false" aria-label="Primary navigation">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/images/ofwa-logo-new.png" alt="OFWA" />
+      <span class="nav-logo-text">Open Foundation<br>West Africa</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html">News</a></li>
+      <li><a href="volunteer.html">Volunteer</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a class="nav-donate" href="donate.html">♥ Donate Now</a>
+  </div>
+</nav>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     HERO — Full-screen cinematic carousel
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="hero" aria-label="Hero">
+  <!-- Slides -->
+  <div class="hero-slide active">
+    <img src="assets/images/hero-banner.png" alt="OFWA community at work" />
+  </div>
+  <div class="hero-slide">
+    <img src="assets/images/hub-photo-1.png" alt="Accra Wiki Hub session" />
+  </div>
+  <div class="hero-slide">
+    <img src="assets/images/hub-photo-2.png" alt="Kumasi community training" />
+  </div>
+  <div class="hero-slide">
+    <img src="assets/images/about-hero.png" alt="OFWA team gathering" />
+  </div>
+  <div class="hero-slide">
+    <img src="assets/images/hub-photo-3.png" alt="Cape Coast Hub" />
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <!-- Content -->
+  <div class="hero-content">
+    <div class="container">
+      <p class="hero-kicker reveal">Open Knowledge · Women's Empowerment · West Africa</p>
+      <h1 class="hero-title reveal d1">
+        Building Africa's<br>
+        <span>Open Knowledge</span><br>
+        Future, Together.
+      </h1>
+      <p class="hero-sub reveal d2">Empowering women and communities to contribute to, access, and lead in the global open knowledge movement.</p>
+      <div class="hero-ctas reveal d3">
+        <a class="btn-donate-hero" href="donate.html">♥ Donate Now — Change a Life</a>
+        <button class="btn-play-hero" data-video="cXnO3a2_bLU">
+          <div class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          Watch Our Story
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <button class="hero-arrow hero-arrow--prev" aria-label="Previous slide">‹</button>
+  <button class="hero-arrow hero-arrow--next" aria-label="Next slide">›</button>
+
+  <!-- Dots -->
+  <div class="hero-dots" aria-label="Slide indicators">
+    <button class="hero-dot active" aria-label="Slide 1"></button>
+    <button class="hero-dot" aria-label="Slide 2"></button>
+    <button class="hero-dot" aria-label="Slide 3"></button>
+    <button class="hero-dot" aria-label="Slide 4"></button>
+    <button class="hero-dot" aria-label="Slide 5"></button>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     MARQUEE TICKER
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee-track">
+    <!-- Duplicated for seamless loop -->
+    <span class="marquee-item">40,000+ Wikipedia Articles <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">18 Communities Impacted <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">24 Campaigns Launched <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">12 Active Hubs &amp; Clubs <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">500+ Trained Women <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Open Knowledge for All <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">40,000+ Wikipedia Articles <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">18 Communities Impacted <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">24 Campaigns Launched <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">12 Active Hubs &amp; Clubs <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">500+ Trained Women <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Open Knowledge for All <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     STATS
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <strong class="stat-num" data-count="40" data-suffix="K+">40K+</strong>
+        <span class="stat-label">Wikipedia Articles Created</span>
+      </div>
+      <div class="stat-item reveal d1">
+        <strong class="stat-num" data-count="18">18</strong>
+        <span class="stat-label">Communities Impacted</span>
+      </div>
+      <div class="stat-item reveal d2">
+        <strong class="stat-num" data-count="24">24</strong>
+        <span class="stat-label">Campaigns Launched</span>
+      </div>
+      <div class="stat-item reveal d3">
+        <strong class="stat-num" data-count="12">12</strong>
+        <span class="stat-label">Active Clubs &amp; Hubs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     MISSION — Photo Stack
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="mission-section">
+  <div class="mission-inner">
+    <!-- Clickable photo stack -->
+    <div class="photo-stack-wrap">
+      <div class="photo-stack" id="missionStack" role="button" tabindex="0" aria-label="Click to see more photos">
+        <div class="stack-photo active"><img src="assets/images/blog-photo-1.png" alt="Wikipedia editing workshop" /></div>
+        <div class="stack-photo"><img src="assets/images/hub-photo-1.png" alt="Accra Hub session" /></div>
+        <div class="stack-photo"><img src="assets/images/hub-photo-4.png" alt="Community training" /></div>
+        <div class="stack-photo"><img src="assets/images/about-hero.png" alt="OFWA team" /></div>
+        <div class="stack-overlay"></div>
+        <div class="stack-counter">
+          <span class="stack-dot active"></span>
+          <span class="stack-dot"></span>
+          <span class="stack-dot"></span>
+          <span class="stack-dot"></span>
+        </div>
+        <span class="stack-click-hint">Click to explore →</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="mission-content">
+      <span class="section-tag reveal">Who We Are</span>
+      <h2 class="section-h reveal d1">Driving Open Knowledge Across West Africa</h2>
+      <p class="section-body reveal d2">Open Foundation West Africa (OFWA) is a nonprofit that creates spaces where women participate, contribute, and lead in open knowledge ecosystems — from Wikipedia editing to open education and digital skills training.</p>
+      <p class="section-body reveal d3" style="margin-bottom:32px;">Our hubs across Ghana serve as living laboratories for open knowledge, where communities come together to put African stories on the global stage.</p>
+      <a class="btn-orange reveal d4" href="about.html">Our Full Story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     GALLERY CAROUSEL
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="gallery-carousel-section">
+  <div class="container">
+    <div class="gallery-carousel-head">
+      <h2 class="gallery-carousel-h reveal">Our Work in <em>Pictures</em></h2>
+      <a class="link-orange reveal d1" href="gallery.html">View Full Gallery →</a>
+    </div>
+
+    <div class="gallery-carousel reveal">
+      <!-- Featured large photo -->
+      <div class="gallery-featured">
+        <img id="galleryFeaturedImg" src="assets/images/hub-photo-1.png" alt="Gallery featured photo" />
+        <div class="gallery-featured-overlay"></div>
+        <div class="gallery-featured-info">
+          <span class="gallery-featured-cat" id="galleryFeaturedCat">Hubs</span>
+          <p class="gallery-featured-title" id="galleryFeaturedTitle">Accra Wiki Hub — Community Editing Session</p>
+        </div>
+        <span class="gallery-featured-count" id="galleryCount">1 / 6</span>
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="gallery-thumbs" id="galleryThumbs">
+        <div class="gallery-thumb active" data-img="assets/images/hub-photo-1.png" data-cat="Hubs" data-title="Accra Wiki Hub — Community Editing Session">
+          <img src="assets/images/hub-photo-1.png" alt="Accra Hub" />
+          <div class="gallery-thumb-overlay"></div>
+          <span class="gallery-thumb-label">Accra Hub</span>
+        </div>
+        <div class="gallery-thumb" data-img="assets/images/blog-photo-1.png" data-cat="Training" data-title="Digital Skills Workshop for Women">
+          <img src="assets/images/blog-photo-1.png" alt="Training" />
+          <div class="gallery-thumb-overlay"></div>
+          <span class="gallery-thumb-label">Skills Training</span>
+        </div>
+        <div class="gallery-thumb" data-img="assets/images/hub-photo-2.png" data-cat="Hubs" data-title="Kumasi Hub — Monthly Meetup">
+          <img src="assets/images/hub-photo-2.png" alt="Kumasi Hub" />
+          <div class="gallery-thumb-overlay"></div>
+          <span class="gallery-thumb-label">Kumasi Hub</span>
+        </div>
+        <div class="gallery-thumb" data-img="assets/images/blog-photo-2.png" data-cat="Campaigns" data-title="Africa Wiki Challenge 2025 Launch">
+          <img src="assets/images/blog-photo-2.png" alt="Campaign" />
+          <div class="gallery-thumb-overlay"></div>
+          <span class="gallery-thumb-label">Campaigns</span>
+        </div>
+        <div class="gallery-thumb" data-img="assets/images/hub-photo-3.png" data-cat="Events" data-title="Open Knowledge Summit — Cape Coast">
+          <img src="assets/images/hub-photo-3.png" alt="Event" />
+          <div class="gallery-thumb-overlay"></div>
+          <span class="gallery-thumb-label">Cape Coast</span>
+        </div>
+        <div class="gallery-thumb" data-img="assets/images/hub-photo-4.png" data-cat="Community" data-title="KIWIX4Schools Initiative — UDS Hub">
+          <img src="assets/images/hub-photo-4.png" alt="UDS Hub" />
+          <div class="gallery-thumb-overlay"></div>
+          <span class="gallery-thumb-label">UDS Hub</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-carousel-arrows reveal">
+      <button class="carousel-arrow" id="galleryPrev" aria-label="Previous photo">‹</button>
+      <button class="carousel-arrow" id="galleryNext" aria-label="Next photo">›</button>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     VIDEOS — Real OFWA YouTube content
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="video-section">
+  <div class="container">
+    <div class="video-section-head">
+      <p class="section-tag reveal" style="color:var(--orange);">Projects in Action</p>
+      <h2 class="video-section-h reveal d1">Watch Our Impact</h2>
+      <p class="video-section-sub reveal d2">Real stories, real communities, real change — straight from OFWA's YouTube channel.</p>
+    </div>
+
+    <div class="video-grid reveal">
+      <!-- Real OFWA YouTube videos -->
+      <div class="video-card" data-video="cXnO3a2_bLU" role="button" tabindex="0" aria-label="Play: Africa Wiki Challenge 2022">
+        <img src="assets/images/hub-photo-3.png" alt="Africa Wiki Challenge 2022" />
+        <div class="video-card-overlay">
+          <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <p class="video-card-title">Africa Wiki Challenge 2022</p>
+          <p class="video-card-meta">OFWA presents the 2nd edition of Africa's open knowledge writing contest</p>
+        </div>
+      </div>
+
+      <div class="video-card" data-video="qmLD3DQB52c" role="button" tabindex="0" aria-label="Play: KIWIX4Schools Initiative">
+        <img src="assets/images/hub-photo-4.png" alt="KIWIX4Schools Initiative" />
+        <div class="video-card-overlay">
+          <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <p class="video-card-title">KIWIX4Schools Initiative</p>
+          <p class="video-card-meta">Bringing offline Wikipedia and open educational resources to schools across Ghana</p>
+        </div>
+      </div>
+
+      <div class="video-card" data-video="_P-fbzWqNy8" role="button" tabindex="0" aria-label="Play: OFWA × National Film Authority">
+        <img src="assets/images/blog-photo-1.png" alt="OFWA NFA Partnership" />
+        <div class="video-card-overlay">
+          <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <p class="video-card-title">OFWA × National Film Authority</p>
+          <p class="video-card-meta">Creating Wikipedia visibility for Ghana's actors and film industry professionals</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-more-wrap" style="margin-top:36px;">
+      <a class="btn-ghost-light reveal" href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener">Watch All Videos on YouTube →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     DONATE CTA
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="donate-cta" id="donate-cta">
+  <div class="container" style="position:relative;z-index:1;">
+    <p class="donate-cta-tag reveal">Make a Difference Today</p>
+    <h2 class="donate-cta-h reveal d1">Your Donation Funds<br>Free Knowledge for All</h2>
+    <p class="donate-cta-sub reveal d2">Every contribution — no matter the size — helps us train more women, open more hubs, and put African stories on Wikipedia for the world to read.</p>
+    <div class="reveal d3"><a class="btn-donate-big" href="donate.html">♥ Donate Now</a></div>
+    <div class="donate-amounts reveal d4">
+      <button class="donate-amount" onclick="window.location='donate.html'">GHS 50</button>
+      <button class="donate-amount" onclick="window.location='donate.html'">GHS 100</button>
+      <button class="donate-amount" onclick="window.location='donate.html'">GHS 250</button>
+      <button class="donate-amount" onclick="window.location='donate.html'">GHS 500</button>
+      <button class="donate-amount" onclick="window.location='donate.html'">Custom</button>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     COUNTRY MAP SWITCHER — Hubs and Clubs around you
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="cms-section">
+  <div class="container">
+    <h2 class="cms-title reveal">Hubs and Clubs around you</h2>
+    <p class="cms-sub reveal d1">We are growing across West Africa</p>
+  </div>
+
+  <div class="cms-stage">
+    <button class="cms-btn cms-btn--prev" id="cmsPrev" aria-label="Previous country">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="cms-slides" id="cmsSlides">
+
+      <div class="cms-slide active" data-label="Nigeria">
+        <div class="cms-map-box">
+          <img src="assets/images/nigeria.png" alt="Nigeria" class="cms-map-img" />
+          <span class="cms-badge" style="top:22%;left:18%">5</span>
+          <span class="cms-badge" style="top:24%;left:43%">5</span>
+          <span class="cms-badge" style="top:24%;left:79%">5</span>
+          <span class="cms-badge" style="top:39%;left:27%">5</span>
+          <span class="cms-badge" style="top:46%;left:42%">5</span>
+          <span class="cms-badge" style="top:71%;left:11%">5</span>
+          <span class="cms-badge" style="top:74%;left:43%">5</span>
+        </div>
+      </div>
+
+      <div class="cms-slide" data-label="Ghana">
+        <div class="cms-map-box">
+          <img src="assets/images/ghana.png" alt="Ghana" class="cms-map-img" />
+          <span class="cms-badge" style="top:15%;left:74%">5</span>
+          <span class="cms-badge" style="top:25%;left:52%">5</span>
+          <span class="cms-badge" style="top:31%;left:22%">5</span>
+          <span class="cms-badge" style="top:41%;left:57%">5</span>
+          <span class="cms-badge" style="top:54%;left:47%">5</span>
+          <span class="cms-badge" style="top:72%;left:67%">5</span>
+          <span class="cms-badge" style="top:77%;left:44%">5</span>
+        </div>
+      </div>
+
+      <div class="cms-slide" data-label="Togo">
+        <div class="cms-map-box">
+          <img src="assets/images/togo.png" alt="Togo" class="cms-map-img" />
+          <span class="cms-badge" style="top:11%;left:50%">5</span>
+          <span class="cms-badge" style="top:31%;left:50%">5</span>
+          <span class="cms-badge" style="top:52%;left:50%">5</span>
+          <span class="cms-badge" style="top:70%;left:50%">5</span>
+          <span class="cms-badge" style="top:88%;left:50%">5</span>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="cms-btn cms-btn--next" id="cmsNext" aria-label="Next country">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <div class="cms-footer">
+    <p class="cms-country-label" id="cmsLabel">Nigeria</p>
+    <div class="cms-dots" id="cmsDots">
+      <button class="cms-dot active" data-i="0" aria-label="Nigeria"></button>
+      <button class="cms-dot" data-i="1" aria-label="Ghana"></button>
+      <button class="cms-dot" data-i="2" aria-label="Togo"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     HUB MAP — Interactive switchable maps
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="hub-map-section">
+  <div class="container">
+    <div class="hub-map-head">
+      <p class="section-tag reveal" style="display:block; margin-bottom:10px;">Our Network</p>
+      <h2 class="hub-map-h reveal d1">Hubs &amp; Clubs <span>Across Ghana</span></h2>
+    </div>
+
+    <div class="hub-map-layout reveal d2">
+      <!-- Tab buttons -->
+      <div class="hub-tabs" role="tablist" aria-label="Hub locations">
+        <button class="hub-tab active" role="tab" aria-selected="true"
+          data-map="https://maps.google.com/maps?q=Achimota+Accra+Ghana&output=embed&z=14"
+          data-name="Accra Wiki Hub I"
+          data-detail="Achimota, Greater Accra Region"
+          data-tag="Flagship Hub">
+          <span class="hub-tab-icon">📍</span>
+          <div><p class="hub-tab-name">Accra Hub I</p><p class="hub-tab-region">Achimota, Accra</p></div>
+        </button>
+        <button class="hub-tab" role="tab" aria-selected="false"
+          data-map="https://maps.google.com/maps?q=Abelemkpe+Accra+Ghana&output=embed&z=14"
+          data-name="Accra Wiki Hub II"
+          data-detail="Abelemkpe, Greater Accra Region"
+          data-tag="Active Hub">
+          <span class="hub-tab-icon">📍</span>
+          <div><p class="hub-tab-name">Accra Hub II</p><p class="hub-tab-region">Abelemkpe, Accra</p></div>
+        </button>
+        <button class="hub-tab" role="tab" aria-selected="false"
+          data-map="https://maps.google.com/maps?q=Adum+Kumasi+Ghana&output=embed&z=13"
+          data-name="Kumasi Wiki Hub"
+          data-detail="Adum, Ashanti Region"
+          data-tag="Training Centre">
+          <span class="hub-tab-icon">📍</span>
+          <div><p class="hub-tab-name">Kumasi Hub</p><p class="hub-tab-region">Adum, Kumasi</p></div>
+        </button>
+        <button class="hub-tab" role="tab" aria-selected="false"
+          data-map="https://maps.google.com/maps?q=University+of+Cape+Coast+Ghana&output=embed&z=14"
+          data-name="Cape Coast Wiki Hub"
+          data-detail="University of Cape Coast, Central Region"
+          data-tag="University Club">
+          <span class="hub-tab-icon">📍</span>
+          <div><p class="hub-tab-name">Cape Coast Hub</p><p class="hub-tab-region">UCC, Cape Coast</p></div>
+        </button>
+        <button class="hub-tab" role="tab" aria-selected="false"
+          data-map="https://maps.google.com/maps?q=University+for+Development+Studies+Tamale+Ghana&output=embed&z=14"
+          data-name="UDS Wiki Hub"
+          data-detail="University for Development Studies, Northern Region"
+          data-tag="University Hub">
+          <span class="hub-tab-icon">📍</span>
+          <div><p class="hub-tab-name">UDS Hub</p><p class="hub-tab-region">Tamale, Northern Region</p></div>
+        </button>
+        <button class="hub-tab" role="tab" aria-selected="false"
+          data-map="https://maps.google.com/maps?q=Walewale+Ghana&output=embed&z=13"
+          data-name="WaleWale Wiki Hub"
+          data-detail="WaleWale, North East Region"
+          data-tag="Community Hub">
+          <span class="hub-tab-icon">📍</span>
+          <div><p class="hub-tab-name">WaleWale Hub</p><p class="hub-tab-region">North East Region</p></div>
+        </button>
+        <button class="hub-tab" role="tab" aria-selected="false"
+          data-map="https://maps.google.com/maps?q=Damango+Ghana&output=embed&z=13"
+          data-name="Damango Wiki Hub"
+          data-detail="Damango, Savannah Region"
+          data-tag="New Hub">
+          <span class="hub-tab-icon">📍</span>
+          <div><p class="hub-tab-name">Damango Hub</p><p class="hub-tab-region">Savannah Region</p></div>
+        </button>
+      </div>
+
+      <!-- Map stage -->
+      <div class="hub-map-stage" id="hubMapStage">
+        <div class="hub-map-frame active" id="hubMap0">
+          <iframe src="https://maps.google.com/maps?q=Achimota+Accra+Ghana&output=embed&z=14" title="Accra Hub I" loading="lazy"></iframe>
+        </div>
+        <div class="hub-map-frame" id="hubMap1">
+          <iframe src="" data-src="https://maps.google.com/maps?q=Abelemkpe+Accra+Ghana&output=embed&z=14" title="Accra Hub II" loading="lazy"></iframe>
+        </div>
+        <div class="hub-map-frame" id="hubMap2">
+          <iframe src="" data-src="https://maps.google.com/maps?q=Adum+Kumasi+Ghana&output=embed&z=13" title="Kumasi Hub" loading="lazy"></iframe>
+        </div>
+        <div class="hub-map-frame" id="hubMap3">
+          <iframe src="" data-src="https://maps.google.com/maps?q=University+of+Cape+Coast+Ghana&output=embed&z=14" title="Cape Coast Hub" loading="lazy"></iframe>
+        </div>
+        <div class="hub-map-frame" id="hubMap4">
+          <iframe src="" data-src="https://maps.google.com/maps?q=University+for+Development+Studies+Tamale+Ghana&output=embed&z=14" title="UDS Hub" loading="lazy"></iframe>
+        </div>
+        <div class="hub-map-frame" id="hubMap5">
+          <iframe src="" data-src="https://maps.google.com/maps?q=Walewale+Ghana&output=embed&z=13" title="WaleWale Hub" loading="lazy"></iframe>
+        </div>
+        <div class="hub-map-frame" id="hubMap6">
+          <iframe src="" data-src="https://maps.google.com/maps?q=Damango+Ghana&output=embed&z=13" title="Damango Hub" loading="lazy"></iframe>
+        </div>
+
+        <!-- Info bar -->
+        <div class="hub-info-bar">
+          <p class="hub-info-name" id="hubInfoName">Accra Wiki Hub I</p>
+          <p class="hub-info-detail" id="hubInfoDetail">Achimota, Greater Accra Region</p>
+          <span class="hub-info-tag" id="hubInfoTag">📍 Flagship Hub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     EVENTS — Horizontal scroll cards
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="events-section">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:32px;">
+      <div>
+        <p class="section-tag reveal">What's Coming</p>
+        <h2 class="section-h reveal d1" style="color:var(--dark);">Upcoming Events</h2>
+      </div>
+      <a class="btn-ghost reveal d2" href="events.html">All Events →</a>
+    </div>
+    <div class="events-scroll-wrap">
+      <div class="events-row reveal">
+        <div class="event-card-h">
+          <div class="event-card-h__img">
+            <img src="assets/images/hub-photo-4.png" alt="Hackathon" />
+            <span class="event-card-h__date-pill">Oct 21, 2025</span>
+          </div>
+          <div class="event-card-h__body">
+            <h3 class="event-card-h__title">AWMT Grand Hackathon Launch 2025</h3>
+            <p class="event-card-h__meta">📍 Accra Hub · Oct 21 – Nov 23, 2025</p>
+          </div>
+          <a class="event-card-h__cta" href="events.html">Register Now</a>
+        </div>
+        <div class="event-card-h">
+          <div class="event-card-h__img">
+            <img src="assets/images/hub-photo-3.png" alt="Wiki Challenge" />
+            <span class="event-card-h__date-pill">Nov 15, 2025</span>
+          </div>
+          <div class="event-card-h__body">
+            <h3 class="event-card-h__title">Africa Wikipedia Challenge 2025</h3>
+            <p class="event-card-h__meta">📍 Kumasi Hub · Nov 15 – Dec 5, 2025</p>
+          </div>
+          <a class="event-card-h__cta" href="events.html">Register Now</a>
+        </div>
+        <div class="event-card-h">
+          <div class="event-card-h__img">
+            <img src="assets/images/hub-photo-2.png" alt="Women's Summit" />
+            <span class="event-card-h__date-pill">Dec 2, 2025</span>
+          </div>
+          <div class="event-card-h__body">
+            <h3 class="event-card-h__title">Open Knowledge Women's Summit</h3>
+            <p class="event-card-h__meta">📍 Cape Coast · Dec 2, 2025</p>
+          </div>
+          <a class="event-card-h__cta" href="events.html">Register Now</a>
+        </div>
+        <div class="event-card-h">
+          <div class="event-card-h__img">
+            <img src="assets/images/blog-photo-1.png" alt="Edit-a-thon" />
+            <span class="event-card-h__date-pill">Jan 10, 2026</span>
+          </div>
+          <div class="event-card-h__body">
+            <h3 class="event-card-h__title">AWC Edit-A-Thon — Accra Edition</h3>
+            <p class="event-card-h__meta">📍 Accra Hub · Jan 10, 2026</p>
+          </div>
+          <a class="event-card-h__cta" href="events.html">Register Now</a>
+        </div>
+        <div class="event-card-h">
+          <div class="event-card-h__img">
+            <img src="assets/images/hub-photo-1.png" alt="Digital Skills" />
+            <span class="event-card-h__date-pill">Jan 20, 2026</span>
+          </div>
+          <div class="event-card-h__body">
+            <h3 class="event-card-h__title">Digital Skills for Women Bootcamp</h3>
+            <p class="event-card-h__meta">📍 UDS Hub, Tamale · Jan 20–25, 2026</p>
+          </div>
+          <a class="event-card-h__cta" href="events.html">Register Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     NEWS
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="news-section">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-tag reveal">Latest Stories</p>
+        <h2 class="section-h reveal d1">News &amp; Highlights</h2>
+      </div>
+      <a class="btn-ghost reveal d2" href="blog.html">All Stories →</a>
+    </div>
+    <div class="news-grid">
+      <article class="news-card reveal">
+        <div class="news-card__img">
+          <img src="assets/images/blog-photo-1.png" alt="AWC Edit-A-Thon" />
+          <div class="news-card__overlay"></div>
+        </div>
+        <div class="news-card__body">
+          <span class="news-card__cat">Edit-a-thon</span>
+          <h3 class="news-card__title">AWC Edit-A-Thon: Growing African Voices on Wikipedia</h3>
+          <p class="news-card__meta">June 24, 2025 · 5 min read</p>
+        </div>
+      </article>
+      <article class="news-card reveal d1">
+        <div class="news-card__img">
+          <img src="assets/images/hub-photo-2.png" alt="Skills Training" />
+          <div class="news-card__overlay"></div>
+        </div>
+        <div class="news-card__body">
+          <span class="news-card__cat">Training</span>
+          <h3 class="news-card__title">Digital Skills Training Reaches 500 Women in Kumasi</h3>
+          <p class="news-card__meta">June 18, 2025 · 4 min read</p>
+        </div>
+      </article>
+      <article class="news-card reveal d2">
+        <div class="news-card__img">
+          <img src="assets/images/library-photo.png" alt="New Hub Opening" />
+          <div class="news-card__overlay"></div>
+        </div>
+        <div class="news-card__body">
+          <span class="news-card__cat">Announcement</span>
+          <h3 class="news-card__title">OFWA Opens New Community Hub in Northern Ghana</h3>
+          <p class="news-card__meta">June 10, 2025 · 3 min read</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+     TESTIMONIAL
+     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ -->
+<section class="testimonial-section">
+  <div class="container">
+    <div class="testimonial-inner">
+      <span class="testimonial-mark reveal">"</span>
+      <p class="testimonial-text reveal d1">Open Foundation West Africa is at the center of the world here in Washington — getting all knowledge across the world open and free to everyone.</p>
+      <p class="testimonial-author reveal d2">Carlson Middleton</p>
+      <p class="testimonial-place reveal d2">Washington, DC</p>
+      <div class="testimonial-avatars reveal d3">
+        <div class="testimonial-avatar"><img src="assets/images/team-member.png" alt="" /></div>
+        <div class="testimonial-avatar"><img src="assets/images/blog-photo-1.png" alt="" /></div>
+        <div class="testimonial-avatar"><img src="assets/images/hub-photo-1.png" alt="" /></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ PARTNERS ░░ -->
+<section class="partners-strip">
+  <div class="container">
+    <p class="partners-label">Trusted Partners &amp; Supporters</p>
+    <img class="partners-img" src="assets/images/partners-new.png" alt="Our partner organisations" />
+  </div>
+</section>
+
+<!-- ░░ NEWSLETTER ░░ -->
+<section class="newsletter-band">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="reveal">
+        <h2 class="newsletter-h">Stay in the Loop</h2>
+        <p class="newsletter-sub">Get the latest news, events, and impact stories from OFWA delivered to your inbox.</p>
+      </div>
+      <form class="newsletter-form reveal d1" id="nl-form">
+        <div class="newsletter-row">
+          <label class="sr-only" for="nl-email">Email address</label>
+          <input id="nl-email" class="newsletter-input" type="email" placeholder="Enter your email address" required />
+          <button type="submit" class="newsletter-btn">Subscribe →</button>
+        </div>
+        <label class="newsletter-consent">
+          <input type="checkbox" required />
+          <span>I agree to the Privacy Policy</span>
+        </label>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ FOOTER ░░ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="assets/images/ofwa-logo-new.png" alt="OFWA" />
+        <p class="footer-name">Open Foundation West Africa</p>
+        <p class="footer-addr">132 52 Swaniker St, Accra, Ghana<br>info@ofwafrica.org · +233 55 995 9694</p>
+        <a class="footer-donate-pill" href="donate.html">♥ Donate Now</a>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="blog.html">News</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="donate.html">Donate</a></li>
+          <li><a href="partner.html">Partner With Us</a></li>
+          <li><a href="volunteer.html">Volunteer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li><a href="https://www.facebook.com/ofwafrica/" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://x.com/OFWAFRICA" target="_blank" rel="noopener">Twitter / X</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="https://gh.linkedin.com/company/ofwafrica" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-bottom">© <span data-year></span> Open Foundation West Africa. All rights reserved. · Built for open knowledge.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

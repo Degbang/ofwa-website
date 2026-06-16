@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open Foundation West Africa | Donate</title>
+  <meta name="description" content="Support OFWA's mission — donate to fund training, community hubs, and open knowledge programs across Africa." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Donate page–specific styles */
+    .donate-hero { background:var(--black); padding:140px 0 72px; text-align:center; }
+    .donate-hero-kicker { font-size:.8rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--orange); margin-bottom:16px; }
+    .donate-hero-h { font-family:'Poppins',sans-serif; font-size:clamp(2.4rem,6vw,4.5rem); font-weight:900; color:#fff; line-height:1.05; margin-bottom:20px; }
+    .donate-hero-h span { color:var(--orange); }
+    .donate-hero-sub { font-size:1.05rem; color:rgba(255,255,255,.55); max-width:540px; margin:0 auto; line-height:1.7; }
+
+    .donate-impact { background:var(--cream); padding:80px 0; }
+    .impact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:32px; margin-top:48px; }
+    .impact-card { background:#fff; border-radius:20px; padding:32px 24px; text-align:center; border:1px solid rgba(0,0,0,.06); }
+    .impact-card__amount { font-family:'Poppins',sans-serif; font-size:2rem; font-weight:900; color:var(--orange); margin-bottom:8px; }
+    .impact-card__desc { font-size:.9rem; color:var(--mid); line-height:1.55; }
+
+    .donate-form-section { background:var(--white); padding:80px 0; }
+    .donate-form-card { background:var(--dark); border-radius:28px; padding:48px; max-width:680px; margin:0 auto; }
+    .donate-form-title { font-family:'Poppins',sans-serif; font-size:1.6rem; font-weight:800; color:#fff; margin-bottom:8px; }
+    .donate-form-sub { color:rgba(255,255,255,.45); font-size:.9rem; margin-bottom:32px; }
+    .donate-amount-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:24px; }
+    .donate-amount { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); color:rgba(255,255,255,.7); font-weight:700; font-size:1rem; padding:14px 8px; border-radius:12px; cursor:pointer; transition:.2s; }
+    .donate-amount:hover, .donate-amount.active { background:var(--orange); border-color:var(--orange); color:#000; }
+    .donate-custom-wrap { margin-bottom:24px; }
+    .donate-custom-label { font-size:.8rem; font-weight:600; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px; display:block; }
+    .donate-custom { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); color:#fff; font-size:1.1rem; padding:14px 18px; border-radius:12px; width:100%; font-family:'Inter',sans-serif; }
+    .donate-custom::placeholder { color:rgba(255,255,255,.25); }
+    .donate-custom:focus { outline:none; border-color:var(--orange); }
+    .donate-freq { display:flex; gap:12px; margin-bottom:32px; }
+    .donate-freq-btn { flex:1; padding:12px; border:1.5px solid rgba(255,255,255,.15); border-radius:10px; color:rgba(255,255,255,.6); font-weight:600; font-size:.9rem; cursor:pointer; transition:.2s; background:transparent; }
+    .donate-freq-btn.active { border-color:var(--orange); color:var(--orange); background:rgba(248,158,61,.08); }
+    .donate-submit { width:100%; padding:20px; background:var(--orange); color:#000; font-weight:800; font-size:1.05rem; border-radius:14px; cursor:pointer; border:none; letter-spacing:.02em; transition:.2s; }
+    .donate-submit:hover { background:#e08a25; }
+    .donate-secure { font-size:.78rem; color:rgba(255,255,255,.3); text-align:center; margin-top:16px; }
+    .donate-secure a { color:rgba(255,255,255,.45); text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+<a class="float-donate" href="donate.html">♥ Donate Now</a>
+
+<nav class="site-nav" data-open="false" aria-label="Primary navigation">
+  <div class="container nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/images/ofwa-logo-new.png" alt="OFWA" />
+      <span class="nav-logo-text">Open Foundation<br>West Africa</span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">☰</button>
+    <ul class="nav-menu" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="events.html">Events</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html">News</a></li>
+      <li><a href="volunteer.html">Volunteer</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a class="nav-donate" href="donate.html">♥ Donate Now</a>
+  </div>
+</nav>
+
+<section class="donate-hero">
+  <div class="container">
+    <p class="donate-hero-kicker reveal">Your Impact Starts Here</p>
+    <h1 class="donate-hero-h reveal d1">Donate to <span>Open Knowledge</span><br>for Africa</h1>
+    <p class="donate-hero-sub reveal d2">Every contribution funds training programs, community hubs, and the campaigns that put African voices on the world's knowledge stage.</p>
+  </div>
+</section>
+
+<!-- IMPACT AMOUNTS -->
+<section class="donate-impact">
+  <div class="container">
+    <div style="text-align:center; max-width:560px; margin:0 auto;">
+      <span class="section-tag reveal" style="color:var(--orange);">What Your Gift Does</span>
+      <h2 class="section-h reveal d1" style="color:var(--black);">Every Cedi Counts</h2>
+    </div>
+    <div class="impact-grid">
+      <div class="impact-card reveal">
+        <p class="impact-card__amount">$10</p>
+        <p class="impact-card__desc">Provides training materials and internet access for one Wikipedia editor for a month.</p>
+      </div>
+      <div class="impact-card reveal d1">
+        <p class="impact-card__amount">$25</p>
+        <p class="impact-card__desc">Covers transport costs for a community member to attend a hub training day.</p>
+      </div>
+      <div class="impact-card reveal d2">
+        <p class="impact-card__amount">$50</p>
+        <p class="impact-card__desc">Funds one full edit-a-thon session: venue, materials, and facilitator support.</p>
+      </div>
+      <div class="impact-card reveal d3">
+        <p class="impact-card__amount">$100</p>
+        <p class="impact-card__desc">Sets up a KIWIX offline server in one school, giving students Wikipedia access without internet.</p>
+      </div>
+      <div class="impact-card reveal">
+        <p class="impact-card__amount">$250</p>
+        <p class="impact-card__desc">Runs a 2-day training workshop for 30 women at a community hub.</p>
+      </div>
+      <div class="impact-card reveal d1">
+        <p class="impact-card__amount">$500</p>
+        <p class="impact-card__desc">Funds an entire month of operations at one OFWA community hub.</p>
+      </div>
+      <div class="impact-card reveal d2">
+        <p class="impact-card__amount">$1,000</p>
+        <p class="impact-card__desc">Sponsors a new wiki club launch including equipment, training, and first-year support.</p>
+      </div>
+      <div class="impact-card reveal d3">
+        <p class="impact-card__amount">Any</p>
+        <p class="impact-card__desc">Choose your own amount. Every contribution, large or small, makes a real difference.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE FORM -->
+<section class="donate-form-section">
+  <div class="container">
+    <div class="donate-form-card reveal">
+      <h2 class="donate-form-title">Make a Donation</h2>
+      <p class="donate-form-sub">Secure and transparent — 100% of your donation funds OFWA programs.</p>
+
+      <form id="donate-form">
+        <!-- Amount buttons -->
+        <div class="donate-amount-grid">
+          <button type="button" class="donate-amount">$10</button>
+          <button type="button" class="donate-amount active">$25</button>
+          <button type="button" class="donate-amount">$50</button>
+          <button type="button" class="donate-amount">$100</button>
+        </div>
+
+        <!-- Custom -->
+        <div class="donate-custom-wrap">
+          <label class="donate-custom-label" for="d-custom">Or enter a custom amount</label>
+          <input class="donate-custom" id="d-custom" type="number" min="1" placeholder="$ Enter amount" />
+        </div>
+
+        <!-- Frequency -->
+        <div class="donate-freq">
+          <button type="button" class="donate-freq-btn active">Give Once</button>
+          <button type="button" class="donate-freq-btn">Give Monthly</button>
+          <button type="button" class="donate-freq-btn">Give Annually</button>
+        </div>
+
+        <!-- Personal info -->
+        <div class="form-row" style="margin-bottom:0;">
+          <div class="form-group">
+            <label class="form-label" for="d-name" style="color:rgba(255,255,255,.5);">Full Name</label>
+            <input class="form-input" id="d-name" type="text" placeholder="Your full name" required style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.1); color:#fff;" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="d-email" style="color:rgba(255,255,255,.5);">Email</label>
+            <input class="form-input" id="d-email" type="email" placeholder="your@email.com" required style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.1); color:#fff;" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:24px; margin-top:20px;">
+          <label class="form-label" for="d-note" style="color:rgba(255,255,255,.5);">Leave a message (optional)</label>
+          <textarea class="form-input form-textarea" id="d-note" rows="3" placeholder="Tell us what inspired your gift…" style="background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.1); color:#fff; resize:vertical;"></textarea>
+        </div>
+
+        <button class="donate-submit" type="submit">♥ Complete Donation</button>
+        <p class="donate-secure">🔒 Secure payment · <a href="contact.html">Privacy Policy</a> · Receipts sent by email</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE FREQ TOGGLE JS inline -->
+<script>
+  document.querySelectorAll('.donate-freq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.donate-freq')?.querySelectorAll('.donate-freq-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+<!-- TESTIMONIAL / TRUST -->
+<section style="padding:80px 0; background:var(--cream);">
+  <div class="container" style="max-width:860px;">
+    <div style="text-align:center; margin-bottom:48px;"><span class="section-tag reveal" style="color:var(--orange);">Donor Stories</span><h2 class="section-h reveal d1" style="color:var(--black);">Why People Give</h2></div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+      <blockquote class="testimonial-card reveal" style="background:#fff; border-radius:20px; padding:32px; margin:0;">
+        <p style="font-size:.95rem; color:var(--mid); line-height:1.7; font-style:italic; margin-bottom:20px;">"I donated because I believe African women deserve to tell their own stories on Wikipedia. OFWA is making that real."</p>
+        <footer style="font-weight:700; color:var(--black); font-size:.88rem;">— Ama, diaspora donor · United Kingdom</footer>
+      </blockquote>
+      <blockquote class="testimonial-card reveal d1" style="background:#fff; border-radius:20px; padding:32px; margin:0;">
+        <p style="font-size:.95rem; color:var(--mid); line-height:1.7; font-style:italic; margin-bottom:20px;">"As a tech company operating in Ghana, supporting OFWA's digital literacy work is exactly the kind of investment we believe in."</p>
+        <footer style="font-weight:700; color:var(--black); font-size:.88rem;">— Corporate donor · Accra, Ghana</footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" style="background:var(--white);">
+  <div class="container">
+    <div style="text-align:center; max-width:540px; margin:0 auto 48px;"><span class="section-tag reveal" style="color:var(--orange);">Questions</span><h2 class="section-h reveal d1" style="color:var(--black);">Donation FAQs</h2></div>
+    <div class="faq-list">
+      <div class="faq-item reveal"><button class="faq-btn" aria-expanded="false">Is my donation tax-deductible?<span class="faq-icon">+</span></button><div class="faq-answer"><p>OFWA is a registered non-profit in Ghana. Donation receipts are issued for all gifts. Please consult your local tax authority regarding deductibility in your jurisdiction.</p></div></div>
+      <div class="faq-item reveal d1"><button class="faq-btn" aria-expanded="false">How is my donation used?<span class="faq-icon">+</span></button><div class="faq-answer"><p>100% of your donation goes directly to OFWA programs: hub operations, training delivery, equipment, and community events. We publish annual impact reports.</p></div></div>
+      <div class="faq-item reveal d2"><button class="faq-btn" aria-expanded="false">Can I make a recurring donation?<span class="faq-icon">+</span></button><div class="faq-answer"><p>Yes — select "Give Monthly" or "Give Annually" in the donation form above, or contact us at <a href="mailto:info@ofwafrica.org">info@ofwafrica.org</a> to set up a standing order.</p></div></div>
+      <div class="faq-item reveal d3"><button class="faq-btn" aria-expanded="false">Can my company make a donation or sponsorship?<span class="faq-icon">+</span></button><div class="faq-answer"><p>Absolutely. Visit our <a href="partner.html">Partner page</a> for corporate sponsorship options, or contact us directly to discuss a bespoke arrangement.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="donate-cta">
+  <div class="container" style="position:relative;z-index:1;">
+    <p class="donate-cta-tag reveal">Other Ways to Help</p>
+    <h2 class="donate-cta-h reveal d1">Can't Donate Right Now?</h2>
+    <p class="donate-cta-sub reveal d2">Volunteer your time, share our work on social media, or partner with us. Every form of support moves us forward.</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;" class="reveal d3">
+      <a class="btn-donate-big" href="volunteer.html" style="background:transparent; border:2px solid var(--orange); color:var(--orange);">Volunteer →</a>
+      <a class="btn-donate-big" href="partner.html" style="background:transparent; border:2px solid var(--orange); color:var(--orange);">Partner With Us →</a>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter-band">
+  <div class="container">
+    <div class="newsletter-inner">
+      <div class="reveal"><h2 class="newsletter-h">Stay Updated</h2><p class="newsletter-sub">See the impact of your donation with regular updates from OFWA.</p></div>
+      <form class="newsletter-form reveal d1" id="nl-form"><div class="newsletter-row"><label class="sr-only" for="nl-email">Email</label><input id="nl-email" class="newsletter-input" type="email" placeholder="Enter your email address" required /><button type="submit" class="newsletter-btn">Subscribe →</button></div><label class="newsletter-consent"><input type="checkbox" required /><span>I agree to the Privacy Policy</span></label></form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><img class="footer-logo" src="assets/images/ofwa-logo-new.png" alt="OFWA" /><p class="footer-name">Open Foundation West Africa</p><p class="footer-addr">132 52 Swaniker St, Accra, Ghana<br>info@ofwafrica.org · +233 55 995 9694</p><a class="footer-donate-pill" href="donate.html">♥ Donate Now</a></div>
+      <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="events.html">Events</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="blog.html">News</a></li><li><a href="volunteer.html">Volunteer</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Get Involved</h4><ul><li><a href="donate.html">Donate</a></li><li><a href="partner.html">Partner With Us</a></li><li><a href="volunteer.html">Volunteer</a></li></ul></div>
+      <div class="footer-col"><h4>Follow Us</h4><ul><li><a href="https://www.facebook.com/ofwafrica/" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://x.com/OFWAFRICA" target="_blank" rel="noopener">Twitter / X</a></li><li><a href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener">YouTube</a></li><li><a href="https://gh.linkedin.com/company/ofwafrica" target="_blank" rel="noopener">LinkedIn</a></li></ul></div>
+    </div>
+    <p class="footer-bottom">© <span data-year></span> Open Foundation West Africa. All rights reserved.</p>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
