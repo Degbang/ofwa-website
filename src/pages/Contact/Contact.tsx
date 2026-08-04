@@ -51,11 +51,11 @@ const Contact: React.FC = () => {
     e.preventDefault();
     setStatus('submitting');
 
-    const formspreeId = import.meta.env.VITE_FORMSPREE_CONTACT_ID;
+    const web3formsId = import.meta.env.VITE_WEB3FORMS_CONTACT_ID;
 
-    if (formspreeId) {
+    if (web3formsId) {
       try {
-        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        const response = await fetch(`https://formspree.io/f/${web3formsId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
