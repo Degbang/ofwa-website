@@ -51,32 +51,32 @@ const upcomingEvents = [
   },
 ];
 
-const pastHighlights = [
-  {
-    year: '2022',
-    img: '/assets/images/hub-photo-4.png',
-    title: 'Africa Wiki Challenge',
-    desc: 'Nationwide campaign that produced over 1,200 new Wikipedia articles on African topics.',
-  },
-  {
-    year: '2023',
-    img: '/assets/images/blog-photo-2.png',
-    title: 'OFWA × National Film Authority',
-    desc: "A landmark partnership digitising Ghana's film heritage into open-access Wikipedia entries.",
-  },
-  {
-    year: '2024',
-    img: '/assets/images/hub-photo-1.png',
-    title: 'Accra Edit-a-thon Series',
-    desc: 'Monthly edit-a-thons trained over 300 new Wikipedia editors in the Greater Accra Region.',
-  },
-  {
-    year: '2024',
-    img: '/assets/images/about-hero.png',
-    title: 'KIWIX4Schools Launch',
-    desc: 'Deployed offline Wikipedia servers in 12 schools across the Northern and Upper East Regions.',
-  },
-];
+// const pastHighlights = [
+//   {
+//     year: '2022',
+//     img: '/assets/images/hub-photo-4.png',
+//     title: 'Africa Wiki Challenge',
+//     desc: 'Nationwide campaign that produced over 1,200 new Wikipedia articles on African topics.',
+//   },
+//   {
+//     year: '2023',
+//     img: '/assets/images/blog-photo-2.png',
+//     title: 'OFWA × National Film Authority',
+//     desc: "A landmark partnership digitising Ghana's film heritage into open-access Wikipedia entries.",
+//   },
+//   {
+//     year: '2024',
+//     img: '/assets/images/hub-photo-1.png',
+//     title: 'Accra Edit-a-thon Series',
+//     desc: 'Monthly edit-a-thons trained over 300 new Wikipedia editors in the Greater Accra Region.',
+//   },
+//   {
+//     year: '2024',
+//     img: '/assets/images/about-hero.png',
+//     title: 'KIWIX4Schools Launch',
+//     desc: 'Deployed offline Wikipedia servers in 12 schools across the Northern and Upper East Regions.',
+//   },
+// ];
 
 const filters = [
   { label: 'All Events', value: 'all' },
@@ -168,7 +168,7 @@ const Events: React.FC = () => {
       </section>
 
       {/* PAST HIGHLIGHTS */}
-      <section className={styles.pastSection}>
+      {/* <section className={styles.pastSection}>
         <div className="container">
           <div style={{ marginBottom: 40 }}>
             <span className="section-tag reveal">What We've Done</span>
@@ -194,7 +194,7 @@ const Events: React.FC = () => {
             <Link className="btn-ghost-light" to="/gallery">See Full Gallery <ArrowRight size={14} /></Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* DONATE CTA */}
       <section className={styles.donateCta}>

@@ -75,21 +75,7 @@ const members = {
 
 const About: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'boardMembers' | 'coreTeam' | 'hubLeaders'>('boardMembers');
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
-
-  useScrollReveal(`${activeTab}-${currentPage}`);
-
-  const activeMembers = members[activeTab];
-  const totalPages = Math.ceil(activeMembers.length / itemsPerPage);
-  
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedMembers = activeMembers.slice(startIndex, startIndex + itemsPerPage);
-
-  const handleTabChange = (tab: 'boardMembers' | 'coreTeam' | 'hubLeaders') => {
-    setActiveTab(tab);
-    setCurrentPage(1);
-  };
+  useScrollReveal(activeTab);
 
   return (
     <>
@@ -175,19 +161,19 @@ const About: React.FC = () => {
           <div className={`${styles.tabContainer} reveal d3`}>
             <button
               className={clsx(styles.tabBtn, activeTab === 'boardMembers' && styles.tabBtnActive)}
-              onClick={() => handleTabChange('boardMembers')}
+              onClick={() => setActiveTab('boardMembers')}
             >
               Board Members
             </button>
             <button
               className={clsx(styles.tabBtn, activeTab === 'coreTeam' && styles.tabBtnActive)}
-              onClick={() => handleTabChange('coreTeam')}
+              onClick={() => setActiveTab('coreTeam')}
             >
               Core Team
             </button>
             <button
               className={clsx(styles.tabBtn, activeTab === 'hubLeaders' && styles.tabBtnActive)}
-              onClick={() => handleTabChange('hubLeaders')}
+              onClick={() => setActiveTab('hubLeaders')}
             >
               Hub Leaders
             </button>
@@ -195,8 +181,8 @@ const About: React.FC = () => {
 
           {/* Grid of Active Members */}
           <div className={styles.memberGrid}>
-            {paginatedMembers.map((m, i) => (
-              <div key={`${activeTab}-${currentPage}-${i}`} className={`${styles.memberCard} reveal ${i > 0 ? `d${i % 4}` : ''}`}>
+            {members[activeTab].map((m, i) => (
+              <div key={`${activeTab}-${i}`} className={`${styles.memberCard} reveal ${i > 0 ? `d${i % 4}` : ''}`}>
                 <div className={styles.memberCardImg}>
                   <img
                     src={m.image}
@@ -213,42 +199,6 @@ const About: React.FC = () => {
               </div>
             ))}
           </div>
-
-          {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <div className={`${styles.pagination} reveal d4`}>
-              <button
-                className={styles.pageBtn}
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                disabled={currentPage === 1}
-                aria-label="Previous Page"
-              >
-                Previous
-              </button>
-              
-              <div className={styles.pageNumbers}>
-                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
-                  <button
-                    key={page}
-                    className={clsx(styles.pageNum, currentPage === page && styles.pageNumActive)}
-                    onClick={() => setCurrentPage(page)}
-                    aria-label={`Go to page ${page}`}
-                  >
-                    {page}
-                  </button>
-                ))}
-              </div>
-
-              <button
-                className={styles.pageBtn}
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                disabled={currentPage === totalPages}
-                aria-label="Next Page"
-              >
-                Next
-              </button>
-            </div>
-          )}
         </div>
       </section>
     </>
