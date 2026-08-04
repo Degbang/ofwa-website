@@ -102,7 +102,7 @@
 .aboutSplitContent {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   padding: 56px 64px;
   /* background: var(--cream); */
   background: #ffffff !important;
@@ -148,8 +148,8 @@
 .aboutSplitContentGoals h2 {
   color: #000000 !important;
   text-align: center;
-  font-weight: 300;
-  font-size: 1.5rem !important;
+  font-weight: 100;
+  /* font-size: 1.5rem !important; */
 
 }
 
@@ -297,99 +297,15 @@
 }
 
 /* ═══ Values Carousel ═══ */
-.carouselWrapper {
+/* ═══ Values Grid ═══ */
+.valuesGrid {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
   position: relative;
   z-index: 2;
   width: 100%;
-}
-
-.carouselViewport {
-  flex: 1;
-  overflow: hidden;
-  border-radius: var(--r-xl, 20px);
-}
-
-.carouselTrack {
-  display: flex;
-  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.carouselSlide {
-  padding: 0 12px;
-  box-sizing: border-box;
-}
-
-/* ── Arrow Buttons ── */
-.carouselArrow {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(12px);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 3;
-}
-
-.carouselArrow:hover:not(:disabled) {
-  background: rgba(255, 159, 67, 0.2);
-  border-color: rgba(255, 159, 67, 0.5);
-  color: #ff9f43;
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 159, 67, 0.25);
-}
-
-.carouselArrow:active:not(:disabled) {
-  transform: scale(0.95);
-}
-
-.carouselArrow:disabled {
-  opacity: 0.25;
-  cursor: not-allowed;
-}
-
-/* ── Dot Indicators ── */
-.carouselDots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 36px;
-  position: relative;
-  z-index: 2;
-}
-
-.carouselDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.carouselDot:hover {
-  border-color: rgba(255, 159, 67, 0.6);
-  background: rgba(255, 159, 67, 0.15);
-}
-
-.carouselDotActive {
-  background: linear-gradient(135deg, #ff9f43, #ff5252);
-  border-color: transparent;
-  width: 28px;
-  border-radius: 100px;
-  box-shadow: 0 0 12px rgba(255, 159, 67, 0.4);
 }
 
 .valueCard {
@@ -407,6 +323,21 @@
     box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.4s ease,
     background 0.4s ease;
+  flex: 0 1 calc(33.333% - 16px);
+  min-width: 280px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 992px) {
+  .valueCard {
+    flex: 0 1 calc(50% - 12px);
+  }
+}
+
+@media (max-width: 640px) {
+  .valueCard {
+    flex: 0 1 100%;
+  }
 }
 
 .valueCardGlow {
@@ -527,30 +458,12 @@
 }
 
 
-@media (max-width: 900px) {
-  .carouselArrow {
-    width: 40px;
-    height: 40px;
-  }
-}
 
-@media (max-width: 520px) {
-  .carouselWrapper {
-    gap: 8px;
-  }
-  .carouselArrow {
-    width: 36px;
-    height: 36px;
-  }
-  .carouselSlide {
-    padding: 0 6px;
-  }
-}
 
 /* ═══ Board & Leadership ═══ */
 .boardSection {
   padding: 80px 0;
-  background: #ffffff;
+  background: #121826;
 }
 
 .boardSectionHead {
@@ -728,6 +641,7 @@
 
 /* Responsive Team Breakpoints */
 @media (max-width: 900px) {
+
   .boardGrid,
   .staffGrid {
     grid-template-columns: repeat(2, 1fr);
