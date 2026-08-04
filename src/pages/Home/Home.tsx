@@ -312,7 +312,6 @@ const Home: React.FC = () => {
   const [selectedRegionId, setSelectedRegionId] = useState<string>('greater-accra');
 
   const activeRegionId = hoveredRegionId || selectedRegionId;
-  const activeRegion = ghanaRegionsData.find(r => r.id === activeRegionId) || ghanaRegionsData[0];
   const totalGhanaHubs = ghanaRegionsData.reduce((acc, r) => acc + r.hubs.length, 0);
 
 
@@ -505,8 +504,8 @@ const Home: React.FC = () => {
             {/* Centered Map Card */}
             <div className={styles.mapCardOuter}>
               <div className={styles.mapCardHeader}>
-                <span className={styles.mapSubtitle}>Ghana Regional Network Map</span>
-                <span className={styles.activeRegionTitle}>{activeRegion.name}</span>
+                {/* <span className={styles.mapSubtitle}>Ghana Regional Network Map</span> */}
+                {/* <span className={styles.activeRegionTitle}>{activeRegion.name}</span> */}
               </div>
 
               <div className={styles.mapImageContainer}>

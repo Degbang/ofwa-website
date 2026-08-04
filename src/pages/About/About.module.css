@@ -310,7 +310,7 @@
 
 .valueCard {
   position: relative;
-  background: rgba(18, 24, 38, 0.65);
+  background: rgba(254, 254, 254);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--r-xl, 20px);
   padding: 32px 24px;
@@ -378,7 +378,7 @@
   font-family: var(--font-heading);
   font-size: 1.1rem;
   font-weight: 900;
-  color: #ffffff;
+  color: #ff9f43;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
 }
@@ -406,14 +406,14 @@
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.25rem;
-  color: #ffffff;
+  color: #121826;
   margin-bottom: 10px;
   line-height: 1.3;
 }
 
 .valueCardBody {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.65);
+  color: #000000;
   line-height: 1.65;
 }
 
@@ -449,6 +449,11 @@
   box-shadow: 0 8px 25px rgba(255, 159, 67, 0.4);
 }
 
+.valueCard:hover .valueCardBody,
+.valueCard:hover .valueCardTitle {
+  color: #ffffff;
+}
+
 .valueCard:hover .valueNumber {
   color: var(--orange, #ff9f43);
 }
@@ -460,193 +465,228 @@
 
 
 
-/* ═══ Board & Leadership ═══ */
-.boardSection {
-  padding: 80px 0;
-  background: #121826;
+/* ═══ Team & Community ═══ */
+.teamSection {
+  padding: 110px 0;
+  background: #0b0f19;
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.boardSectionHead {
+.teamSectionHead {
   text-align: center;
-  max-width: 560px;
-  margin: 0 auto 50px;
+  max-width: 600px;
+  margin: 0 auto 48px;
+  position: relative;
+  z-index: 2;
 }
 
-.boardSectionHead h2 {
-  color: #000000 !important;
+.teamSub {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.65;
 }
 
-.boardGrid {
+/* ── Tab Bar Navigation ── */
+.tabContainer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 56px;
+  position: relative;
+  z-index: 2;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  padding: 12px 28px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+}
+
+.tabBtn:hover {
+  background: rgba(255, 159, 67, 0.1);
+  border-color: rgba(255, 159, 67, 0.3);
+  color: #ff9f43;
+}
+
+.tabBtnActive {
+  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
+  border-color: transparent;
+  color: #000000;
+  box-shadow: 0 8px 20px rgba(255, 159, 67, 0.25);
+}
+
+/* ── Grid & Cards ── */
+.memberGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 36px;
-  max-width: 960px;
-  margin: 0 auto;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
 }
 
-.boardCard {
+.memberCard {
+  background: rgba(18, 24, 38, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--r-xl, 20px);
+  padding: 36px 24px;
   text-align: center;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease,
+    background 0.4s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 16px;
+  box-sizing: border-box;
 }
 
-.boardCard:hover {
+.memberCard:hover {
   transform: translateY(-8px);
+  background: rgba(26, 36, 56, 0.75);
+  border-color: rgba(255, 159, 67, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 159, 67, 0.08);
 }
 
-.boardCardImg {
-  width: 180px;
-  height: 180px;
+.memberCardImg {
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   overflow: hidden;
-  margin-bottom: 20px;
-  /* border: 4px solid rgba(255, 159, 67, 0.15); */
-  /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04); */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 24px;
+  border: 3px solid rgba(255, 159, 67, 0.15);
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
-.boardCardImg img {
+.memberCardImg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
   transition: transform 0.4s ease;
 }
 
-/* .boardCard:hover .boardCardImg {
-  border-color: var(--orange);
-  box-shadow: 0 12px 28px rgba(255, 159, 67, 0.2);
-} */
-
-.boardCard:hover .boardCardImg img {
-  transform: scale(1.06);
+.memberCard:hover .memberCardImg {
+  border-color: rgba(255, 159, 67, 0.6);
 }
 
-.boardCardBody {
+.memberCard:hover .memberCardImg img {
+  transform: scale(1.08);
+}
+
+.memberCardBody {
   text-align: center;
 }
 
-.boardCardName {
+.memberCardName {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.15rem;
-  color: #000000;
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.3;
 }
 
-.boardCardRole {
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #d9d9d9
+.memberCardRole {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  line-height: 1.4;
 }
 
-/* ═══ Staff & The Team ═══ */
-.staffSection {
-  /* padding: 80px 0; */
-  /* background: url("/assets/images/office.jpg"); */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-top: 1px solid rgba(0, 0, 0, 0.03);
+@media (max-width: 600px) {
+  .memberGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+  }
+
+  .memberCard {
+    padding: 28px 16px;
+  }
+
+  .memberCardImg {
+    width: 110px;
+    height: 110px;
+  }
 }
 
-.staffSectionOverlay {
-  padding: 70px;
-  width: 100%;
-  height: 100%;
-  background: var(--cream);
+/* ── Pagination ── */
+.pagination {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
+  margin-top: 56px;
+  position: relative;
+  z-index: 2;
 }
 
-.staffSectionHead {
-  text-align: center;
-  max-width: 560px;
-  margin: 0 auto 50px;
+.pageBtn {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.staffGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.staffCard {
-  background: rgba(255, 255, 255, 0.65);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: var(--r-xl);
-  padding: 36px 24px 28px;
-  text-align: center;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-}
-
-.staffCard:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-  border-color: rgba(255, 159, 67, 0.15);
-}
-
-.staffCardImg {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 22px;
-  border: 3px solid rgba(0, 0, 0, 0.03);
-  transition: border-color 0.3s ease;
-}
-
-.staffCardImg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  transition: transform 0.4s ease;
-}
-
-/* .staffCard:hover .staffCardImg {
+.pageBtn:hover:not(:disabled) {
+  background: rgba(255, 159, 67, 0.1);
   border-color: rgba(255, 159, 67, 0.3);
-} */
-
-.staffCard:hover .staffCardImg img {
-  transform: scale(1.06);
+  color: #ff9f43;
 }
 
-.staffCardBody {
-  text-align: center;
+.pageBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
-.staffCardName {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.05rem;
+.pageNumbers {
+  display: flex;
+  gap: 8px;
+}
+
+.pageNum {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pageNum:hover {
+  background: rgba(255, 159, 67, 0.1);
+  border-color: rgba(255, 159, 67, 0.3);
+  color: #ff9f43;
+}
+
+.pageNumActive {
+  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
+  border-color: transparent;
   color: #000000;
-  margin-bottom: 6px;
-}
-
-.staffCardRole {
-  font-size: 0.88rem;
-  color: var(--gray-500);
-}
-
-/* Responsive Team Breakpoints */
-@media (max-width: 900px) {
-
-  .boardGrid,
-  .staffGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
+  box-shadow: 0 4px 12px rgba(255, 159, 67, 0.25);
 }
 
 @media (max-width: 560px) {
@@ -654,14 +694,6 @@
     padding: 90px 0 40px;
   }
 
-  .boardGrid,
-  .staffGrid {
-    grid-template-columns: 1fr;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  .staffSectionOverlay,
   .valuesContainerOverlay {
     padding: 24px 16px;
   }

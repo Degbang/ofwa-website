@@ -26,13 +26,14 @@
 
 .navLogo {
   display: flex;
-  align-items: center;
+  align-items: start;
   gap: 14px;
   flex-shrink: 0;
   cursor: pointer;
   overflow: visible;
-  max-width: 280px;
-  width: auto;
+  /* max-width: 450px; */
+  width: 280px;
+  /* border: 1px solid red; */
 }
 
 .navLogo img {
@@ -44,6 +45,7 @@
   filter: brightness(0) invert(1);
   transition: transform 0.3s ease;
   flex: 0.4;
+
 }
 
 .navLogo:hover img {
@@ -53,16 +55,25 @@
 .navLogoText {
   flex: 0.6;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: start;
   justify-content: start;
   /* border: 1px solid red; */
   font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 900;
   letter-spacing: 0.04em;
   line-height: 1.15;
   color: var(--white);
+}
+
+.navLogoText p {
+  font-size: 1.0rem;
+  font-weight: 800;
   text-transform: uppercase;
+}
+
+.navLogoText span {
+  font-size: 0.95rem;
+  font-weight: 300;
 }
 
 .navMenu {

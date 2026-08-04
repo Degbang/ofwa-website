@@ -24,15 +24,19 @@ export const Navbar: React.FC = () => {
       <div className={`container ${styles.navInner}`}>
         <NavLink to="/" className={styles.navLogo} onClick={closeMenu}>
           <img src="/assets/images/ofwa-logo-new.png" alt="OFWA Logo" />
-          <span className={styles.navLogoText}>
-            Open Foundation<br />West Africa
-          </span>
+          <div className={styles.navLogoText}>
+            <p className={styles.open}>Open <span>Foundation</span></p>
+            <p className={styles.westAfrica}>West Africa</p>
+
+          </div>
+
+
         </NavLink>
 
         <ul className={`${styles.navMenu} ${isOpen ? styles.menuOpen : ''}`} role="list">
           <li>
-            <NavLink 
-              to="/" 
+            <NavLink
+              to="/"
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
@@ -40,8 +44,8 @@ export const Navbar: React.FC = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink 
-              to="/about" 
+            <NavLink
+              to="/about"
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
@@ -49,8 +53,8 @@ export const Navbar: React.FC = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink 
-              to="/events" 
+            <NavLink
+              to="/events"
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
@@ -58,8 +62,8 @@ export const Navbar: React.FC = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink 
-              to="/gallery" 
+            <NavLink
+              to="/gallery"
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
@@ -67,8 +71,8 @@ export const Navbar: React.FC = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink 
-              to="/blog" 
+            <NavLink
+              to="/blog"
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
@@ -76,8 +80,8 @@ export const Navbar: React.FC = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink 
-              to="/volunteer" 
+            <NavLink
+              to="/volunteer"
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
@@ -85,8 +89,8 @@ export const Navbar: React.FC = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink 
-              to="/contact" 
+            <NavLink
+              to="/contact"
               className={({ isActive }) => `${styles.menuLink} ${isActive ? styles.active : ''}`}
               onClick={closeMenu}
             >
@@ -100,9 +104,9 @@ export const Navbar: React.FC = () => {
             <Heart size={15} fill="currentColor" />
             <span>Donate Now</span>
           </NavLink>
-          <button 
-            className={styles.navToggle} 
-            onClick={toggleMenu} 
+          <button
+            className={styles.navToggle}
+            onClick={toggleMenu}
             aria-expanded={isOpen}
             aria-label="Toggle navigation menu"
           >

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Users, Scale, Lightbulb, ShieldCheck, UtensilsCrossed } from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
@@ -45,24 +45,51 @@ const values = [
 ];
 
 
-const boardMembers = [
-  { name: 'Ama Serwah Nerquaye-Tetteh', role: 'Secretary' },
-  { name: 'Dr. George Tesilimi', role: 'Lecturer and Librarian- University of Health and Allied Sciences' },
-  { name: 'Felix', role: 'Advisor to the Board' },
-  { name: 'Jesse Akrofi-Asiedu', role: 'Digital Humanist and Open Advocate' },
-  { name: 'Jonathan Oberko', role: 'Principal Accounts - Accra Technical University' },
-  { name: 'Philip Boakye Dua Oyinka', role: 'Creative Writing Trainer, Poet, Writer' },
-  { name: 'Raphael Berchie', role: 'Board Chairman/ Co-Founder' },
-];
-
-const staffMembers = [
-  { name: 'Ama Owusu', role: 'Community Manager' },
-  { name: 'Kojo Frimpong', role: 'Communications Lead' },
-  { name: 'Efua Darko', role: 'Training Coordinator' },
-];
+const members = {
+  boardMembers: [
+    { name: 'Ama Serwah Nerquaye-Tetteh', role: 'Secretary', image: "/assets/images/board members/ama-serwah.jpg" },
+    { name: 'Dr. George Tesilimi', role: 'Lecturer and Librarian- University of Health and Allied Sciences', image: "/assets/images/board members/george-tesilimi.jpg" },
+    { name: 'Felix Nartey', role: 'Advisor to the Board', image: "/assets/images/board members/felix-nartey.jpg" },
+    { name: 'Jesse Akrofi-Asiedu', role: 'Digital Humanist and Open Advocate', image: "/assets/images/board members/jesse-akrofi-asiedu.jpg" },
+    { name: 'Jonathan Oberko', role: 'Principal Accounts - Accra Technical University', image: "/assets/images/board members/kweku-berko.jpg" },
+    { name: 'Philip Boakye Dua Oyinka', role: 'Creative Writing Trainer, Poet, Writer', image: "/assets/images/board members/nana-asaase.jpg" },
+    { name: 'Raphael Berchie', role: 'Board Chairman/ Co-Founder', image: "/assets/images/board members/raphael-berchie.jpg" },
+  ],
+  hubLeaders: [
+    { name: 'Abdul-Rahim Ziblim', role: 'Tamale Wiki Hub Lead (President)', image: "/assets/images/hub leaders/abdul-rahim-ziblim.jpg" },
+    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi Hub Lead (Vice President)', image: "/assets/images/hub leaders/asamoah-daniel-kwame-oware.jpg" },
+    { name: 'Emmanuel Kofi Frimpong', role: 'Kumasi Hub Lead', image: "/assets/images/hub leaders/emmanuel-kofi-frimpong.jpg" },
+    { name: 'Enoch Gyeedu-Essandoh', role: 'Accra Hub Lead (President)', image: "/assets/images/hub leaders/enoch-gyeedu-essandoh.jpeg" },
+    { name: 'Frida Cheboi', role: 'Ashesi Wiki Hub Lead', image: "/assets/images/hub leaders/frida-cheboi.jpg" },
+    { name: 'Gideon Babosima Daboo', role: 'Walewale Hub Lead', image: "/assets/images/hub leaders/gideon-babosima-daboo.jpg" },
+    { name: 'Jennifer Adenam Kanchei', role: 'Walewale Hub Lead (Vice President)', image: "/assets/images/hub leaders/jennifer-adenam-kanchei.jpg" },
+    { name: 'Joshua Tetteh Ayayi', role: 'Ho Hub Vice President', image: "/assets/images/hub leaders/joshua-tetteh-ayayi.jpg" },
+    { name: 'Lookman Sunday Ibrahim', role: 'Tamale Wiki Hub Lead (Vice President)', image: "/assets/images/hub leaders/lookman-sunday-ibrahim.png" },
+    { name: 'Paul Asare', role: 'Accra Hub Lead (Vice President', image: "/assets/images/hub leaders/paul-asare.jpg" },
+    { name: 'Princess Lovia Tetteh', role: 'Ho Hub Lead (Vice President)', image: "/assets/images/hub leaders/princess-lovia-tetteh.jpg" },
+  ],
+  coreTeam: [
+    { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
+  ]
+};
 
 const About: React.FC = () => {
-  useScrollReveal();
+  const [activeTab, setActiveTab] = useState<'boardMembers' | 'coreTeam' | 'hubLeaders'>('boardMembers');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
+  useScrollReveal(`${activeTab}-${currentPage}`);
+
+  const activeMembers = members[activeTab];
+  const totalPages = Math.ceil(activeMembers.length / itemsPerPage);
+  
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedMembers = activeMembers.slice(startIndex, startIndex + itemsPerPage);
+
+  const handleTabChange = (tab: 'boardMembers' | 'coreTeam' | 'hubLeaders') => {
+    setActiveTab(tab);
+    setCurrentPage(1);
+  };
 
   return (
     <>
@@ -133,51 +160,95 @@ const About: React.FC = () => {
       </section>
 
 
-      {/* BOARD */}
-      <section className={styles.boardSection}>
+      {/* MEMBERS SECTION */}
+      <section className={styles.teamSection}>
         <div className="container">
-          <div className={styles.boardSectionHead}>
-            <span className="section-tag reveal">Leadership</span>
-            <h2 className={`${clsx(styles.sectionHDark, styles.boardH2)} reveal`}>Board Members</h2>
+          <div className={styles.teamSectionHead}>
+            <span className="section-tag reveal">Our People</span>
+            <h2 className={`${styles.sectionHLight} reveal d1`}>Meet Our <span>Community</span></h2>
+            <p className={`${styles.teamSub} reveal d2`}>
+              The dedicated individuals steering the movement and driving open knowledge across West Africa.
+            </p>
           </div>
-          <div className={styles.boardGrid}>
-            {boardMembers.map((m, i) => (
-              <div key={i} className={`${styles.boardCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                <div className={styles.boardCardImg}>
-                  <img src="/assets/images/office-lady.jpg" alt={m.name} />
+
+          {/* Tab Selector Buttons */}
+          <div className={`${styles.tabContainer} reveal d3`}>
+            <button
+              className={clsx(styles.tabBtn, activeTab === 'boardMembers' && styles.tabBtnActive)}
+              onClick={() => handleTabChange('boardMembers')}
+            >
+              Board Members
+            </button>
+            <button
+              className={clsx(styles.tabBtn, activeTab === 'coreTeam' && styles.tabBtnActive)}
+              onClick={() => handleTabChange('coreTeam')}
+            >
+              Core Team
+            </button>
+            <button
+              className={clsx(styles.tabBtn, activeTab === 'hubLeaders' && styles.tabBtnActive)}
+              onClick={() => handleTabChange('hubLeaders')}
+            >
+              Hub Leaders
+            </button>
+          </div>
+
+          {/* Grid of Active Members */}
+          <div className={styles.memberGrid}>
+            {paginatedMembers.map((m, i) => (
+              <div key={`${activeTab}-${currentPage}-${i}`} className={`${styles.memberCard} reveal ${i > 0 ? `d${i % 4}` : ''}`}>
+                <div className={styles.memberCardImg}>
+                  <img
+                    src={m.image}
+                    alt={m.name}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/assets/images/team-member.png";
+                    }}
+                  />
                 </div>
-                <div className={styles.boardCardBody}>
-                  <p className={styles.boardCardName}>{m.name}</p>
-                  <p className={styles.boardCardRole}>{m.role}</p>
+                <div className={styles.memberCardBody}>
+                  <h3 className={styles.memberCardName}>{m.name}</h3>
+                  <p className={styles.memberCardRole}>{m.role}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* STAFF */}
-      <section className={styles.staffSection}>
-        <div className={styles.staffSectionOverlay}>
-          <div className="container">
-            <div className={styles.staffSectionHead}>
-              <span className="section-tag reveal">The Team</span>
-              <h2 className={`${styles.sectionHDark} reveal d1`}>Staff Members</h2>
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className={`${styles.pagination} reveal d4`}>
+              <button
+                className={styles.pageBtn}
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                aria-label="Previous Page"
+              >
+                Previous
+              </button>
+              
+              <div className={styles.pageNumbers}>
+                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+                  <button
+                    key={page}
+                    className={clsx(styles.pageNum, currentPage === page && styles.pageNumActive)}
+                    onClick={() => setCurrentPage(page)}
+                    aria-label={`Go to page ${page}`}
+                  >
+                    {page}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                className={styles.pageBtn}
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+                aria-label="Next Page"
+              >
+                Next
+              </button>
             </div>
-            <div className={styles.staffGrid}>
-              {staffMembers.map((m, i) => (
-                <div key={i} className={`${styles.staffCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                  <div className={styles.staffCardImg}>
-                    <img src="/assets/images/team-member.png" alt={m.name} />
-                  </div>
-                  <div className={styles.staffCardBody}>
-                    <p className={styles.staffCardName}>{m.name}</p>
-                    <p className={styles.staffCardRole}>{m.role}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          )}
         </div>
       </section>
     </>
