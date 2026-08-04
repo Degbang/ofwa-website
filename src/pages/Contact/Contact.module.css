@@ -392,7 +392,7 @@
 
 .donateCtaSub {
   font-size: 1.05rem;
-  color: #000000;
+  color: rgba(255, 255, 255, 0.65);
   max-width: 540px;
   margin: 0 auto 32px;
   line-height: 1.7;
@@ -418,8 +418,39 @@
   box-shadow: 0 14px 45px rgba(255, 159, 67, 0.5);
 }
 
+@media (max-width: 768px) {
+  .pageHero {
+    padding: 100px 0 48px;
+  }
+
+  .contactSection,
+  .faqSection {
+    padding: 56px 0;
+  }
+}
+
 @media (max-width: 600px) {
+  .pageHero {
+    padding: 90px 0 40px;
+  }
+
   .contactFormWrap {
     padding: 24px 16px;
   }
-}
+
+  .btnDonateBig {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contactQuickLinks {
+    flex-direction: column;
+  }
+
+  .contactQuickBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

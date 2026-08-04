@@ -464,7 +464,7 @@
 
 .otherHelpSub {
   font-size: 1.05rem;
-  color: #000000;
+  color: rgba(255, 255, 255, 0.65);
   max-width: 540px;
   margin: 0 auto 32px;
   line-height: 1.7;
@@ -481,3 +481,53 @@
   font-size: 0.95rem;
   padding: 14px 28px;
 }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .donateHero {
+    padding: 100px 0 48px;
+  }
+
+  .donateImpact,
+  .donateFormSection,
+  .trustSection,
+  .faqSection,
+  .otherHelp {
+    padding: 56px 0;
+  }
+
+  .impactGrid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .donateHero {
+    padding: 90px 0 40px;
+  }
+
+  .donateFormCard {
+    padding: 24px 16px;
+  }
+
+  .donateAmountGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .donateFreq {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .helpBtns {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .helpBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}

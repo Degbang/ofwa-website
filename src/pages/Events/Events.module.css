@@ -393,3 +393,60 @@
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 14px 45px rgba(255,159,67,0.5);
 }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .pageHero {
+    padding: 100px 0 48px;
+  }
+
+  .eventsGrid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .pastGrid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .filterList {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filterBtn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHero {
+    padding: 90px 0 40px;
+  }
+
+  .eventsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pastGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .btnDonateBig {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .eventCardBody {
+    padding: 18px;
+  }
+}
+

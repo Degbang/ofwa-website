@@ -31,8 +31,8 @@
   flex-shrink: 0;
   cursor: pointer;
   overflow: visible;
-  /* border: 1px solid yellow; */
-  width: 30%;
+  max-width: 280px;
+  width: auto;
 }
 
 .navLogo img {
@@ -246,11 +246,11 @@
 }
 
 :global(body.light-theme) .menuLink {
-  color: var(--gray-300);
+  color: #4a5568;
 }
 
 :global(body.light-theme) .menuLink:hover {
-  color: var(--white);
+  color: #04060a;
 }
 
 :global(body.light-theme) .active {
@@ -259,7 +259,7 @@
 }
 
 :global(body.light-theme) .navToggle {
-  color: var(--white);
+  color: #04060a;
 }
 
 :global(body.light-theme) .navToggle:hover {

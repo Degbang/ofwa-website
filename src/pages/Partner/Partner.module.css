@@ -947,3 +947,47 @@
   background: #ffffff;
   border-color: rgba(255, 159, 67, 0.3);
 }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .pageHero {
+    padding: 100px 0 48px;
+  }
+
+  .whyPartnerSection,
+  .modelsSection,
+  .trustedSection,
+  .formSection,
+  .volunteerCtaSection {
+    padding: 56px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHero {
+    padding: 90px 0 40px;
+  }
+
+  .heroStatsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .formCardWrap {
+    padding: 24px 16px;
+  }
+
+  .btnHeroPrimary,
+  .btnHeroSecondary,
+  .btnPartnerNow,
+  .btnVolunteerOutline {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+
+  .quoteCard {
+    padding: 24px 16px;
+  }
+}

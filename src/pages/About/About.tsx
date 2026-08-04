@@ -1,23 +1,48 @@
-import React from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Users, Scale, Lightbulb, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './About.module.css';
 import clsx from 'clsx';
 
 const values = [
-  { icon: '🤝', title: 'Collaboration', body: 'We believe in the power of working together — with communities, institutions, and global partners.' },
-  { icon: '⚖️', title: 'Equity & Inclusion', body: 'We center the voices and needs of women, youth, and underserved communities in everything we do.' },
-  { icon: '💡', title: 'Innovation', body: 'We embrace creative approaches to solving the challenges of knowledge access and digital equity.' },
-  { icon: '🔍', title: 'Transparency', body: 'We operate with integrity, openness, and accountability to our communities and supporters.' },
+  {
+    icon: <Users size={26} />,
+    title: 'Collaboration',
+    body: 'We believe in the power of working together — with communities, institutions, and global partners.',
+    number: '01',
+    tag: 'Togetherness'
+  },
+  {
+    icon: <Users size={26} />,
+    title: 'Collaboration',
+    body: 'We believe in the power of working together — with communities, institutions, and global partners.',
+    number: '01',
+    tag: 'Togetherness'
+  },
+  {
+    icon: <Scale size={26} />,
+    title: 'Equity & Inclusion',
+    body: 'We center the voices and needs of women, youth, and underserved communities in everything we do.',
+    number: '02',
+    tag: 'Inclusivity'
+  },
+  {
+    icon: <Lightbulb size={26} />,
+    title: 'Innovation',
+    body: 'We embrace creative approaches to solving the challenges of knowledge access and digital equity.',
+    number: '03',
+    tag: 'Pioneering'
+  },
+  {
+    icon: <ShieldCheck size={26} />,
+    title: 'Transparency',
+    body: 'We operate with integrity, openness, and accountability to our communities and supporters.',
+    number: '04',
+    tag: 'Integrity'
+  },
 ];
 
-const goals = [
-  'Train 100,000 women in open knowledge and digital skills across West Africa by 2030.',
-  'Establish community hubs in all 16 regions of Ghana as open knowledge centres.',
-  'Create 100,000 Wikipedia articles about African people, places, and culture.',
-  'Advocate for open licensing and free access to educational resources across Africa.',
-];
 
 const boardMembers = [
   { name: 'Dickson Kojo Anane', role: 'Programs Officer' },
@@ -33,6 +58,35 @@ const staffMembers = [
 
 const About: React.FC = () => {
   useScrollReveal();
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const totalSlides = values.length;
+
+  // How many cards visible at once (responsive)
+  const getVisibleCount = useCallback(() => {
+    if (typeof window === 'undefined') return 3;
+    if (window.innerWidth <= 520) return 1;
+    if (window.innerWidth <= 900) return 2;
+    return 3;
+  }, []);
+
+  const [visibleCount, setVisibleCount] = useState(getVisibleCount);
+
+  useEffect(() => {
+    const handleResize = () => setVisibleCount(getVisibleCount());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getVisibleCount]);
+
+  const maxSlide = Math.max(0, totalSlides - visibleCount);
+
+  const goTo = useCallback((index: number) => {
+    setCurrentSlide(Math.max(0, Math.min(index, maxSlide)));
+  }, [maxSlide]);
+
+  const goPrev = () => goTo(currentSlide - 1);
+  const goNext = () => goTo(currentSlide + 1);
 
   return (
     <>
@@ -52,68 +106,107 @@ const About: React.FC = () => {
           <div className={`${styles.aboutSplitContentGoals} ${styles.aboutSplitContentLight}`}>
             <span className="section-tag mission-title reveal">Our Goals</span>
             <h2 className={`${styles.sectionHDark} reveal `}>What We're Working Towards</h2>
-            <div className={`${styles.goalsList} reveal d2`}>
-              {goals.map((goal, i) => (
-                <div key={i} className={styles.goalItem}>
-                  <span className={styles.goalNumber}>{String(i + 1).padStart(2, '0')}</span>
-                  <span className={styles.goalText}>{goal}</span>
-                </div>
-              ))}
-            </div>
+            <p>​An equitable digital landscape where African knowledge is freely shared by Africans, for everyone.</p>
           </div>
         </div>
         <div className={styles.aboutSplitContent}>
           <span className="section-tag mission-title reveal">Our Mission</span>
           <h2 className={`${styles.sectionHDark} reveal d1`}>Contribution to the Open Movement</h2>
-          <p className={`${styles.bodyText} reveal d2`}>Open Foundation West Africa (OFWA) is dedicated to growing women's participation in open knowledge through training, community hubs, and advocacy across Africa. We believe that when women lead in creating and curating knowledge, entire communities thrive.</p>
-          <p className={`${styles.bodyText} reveal d3`}>Since our founding, we've trained thousands of women in Wikipedia editing, digital skills, and open-source tools — building Africa's representation in the global knowledge commons.</p>
+          <p className={`${styles.bodyText} reveal d2`}>​Co-creating the future of African open knowledge by building inclusive platforms and equipping communities with the tools to share their narratives.</p>
+          {/* <p className={`${styles.bodyText} reveal d3`}></p> */}
           <button className={styles.getInvolvedBtn}>
             <Link className="btn-orange reveal d4" to="/contact">Get Involved <ArrowRight size={16} /></Link>
           </button>
         </div>
       </section>
 
-      {/* GOALS SPLIT (reversed) */}
-      {/* <section className={`${styles.aboutSplitGoals} ${styles.aboutSplitReversed}`}>
-        <div className={styles.aboutSplitImgGoals}>
-          <img src="/assets/images/hub-photo-1.png" alt="OFWA in action" />
-        </div>
-        <div className={`${styles.aboutSplitContentGoals} ${styles.aboutSplitContentLight}`}>
-          <span className="section-tag mission-title reveal">Our Goals</span>
-          <h2 className={`${styles.sectionHDark} reveal `}>What We're Working Towards</h2>
-          <div className={`${styles.goalsList} reveal d2`}>
-            {goals.map((goal, i) => (
-              <div key={i} className={styles.goalItem}>
-                <span className={styles.goalNumber}>{String(i + 1).padStart(2, '0')}</span>
-                <span className={styles.goalText}>{goal}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+
 
       {/* VALUES */}
       <section className={styles.valuesSection}>
-        <div>
+        <div className={styles.ambientGlow} />
+        <div className="container">
           <div className={styles.valuesSectionHead}>
             <span className="section-tag reveal">What Guides Us</span>
-            <h2 className={`${styles.sectionHDark} reveal d1`}>Our Core Values</h2>
+            <h2 className={`${styles.sectionHLight} reveal d1`}>
+              Our Core <span>Values</span>
+            </h2>
+            <p className={`${styles.valuesSub} reveal d2`}>
+              The foundational principles steering our mission to democratize open knowledge across Africa.
+            </p>
           </div>
-          <div className={styles.valuesContainer}>
-            <div className={styles.valuesContainerOverlay}>
-              <div className={styles.valuesGrid}>
+
+          <div className={styles.carouselWrapper}>
+            {/* Left Arrow */}
+            <button
+              className={clsx(styles.carouselArrow, styles.carouselArrowLeft)}
+              onClick={goPrev}
+              disabled={currentSlide === 0}
+              aria-label="Previous values"
+            >
+              <ChevronLeft size={22} />
+            </button>
+
+            {/* Carousel viewport */}
+            <div className={styles.carouselViewport}>
+              <div
+                ref={trackRef}
+                className={styles.carouselTrack}
+                style={{
+                  transform: `translateX(-${currentSlide * (100 / visibleCount)}%)`,
+                }}
+              >
                 {values.map((v, i) => (
-                  <div key={i} className={`${styles.valueCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                    <div className={styles.valueCardIcon}>{v.icon}</div>
-                    <h3 className={styles.valueCardTitle}>{v.title}</h3>
-                    <p className={styles.valueCardBody}>{v.body}</p>
+                  <div
+                    key={i}
+                    className={styles.carouselSlide}
+                    style={{ flex: `0 0 ${100 / visibleCount}%` }}
+                  >
+                    <div className={`${styles.valueCard} reveal ${i > 0 ? `d${i}` : ''}`}>
+                      <div className={styles.valueCardGlow} />
+                      <div className={styles.valueCardHeader}>
+                        <div className={styles.valueCardIconWrap}>
+                          {v.icon}
+                        </div>
+                        <span className={styles.valueNumber}>{v.number}</span>
+                      </div>
+                      <div className={styles.valueCardContent}>
+                        <span className={styles.valueTag}>{v.tag}</span>
+                        <h3 className={styles.valueCardTitle}>{v.title}</h3>
+                        <p className={styles.valueCardBody}>{v.body}</p>
+                      </div>
+                      <div className={styles.valueCardLine} />
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {/* Right Arrow */}
+            <button
+              className={clsx(styles.carouselArrow, styles.carouselArrowRight)}
+              onClick={goNext}
+              disabled={currentSlide >= maxSlide}
+              aria-label="Next values"
+            >
+              <ChevronRight size={22} />
+            </button>
+          </div>
+
+          {/* Dot Indicators */}
+          <div className={styles.carouselDots}>
+            {Array.from({ length: maxSlide + 1 }).map((_, i) => (
+              <button
+                key={i}
+                className={clsx(styles.carouselDot, i === currentSlide && styles.carouselDotActive)}
+                onClick={() => goTo(i)}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* BOARD */}
       <section className={styles.boardSection}>

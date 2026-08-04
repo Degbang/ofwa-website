@@ -1912,4 +1912,52 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .missionSection,
+  .galleryCarouselSection,
+  .videoSection,
+  .donateCta,
+  .cmsSection,
+  .hubMapSection,
+  .eventsSection,
+  .newsSection,
+  .testimonialSection {
+    padding: 56px 0;
+  }
 }
+
+@media (max-width: 480px) {
+  .heroSub {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .heroKicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .btnDonateHero {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 0.92rem;
+  }
+
+  .btnDonateBig {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .cmsDetailsCard,
+  .mapCardOuter {
+    padding: 20px 14px;
+  }
+}

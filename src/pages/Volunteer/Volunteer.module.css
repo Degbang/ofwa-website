@@ -677,3 +677,46 @@
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 14px 45px rgba(255, 159, 67, 0.6);
 }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  .pageHero {
+    padding: 100px 0 48px;
+  }
+
+  .whyVolunteerSection,
+  .rolesSection,
+  .quoteSection,
+  .formSection,
+  .donateCta {
+    padding: 56px 0;
+  }
+
+  .rolesGrid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHero {
+    padding: 90px 0 40px;
+  }
+
+  .rolesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .quoteCard {
+    padding: 28px 20px;
+  }
+
+  .btnDonateBig,
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+}
