@@ -1,200 +1,318 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, MapPin, Heart } from 'lucide-react';
+import { 
+  ArrowRight, 
+  MapPin, 
+  Heart, 
+  ChevronLeft, 
+  ChevronRight, 
+  AlertCircle, 
+  Loader2,
+  Calendar
+} from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
+import Papa from 'papaparse';
 import styles from './Events.module.css';
 
-const upcomingEvents = [
-  {
-    month: 'Aug',
-    day: '12',
-    year: '2026',
-    img: '/assets/images/hub-photo-1.png',
-    cat: 'Edit-a-thon',
-    title: 'Accra Wikipedia Edit-a-thon',
-    meta: '📍 Achimota, Accra · 9:00 AM – 4:00 PM',
-    desc: 'Join editors from across Accra for a full-day event creating and improving Wikipedia articles about Ghanaian culture, history, and science.',
-    category: 'edit-a-thons',
-  },
-  {
-    month: 'Sep',
-    day: '05',
-    year: '2026',
-    img: '/assets/images/hub-photo-3.png',
-    cat: 'Training',
-    title: 'KIWIX4Schools Train-the-Trainer',
-    meta: '📍 UDS, Tamale · 10:00 AM – 3:00 PM',
-    desc: 'A hands-on workshop training educators to deploy offline Wikipedia servers in schools without internet access across the Northern Region.',
-    category: 'training',
-  },
-  {
-    month: 'Oct',
-    day: '18',
-    year: '2026',
-    img: '/assets/images/blog-photo-1.png',
-    cat: 'Summit',
-    title: 'West Africa Open Knowledge Summit',
-    meta: '📍 Accra, Ghana · All Day',
-    desc: "Our flagship annual event bringing together open knowledge advocates, Wikipedia editors, educators, and policy makers from across West Africa.",
-    category: 'summits',
-  },
-  {
-    month: 'Nov',
-    day: '22',
-    year: '2026',
-    img: '/assets/images/hub-photo-2.png',
-    cat: 'Community',
-    title: 'Women in Open Tech Conference',
-    meta: '📍 Kumasi Hub · 9:00 AM – 5:00 PM',
-    desc: 'Celebrating women who lead in open-source technology and digital rights — panel discussions, networking, and skill-building workshops.',
-    category: 'training',
-  },
+interface EventData {
+  Year: string;
+  Period: string;
+  'Start Week': string;
+  'End Week': string;
+  'Event / Programme': string;
+  'Main activity shown in plan': string;
+}
+
+const MONTH_NAMES = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
 ];
 
-// const pastHighlights = [
-//   {
-//     year: '2022',
-//     img: '/assets/images/hub-photo-4.png',
-//     title: 'Africa Wiki Challenge',
-//     desc: 'Nationwide campaign that produced over 1,200 new Wikipedia articles on African topics.',
-//   },
-//   {
-//     year: '2023',
-//     img: '/assets/images/blog-photo-2.png',
-//     title: 'OFWA × National Film Authority',
-//     desc: "A landmark partnership digitising Ghana's film heritage into open-access Wikipedia entries.",
-//   },
-//   {
-//     year: '2024',
-//     img: '/assets/images/hub-photo-1.png',
-//     title: 'Accra Edit-a-thon Series',
-//     desc: 'Monthly edit-a-thons trained over 300 new Wikipedia editors in the Greater Accra Region.',
-//   },
-//   {
-//     year: '2024',
-//     img: '/assets/images/about-hero.png',
-//     title: 'KIWIX4Schools Launch',
-//     desc: 'Deployed offline Wikipedia servers in 12 schools across the Northern and Upper East Regions.',
-//   },
-// ];
-
-const filters = [
-  { label: 'All Events', value: 'all' },
-  { label: 'Upcoming', value: 'upcoming' },
-  { label: 'Edit-a-thons', value: 'edit-a-thons' },
-  { label: 'Training', value: 'training' },
-  { label: 'Summits', value: 'summits' },
+const MONTH_ABBREVIATIONS = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 ];
+
+// Helper to determine if an event spans or matches the target month
+const isEventInMonth = (eventPeriod: string, targetMonth: string) => {
+  if (!eventPeriod || !targetMonth) return false;
+  
+  const period = eventPeriod.toLowerCase().trim();
+  const month = targetMonth.toLowerCase().trim();
+  
+  if (period === month) return true;
+  
+  // Replace en-dashes, em-dashes, hyphens, and slashes with space
+  const normalized = period.replace(/[-–—/]/g, ' ');
+  const parts = normalized.split(/\s+/);
+  
+  // Map words to month indices
+  const monthIndices = parts
+    .map(part => {
+      // Find index if there is a match (either exact or prefix)
+      return MONTH_NAMES.findIndex(m => 
+        m.toLowerCase() === part || 
+        m.toLowerCase().substring(0, 3) === part.substring(0, 3)
+      );
+    })
+    .filter(idx => idx !== -1);
+  
+  const targetIdx = MONTH_NAMES.indexOf(targetMonth);
+  if (targetIdx === -1) return false;
+  
+  if (monthIndices.length === 1) {
+    return monthIndices[0] === targetIdx;
+  }
+  
+  if (monthIndices.length >= 2) {
+    const startIdx = Math.min(...monthIndices);
+    const endIdx = Math.max(...monthIndices);
+    return targetIdx >= startIdx && targetIdx <= endIdx;
+  }
+  
+  return period.includes(month);
+};
+
+// Categorize event based on title keywords
+const getEventCategory = (title: string): string => {
+  const t = title.toLowerCase();
+  if (t.includes('hackathon') || t.includes('code') || t.includes('dev')) {
+    return 'Hackathon';
+  }
+  if (t.includes('training') || t.includes('tot') || t.includes('skills') || t.includes('workshop') || t.includes('learn')) {
+    return 'Training';
+  }
+  if (t.includes('retreat') || t.includes('meeting') || t.includes('agm') || t.includes('general meeting')) {
+    return 'Community';
+  }
+  if (t.includes('challenge') || t.includes('celebration') || t.includes('shine') || t.includes('anniversary') || t.includes('creative') || t.includes('wiki @')) {
+    return 'Campaign';
+  }
+  return 'Event';
+};
 
 const Events: React.FC = () => {
   useScrollReveal();
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [events, setEvents] = useState<EventData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedYear, setSelectedYear] = useState<string>('2026');
+  const [selectedMonth, setSelectedMonth] = useState<string>('January');
 
-  const filteredEvents = upcomingEvents.filter((ev) => {
-    if (activeFilter === 'all') return true;
-    if (activeFilter === 'upcoming') return true; // all are technically upcoming
-    return ev.category === activeFilter;
-  });
+  const eventsSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS-aplqN60mPJjeRsfamC7Rb-0gxgfjrNfgoORastJ8DsRAqtC-TPZ-7Aq7q1ewzruwSLBdC63T99qn/pub?output=csv";
+
+  useEffect(() => {
+    setLoading(true);
+    Papa.parse(eventsSpreadsheetUrl, {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: (results: any) => {
+        if (results.data && results.data.length > 0) {
+          // Filter out rows that lack essential fields
+          const validData = results.data.filter(
+            (e: any) => e.Year && e.Period && e['Event / Programme']
+          );
+          setEvents(validData);
+
+          // Find sorted unique years from data
+          const parsedYears = Array.from(
+            new Set(validData.map((e: any) => e.Year))
+          ).filter(Boolean) as string[];
+          parsedYears.sort();
+
+          // Set default selected year (prioritize current calendar year)
+          const currentYearStr = new Date().getFullYear().toString();
+          if (parsedYears.includes(currentYearStr)) {
+            setSelectedYear(currentYearStr);
+          } else if (parsedYears.length > 0) {
+            setSelectedYear(parsedYears[0]);
+          }
+
+          // Select current month
+          const currentMonthName = MONTH_NAMES[new Date().getMonth()];
+          setSelectedMonth(currentMonthName);
+
+          setLoading(false);
+        } else {
+          setError("No events found in the spreadsheet database.");
+          setLoading(false);
+        }
+      },
+      error: (err: any) => {
+        console.error(err);
+        setError("Failed to download events calendar database. Please try again later.");
+        setLoading(false);
+      }
+    });
+  }, []);
+
+  const uniqueYears = Array.from(new Set(events.map(e => e.Year))).filter(Boolean).sort();
+
+  const handlePrevYear = () => {
+    const currentIndex = uniqueYears.indexOf(selectedYear);
+    if (currentIndex > 0) {
+      setSelectedYear(uniqueYears[currentIndex - 1]);
+    }
+  };
+
+  const handleNextYear = () => {
+    const currentIndex = uniqueYears.indexOf(selectedYear);
+    if (currentIndex < uniqueYears.length - 1) {
+      setSelectedYear(uniqueYears[currentIndex + 1]);
+    }
+  };
+
+  const getEventsForMonth = (monthName: string, year: string) => {
+    return events.filter(e => e.Year === year && isEventInMonth(e.Period, monthName));
+  };
+
+  const activeEvents = getEventsForMonth(selectedMonth, selectedYear);
 
   return (
     <>
       {/* PAGE HERO */}
       <section className={styles.pageHero}>
         <div className="container">
-          <p className={`${styles.pageHeroKicker} reveal`}>What's On</p>
-          <h1 className={`${styles.pageHeroTitle} reveal d1`}>Events &amp; Programs</h1>
-          <p className={`${styles.pageHeroSub} reveal d2`}>From edit-a-thons to national summits — every OFWA event is a chance to learn, contribute, and connect.</p>
+          <p className={`${styles.pageHeroKicker} reveal`}>Schedule of Programs</p>
+          <h1 className={`${styles.pageHeroTitle} reveal d1`}>Events Calendar</h1>
+          <p className={`${styles.pageHeroSub} reveal d2`}>
+            Explore our open workshops, hackathons, and edit-a-thons scheduled throughout the year. Select a month to see details.
+          </p>
         </div>
       </section>
 
-      {/* FILTERS */}
-      <section className={styles.filterSection}>
+      {/* CALENDAR SECTION */}
+      <section className={styles.calendarSection}>
         <div className="container">
-          <div className={`${styles.filterList} reveal`}>
-            {filters.map((f) => (
-              <button
-                key={f.value}
-                className={`${styles.filterBtn} ${activeFilter === f.value ? styles.filterBtnActive : ''}`}
-                onClick={() => setActiveFilter(f.value)}
-              >
-                {f.label}
+          {loading ? (
+            <div className={styles.loadingContainer}>
+              <Loader2 className={styles.spinner} size={48} />
+              <p>Fetching scheduled events from the database...</p>
+            </div>
+          ) : error ? (
+            <div className={styles.errorContainer}>
+              <AlertCircle size={48} className={styles.errorIcon} />
+              <p className={styles.errorText}>{error}</p>
+              <button onClick={() => window.location.reload()} className="btn-orange">
+                Retry Loading
               </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* UPCOMING EVENTS */}
-      <section className={styles.upcomingSection}>
-        <div className="container">
-          <div style={{ marginBottom: 40 }}>
-            <span className="section-tag reveal">Upcoming</span>
-            <h2 className={`${styles.sectionH} reveal d1`}>Don't Miss Out</h2>
-          </div>
-
-          {filteredEvents.length > 0 ? (
-            <div className={styles.eventsGrid}>
-              {filteredEvents.map((ev, i) => (
-                <article key={i} className={`${styles.eventCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                  <div className={styles.eventCardDate}>
-                    <span className={styles.evMonth}>{ev.month}</span>
-                    <span className={styles.evDay}>{ev.day}</span>
-                    <span className={styles.evYear}>{ev.year}</span>
-                  </div>
-                  <div className={styles.eventCardImg}>
-                    <img src={ev.img} alt={ev.title} />
-                  </div>
-                  <div className={styles.eventCardBody}>
-                    <span className={styles.eventTag}>{ev.cat}</span>
-                    <h3 className={styles.eventTitle}>{ev.title}</h3>
-                    <div className={styles.eventMeta}>
-                      <MapPin size={14} className={styles.metaIcon} />
-                      <span>{ev.meta.replace('📍 ', '')}</span>
-                    </div>
-                    <p className={styles.eventDesc}>{ev.desc}</p>
-                    <Link className={`${styles.registerBtn} btn-orange`} to="/contact">
-                      Register Interest <ArrowRight size={15} />
-                    </Link>
-                  </div>
-                </article>
-              ))}
             </div>
           ) : (
-            <div className={styles.noEvents}>
-              <p>No upcoming events found for this filter.</p>
-            </div>
+            <>
+              {/* YEAR NAVIGATION */}
+              <div className={styles.calendarHeader}>
+                <div className={styles.yearNavigator}>
+                  <button 
+                    onClick={handlePrevYear} 
+                    disabled={uniqueYears.indexOf(selectedYear) <= 0}
+                    className={styles.navBtn}
+                    aria-label="Previous Year"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <h2 className={styles.yearTitle}>{selectedYear}</h2>
+                  <button 
+                    onClick={handleNextYear} 
+                    disabled={uniqueYears.indexOf(selectedYear) >= uniqueYears.length - 1}
+                    className={styles.navBtn}
+                    aria-label="Next Year"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              </div>
+
+              {/* MONTH CARD GRID */}
+              <div className={styles.monthGrid}>
+                {MONTH_NAMES.map((monthName, idx) => {
+                  const monthEvents = getEventsForMonth(monthName, selectedYear);
+                  const isSelected = selectedMonth === monthName;
+                  const hasEvents = monthEvents.length > 0;
+
+                  return (
+                    <button
+                      key={monthName}
+                      className={`${styles.monthCard} ${isSelected ? styles.monthCardActive : ''} ${!hasEvents ? styles.monthCardEmpty : ''}`}
+                      onClick={() => setSelectedMonth(monthName)}
+                    >
+                      <span className={styles.monthAbbr}>{MONTH_ABBREVIATIONS[idx]}</span>
+                      <span className={styles.monthNameFull}>{monthName}</span>
+                      <div className={styles.dotContainer}>
+                        {monthEvents.slice(0, 4).map((_, dotIdx) => (
+                          <span key={dotIdx} className={styles.eventDot} />
+                        ))}
+                        {monthEvents.length > 4 && <span className={styles.dotMore}>+</span>}
+                      </div>
+                      {hasEvents && (
+                        <span className={styles.eventCountBadge}>
+                          {monthEvents.length} {monthEvents.length === 1 ? 'Event' : 'Events'}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* DYNAMIC EVENTS LIST HEADER */}
+              <div className={styles.eventsListHeader}>
+                <span className="section-tag">Schedule</span>
+                <h3 className={styles.eventsListTitle}>
+                  Events in {selectedMonth} {selectedYear}
+                </h3>
+              </div>
+
+              {/* EVENTS CARDS GRID */}
+              {activeEvents.length > 0 ? (
+                <div className={styles.eventsGrid}>
+                  {activeEvents.map((ev, i) => {
+                    const categoryName = getEventCategory(ev['Event / Programme']);
+
+                    return (
+                      <article 
+                        key={i} 
+                        className={styles.eventCard}
+                      >
+                        <div className={styles.eventCardBody}>
+                          <span className={styles.eventTag}>
+                            {categoryName}
+                          </span>
+                          
+                          <h4 className={styles.eventTitle}>{ev['Event / Programme']}</h4>
+                          
+                          <div className={styles.eventMeta}>
+                            <div className={styles.metaItem}>
+                              <Calendar size={14} className={styles.metaIcon} />
+                              <span>{ev.Period} {ev.Year}</span>
+                            </div>
+                            {ev['End Week'] && (
+                              <div className={styles.metaItem}>
+                                <MapPin size={14} className={styles.metaIcon} />
+                                <span>Timeline: Ends {ev['End Week']}</span>
+                              </div>
+                            )}
+                          </div>
+                          
+                          <p className={styles.eventDesc}>{ev['Main activity shown in plan']}</p>
+                          
+                          <Link className={`${styles.registerBtn} btn-orange`} to="/contact">
+                            Register Interest <ArrowRight size={15} />
+                          </Link>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className={styles.noEvents}>
+                  <p>No events scheduled for {selectedMonth} {selectedYear}.</p>
+                  <p className={styles.noEventsSubtitle}>Please select another month on the calendar above to browse.</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
-
-      {/* PAST HIGHLIGHTS */}
-      {/* <section className={styles.pastSection}>
-        <div className="container">
-          <div style={{ marginBottom: 40 }}>
-            <span className="section-tag reveal">What We've Done</span>
-            <h2 className={`${styles.pastSectionH} reveal d1`}>Past Event <span>Highlights</span></h2>
-          </div>
-
-          <div className={styles.pastGrid}>
-            {pastHighlights.map((ph, i) => (
-              <div key={i} className={`${styles.pastCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                <div className={styles.pastCardImg}>
-                  <img src={ph.img} alt={ph.title} />
-                </div>
-                <div className={styles.pastCardBody}>
-                  <span className={styles.pastYear}>{ph.year}</span>
-                  <h3 className={styles.pastTitle}>{ph.title}</h3>
-                  <p className={styles.pastDesc}>{ph.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className={`${styles.viewGalleryWrap} reveal`}>
-            <Link className="btn-ghost-light" to="/gallery">See Full Gallery <ArrowRight size={14} /></Link>
-          </div>
-        </div>
-      </section> */}
 
       {/* DONATE CTA */}
       <section className={styles.donateCta}>

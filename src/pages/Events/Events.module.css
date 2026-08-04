@@ -40,64 +40,234 @@
   line-height: 1.7;
 }
 
-/* ═══ Filters ═══ */
-.filterSection {
+/* ═══ Calendar Section ═══ */
+.calendarSection {
   background: var(--dark);
-  padding: 32px 0 0;
+  padding: 60px 0 80px;
 }
 
-.filterList {
+/* ═══ Loading & Error States ═══ */
+.loadingContainer,
+.errorContainer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: flex-start;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  padding-bottom: 24px;
-}
-
-.filterBtn {
-  font-family: var(--font-heading);
-  font-size: 0.88rem;
-  font-weight: 600;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px;
+  background: var(--dark2);
+  border: var(--glass-border);
+  border-radius: var(--r-lg);
   color: var(--gray-400);
-  background: rgba(255, 255, 255, 0.02);
-  border: 1.5px solid rgba(255, 255, 255, 0.06);
-  padding: 10px 22px;
-  border-radius: var(--r-md);
-  transition: all 0.25s ease;
+}
+
+.spinner {
+  color: var(--orange);
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+.errorIcon {
+  color: #ff3333;
+  margin-bottom: 16px;
+}
+
+.errorText {
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ═══ Calendar Header & Year Nav ═══ */
+.calendarHeader {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.yearNavigator {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--dark2);
+  border: var(--glass-border);
+  padding: 8px 16px;
+  border-radius: 100px;
+  box-shadow: var(--shadow-md);
+}
+
+.navBtn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
 }
 
-.filterBtn:hover {
-  border-color: rgba(255, 159, 67, 0.4);
-  color: var(--gray-200);
+.navBtn:hover:not(:disabled) {
+  background: var(--orange);
+  color: var(--black);
+  border-color: transparent;
+  box-shadow: 0 0 10px rgba(255, 159, 67, 0.3);
 }
 
-.filterBtnActive {
-  background: var(--orange-gradient) !important;
-  color: var(--black) !important;
-  border-color: transparent !important;
-  font-weight: 800;
-  box-shadow: 0 4px 15px var(--orange-glow);
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
-/* ═══ Upcoming Events ═══ */
-.upcomingSection {
-  background: var(--dark);
-  padding: 56px 0 80px;
-}
-
-.sectionH {
+.yearTitle {
   font-family: var(--font-heading);
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 800;
   color: var(--white);
+  min-width: 100px;
+  text-align: center;
+  margin: 0;
+}
+
+/* ═══ Month Card Grid ═══ */
+.monthGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-bottom: 56px;
+}
+
+.monthCard {
+  background: var(--dark2);
+  border: var(--glass-border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.monthCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 159, 67, 0.3);
+  box-shadow: var(--shadow-md), 0 0 12px rgba(255, 159, 67, 0.05);
+}
+
+.monthCardActive {
+  background: var(--orange-gradient) !important;
+  border-color: transparent !important;
+  box-shadow: 0 8px 24px var(--orange-glow) !important;
+  transform: translateY(-2px);
+}
+
+.monthCardActive .monthAbbr {
+  color: var(--black) !important;
+}
+
+.monthCardActive .monthNameFull {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.monthCardActive .eventDot {
+  background-color: var(--black) !important;
+}
+
+.monthCardActive .eventCountBadge {
+  background: rgba(0, 0, 0, 0.1) !important;
+  color: var(--black) !important;
+}
+
+.monthCardEmpty {
+  opacity: 0.55;
+}
+
+.monthCardEmpty:hover {
+  opacity: 0.95;
+}
+
+.monthAbbr {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+.monthNameFull {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.dotContainer {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  height: 8px;
+}
+
+.eventDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--orange);
+}
+
+.dotMore {
+  font-size: 0.7rem;
+  color: var(--orange);
+  font-weight: 800;
+  line-height: 1;
+}
+
+.eventCountBadge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: rgba(255, 159, 67, 0.1);
+  color: var(--orange);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+/* ═══ Events Area ═══ */
+.eventsListHeader {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+
+.eventsListTitle {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-top: 8px;
 }
 
 .eventsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 32px;
 }
 
@@ -114,74 +284,8 @@
 }
 
 .eventCard:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-xl), 0 0 20px rgba(255, 159, 67, 0.05);
-}
-
-.eventCardDate {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 10;
-  background: rgba(11, 15, 25, 0.75);
-  backdrop-filter: blur(8px);
-  border: var(--glass-border);
-  color: var(--white);
-  border-radius: var(--r-md);
-  padding: 10px 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-width: 60px;
-  box-shadow: var(--shadow-sm);
-}
-
-.evMonth {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: var(--orange);
-}
-
-.evDay {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  font-weight: 900;
-  line-height: 1.1;
-  margin: 2px 0;
-  color: #ffffff
-}
-
-.evYear {
-  font-size: 0.7rem;
-  color: #999999;
-}
-
-.eventCardImg {
-  overflow: hidden;
-  position: relative;
-  aspect-ratio: 16/9;
-}
-
-.eventCardImg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.eventCard:hover .eventCardImg img {
-  transform: scale(1.05);
-}
-
-.eventCardBody {
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl), 0 0 24px rgba(255, 159, 67, 0.05);
 }
 
 .eventTag {
@@ -195,9 +299,16 @@
   margin-bottom: 14px;
 }
 
+.eventCardBody {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .eventTitle {
   font-family: var(--font-heading);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--white);
   line-height: 1.35;
@@ -206,11 +317,17 @@
 
 .eventMeta {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 16px;
   color: var(--gray-400);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   margin-bottom: 16px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .metaIcon {
@@ -232,105 +349,34 @@
   text-align: center;
   font-size: 0.88rem;
   padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.registerBtn:hover {
+  background: var(--orange-gradient) !important;
+  color: var(--black) !important;
+  box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
 }
 
 .noEvents {
   text-align: center;
-  padding: 48px;
-  color: var(--gray-500);
-  font-size: 1.05rem;
-}
-
-/* ═══ Past Highlights ═══ */
-.pastSection {
+  padding: 56px 24px;
   background: var(--dark2);
-  padding: 80px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.pastSectionH {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--white);
-}
-
-.pastSectionH span {
-  background: var(--orange-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.pastGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.pastCard {
-  background: var(--dark3);
   border: var(--glass-border);
   border-radius: var(--r-lg);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: var(--gray-400);
 }
 
-.pastCard:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-}
-
-.pastCardImg {
-  overflow: hidden;
-  aspect-ratio: 16/10;
-}
-
-.pastCardImg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.pastCard:hover .pastCardImg img {
-  transform: scale(1.05);
-}
-
-.pastCardBody {
-  padding: 20px;
-}
-
-.pastYear {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: var(--orange);
-  background: rgba(255, 159, 67, 0.1);
-  padding: 3px 10px;
-  border-radius: 100px;
-  display: inline-block;
-  margin-bottom: 12px;
-}
-
-.pastTitle {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--white);
-  line-height: 1.35;
+.noEvents p {
+  font-size: 1.1rem;
+  font-weight: 600;
   margin-bottom: 8px;
 }
 
-.pastDesc {
-  color: var(--gray-400);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-.viewGalleryWrap {
-  text-align: center;
-  margin-top: 48px;
+.noEventsSubtitle {
+  font-size: 0.9rem !important;
+  color: var(--gray-500);
+  font-weight: 400 !important;
 }
 
 /* ═══ Donate CTA ═══ */
@@ -396,46 +442,40 @@
 }
 
 /* ═══ RESPONSIVE ═══ */
+@media (max-width: 1024px) {
+  .monthGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  .pageHero {
-    padding: 100px 0 48px;
+  .monthGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 40px;
   }
 
   .eventsGrid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
   }
 
-  .pastGrid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
+  .monthCard {
+    padding: 12px;
   }
 
-  .filterList {
-    justify-content: flex-start;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 12px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .filterBtn {
-    flex-shrink: 0;
-    padding: 8px 16px;
-    font-size: 0.82rem;
+  .monthAbbr {
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .pageHero {
-    padding: 90px 0 40px;
+  .monthGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .eventsGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .pastGrid {
     grid-template-columns: 1fr;
   }
 
@@ -448,5 +488,13 @@
 
   .eventCardBody {
     padding: 18px;
+  }
+
+  .calendarHeader {
+    margin-bottom: 24px;
+  }
+
+  .yearTitle {
+    font-size: 1.5rem;
   }
 }
