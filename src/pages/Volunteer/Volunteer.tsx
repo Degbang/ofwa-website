@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Heart, Send, CheckCircle2, Award, Users, BookOpen, MapPin, ArrowRight, Sparkles, Compass, ShieldCheck } from 'lucide-react';
+import { Send, CheckCircle2, Award, Users, BookOpen, MapPin, ArrowRight, Sparkles, Compass, ShieldCheck } from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useCountUp } from '../../hooks/useCountUp';
 import styles from './Volunteer.module.css';
@@ -378,7 +377,7 @@ const Volunteer: React.FC = () => {
       </section>
 
       {/* DONATE CTA */}
-      <section className={styles.donateCta}>
+      {/* <section className={styles.donateCta}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className={`${styles.donateCtaTag} reveal`}>Can't Volunteer Your Time?</p>
           <h2 className={`${styles.donateCtaH} reveal d1`}>Support Our Volunteers</h2>
@@ -391,7 +390,7 @@ const Volunteer: React.FC = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

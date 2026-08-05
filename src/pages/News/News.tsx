@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Heart } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { NewsModal } from '../../components/NewsModal/NewsModal';
 import type { NewsArticle } from '../../components/NewsModal/NewsModal';
@@ -213,8 +212,8 @@ const News: React.FC = () => {
               <h2 className={styles.featuredTitle}>{featuredPost.title}</h2>
               <p className={styles.featuredDesc}>{featuredPost.desc}</p>
               <p className={styles.featuredMeta}>Published · {featuredPost.date} · {featuredPost.readTime}</p>
-              <button 
-                className={`${styles.featuredLink} btn-orange`} 
+              <button
+                className={`${styles.featuredLink} btn-orange`}
                 onClick={() => setSelectedArticle(featuredPost)}
                 style={{ border: 'none', cursor: 'pointer' }}
               >
@@ -262,8 +261,8 @@ const News: React.FC = () => {
                     <p className={styles.newsCardExcerpt}>{card.excerpt}</p>
                     <div className={styles.newsCardFooter}>
                       <span className={styles.newsDate}>{card.date}</span>
-                      <button 
-                        className={styles.newsLink} 
+                      <button
+                        className={styles.newsLink}
                         onClick={() => setSelectedArticle(card)}
                         style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
                       >
@@ -291,7 +290,7 @@ const News: React.FC = () => {
       </section>
 
       {/* DONATE CTA */}
-      <section className={styles.donateCta}>
+      {/* <section className={styles.donateCta}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className={`${styles.donateCtaTag} reveal`}>Be Part of the Story</p>
           <h2 className={`${styles.donateCtaH} reveal d1`}>Help Write the Next Chapter</h2>
@@ -302,7 +301,7 @@ const News: React.FC = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <NewsModal
         article={selectedArticle}

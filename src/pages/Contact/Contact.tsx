@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Share2, Send, Plus, Minus, Heart } from 'lucide-react';
+import { Mail, Phone, MapPin, Share2, Send, Plus, Minus } from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './Contact.module.css';
 
@@ -247,7 +247,7 @@ const Contact: React.FC = () => {
               <div className={styles.contactQuick}>
                 <h3 className={styles.contactQuickH}>Quick Links</h3>
                 <div className={styles.contactQuickLinks}>
-                  <Link className={styles.contactQuickBtn} to="/donate">♥ Donate</Link>
+                  {/* <Link className={styles.contactQuickBtn} to="/donate">♥ Donate</Link> */}
                   <Link className={styles.contactQuickBtn} to="/volunteer">Volunteer</Link>
                   <Link className={`${styles.contactQuickBtn}`} to="/partner">Partner With Us</Link>
                 </div>
@@ -292,7 +292,7 @@ const Contact: React.FC = () => {
       </section>
 
       {/* DONATE CTA */}
-      <section className={styles.donateCta}>
+      {/* <section className={styles.donateCta}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className={`${styles.donateCtaTag} reveal`}>Support the Mission</p>
           <h2 className={`${styles.donateCtaH} reveal d1`}>Make a Donation Today</h2>
@@ -303,7 +303,7 @@ const Contact: React.FC = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

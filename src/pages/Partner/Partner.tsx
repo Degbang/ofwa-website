@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Heart,
   Send,
   Building2,
   GraduationCap,
@@ -495,9 +494,9 @@ const Partner: React.FC = () => {
             Not ready for an institutional partnership yet? Individual and corporate donations directly power our training programs and regional community hubs.
           </p>
           <div className={`${styles.ctaBtnsGroup} reveal d3`}>
-            <Link className={styles.btnDonateBig} to="/donate">
+            {/* <Link className={styles.btnDonateBig} to="/donate">
               <Heart size={16} fill="currentColor" /> Donate Now
-            </Link>
+            </Link> */}
             <Link className={styles.btnVolunteerOutline} to="/volunteer">
               <span>Join as Volunteer</span>
               <ArrowRight size={15} />

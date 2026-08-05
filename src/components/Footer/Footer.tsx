@@ -52,10 +52,13 @@ export const Footer: React.FC<FooterProps> = () => {
     <footer className={styles.siteFooter}>
       <div className={`container ${styles.footerGrid}`}>
         <div className={styles.brandCol}>
-          <div className={styles.brandHeader}>
-            <img className={styles.footerLogo} src="/assets/images/ofwa-logo-new.png" alt="OFWA" />
-            <h3 className={styles.footerName}>Open Foundation West Africa</h3>
-          </div>
+          <Link to="/" className={styles.brandHeader}>
+            <img className={styles.footerLogo} src="/assets/images/ofwa-logo-new.png" alt="OFWA Logo" />
+            <div className={styles.footerLogoText}>
+              <p className={styles.footerBrandOpen}>Open <span>Foundation</span></p>
+              <p className={styles.footerBrandWestAfrica}>West Africa</p>
+            </div>
+          </Link>
 
           <div className={styles.contactList}>
             <div className={styles.contactItem}>
@@ -79,9 +82,9 @@ export const Footer: React.FC<FooterProps> = () => {
         </div>
 
         <div className={styles.navGroup}>
-          <div className={styles.linksRow}>
-            <h4 className={styles.rowTitle}>Navigate</h4>
-            <ul className={styles.rowLinks}>
+          <div className={styles.linksCol}>
+            <h4 className={styles.colTitle}>Navigate</h4>
+            <ul className={styles.colLinks}>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/events">Events</Link></li>
@@ -92,18 +95,18 @@ export const Footer: React.FC<FooterProps> = () => {
             </ul>
           </div>
 
-          <div className={styles.linksRow}>
-            <h4 className={styles.rowTitle}>Get Involved</h4>
-            <ul className={styles.rowLinks}>
+          <div className={styles.linksCol}>
+            <h4 className={styles.colTitle}>Get Involved</h4>
+            <ul className={styles.colLinks}>
               <li><Link to="/donate">Donate</Link></li>
               <li><Link to="/partner">Partner With Us</Link></li>
               <li><Link to="/volunteer">Volunteer</Link></li>
             </ul>
           </div>
 
-          <div className={styles.linksRow}>
-            <h4 className={styles.rowTitle}>Follow Us</h4>
-            <ul className={styles.rowLinks}>
+          <div className={styles.linksCol}>
+            <h4 className={styles.colTitle}>Follow Us</h4>
+            <ul className={styles.colLinks}>
               <li><a href="https://www.facebook.com/ofwafrica/" target="_blank" rel="noopener noreferrer">Facebook</a></li>
               <li><a href="https://x.com/OFWAFRICA" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
               <li><a href="https://gh.linkedin.com/company/ofwafrica" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
@@ -114,7 +117,17 @@ export const Footer: React.FC<FooterProps> = () => {
       </div>
 
       <div className={`container ${styles.footerBottom}`}>
-        <p>© {currentYear} Open Foundation West Africa. All rights reserved. · Built for open knowledge.</p>
+        <p>
+          Content licensed under{' '}
+          <a
+            href="https://creativecommons.org/licenses/by-sa/4.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CC BY-SA 4.0
+          </a>{' '}
+          unless otherwise noted · © {currentYear} Open Foundation West Africa · Built for open knowledge.
+        </p>
       </div>
     </footer>
   );

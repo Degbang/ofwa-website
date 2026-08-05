@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  ArrowRight, 
-  MapPin, 
-  Heart, 
-  ChevronLeft, 
-  ChevronRight, 
-  AlertCircle, 
+import {
+  ArrowRight,
+  MapPin,
+  ChevronLeft,
+  ChevronRight,
+  AlertCircle,
   Loader2,
   Calendar
 } from 'lucide-react';
@@ -36,40 +35,40 @@ const MONTH_ABBREVIATIONS = [
 // Helper to determine if an event spans or matches the target month
 const isEventInMonth = (eventPeriod: string, targetMonth: string) => {
   if (!eventPeriod || !targetMonth) return false;
-  
+
   const period = eventPeriod.toLowerCase().trim();
   const month = targetMonth.toLowerCase().trim();
-  
+
   if (period === month) return true;
-  
+
   // Replace en-dashes, em-dashes, hyphens, and slashes with space
   const normalized = period.replace(/[-–—/]/g, ' ');
   const parts = normalized.split(/\s+/);
-  
+
   // Map words to month indices
   const monthIndices = parts
     .map(part => {
       // Find index if there is a match (either exact or prefix)
-      return MONTH_NAMES.findIndex(m => 
-        m.toLowerCase() === part || 
+      return MONTH_NAMES.findIndex(m =>
+        m.toLowerCase() === part ||
         m.toLowerCase().substring(0, 3) === part.substring(0, 3)
       );
     })
     .filter(idx => idx !== -1);
-  
+
   const targetIdx = MONTH_NAMES.indexOf(targetMonth);
   if (targetIdx === -1) return false;
-  
+
   if (monthIndices.length === 1) {
     return monthIndices[0] === targetIdx;
   }
-  
+
   if (monthIndices.length >= 2) {
     const startIdx = Math.min(...monthIndices);
     const endIdx = Math.max(...monthIndices);
     return targetIdx >= startIdx && targetIdx <= endIdx;
   }
-  
+
   return period.includes(month);
 };
 
@@ -203,8 +202,8 @@ const Events: React.FC = () => {
               {/* YEAR NAVIGATION */}
               <div className={styles.calendarHeader}>
                 <div className={styles.yearNavigator}>
-                  <button 
-                    onClick={handlePrevYear} 
+                  <button
+                    onClick={handlePrevYear}
                     disabled={uniqueYears.indexOf(selectedYear) <= 0}
                     className={styles.navBtn}
                     aria-label="Previous Year"
@@ -212,8 +211,8 @@ const Events: React.FC = () => {
                     <ChevronLeft size={20} />
                   </button>
                   <h2 className={styles.yearTitle}>{selectedYear}</h2>
-                  <button 
-                    onClick={handleNextYear} 
+                  <button
+                    onClick={handleNextYear}
                     disabled={uniqueYears.indexOf(selectedYear) >= uniqueYears.length - 1}
                     className={styles.navBtn}
                     aria-label="Next Year"
@@ -269,17 +268,17 @@ const Events: React.FC = () => {
                     const categoryName = getEventCategory(ev['Event / Programme']);
 
                     return (
-                      <article 
-                        key={i} 
+                      <article
+                        key={i}
                         className={styles.eventCard}
                       >
                         <div className={styles.eventCardBody}>
                           <span className={styles.eventTag}>
                             {categoryName}
                           </span>
-                          
+
                           <h4 className={styles.eventTitle}>{ev['Event / Programme']}</h4>
-                          
+
                           <div className={styles.eventMeta}>
                             <div className={styles.metaItem}>
                               <Calendar size={14} className={styles.metaIcon} />
@@ -292,9 +291,9 @@ const Events: React.FC = () => {
                               </div>
                             )}
                           </div>
-                          
+
                           <p className={styles.eventDesc}>{ev['Main activity shown in plan']}</p>
-                          
+
                           <Link className={`${styles.registerBtn} btn-orange`} to="/contact">
                             Register Interest <ArrowRight size={15} />
                           </Link>
@@ -315,7 +314,7 @@ const Events: React.FC = () => {
       </section>
 
       {/* DONATE CTA */}
-      <section className={styles.donateCta}>
+      {/* <section className={styles.donateCta}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className={`${styles.donateCtaTag} reveal`}>Fuel Future Events</p>
           <h2 className={`${styles.donateCtaH} reveal d1`}>Support OFWA Programs</h2>
@@ -326,7 +325,7 @@ const Events: React.FC = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

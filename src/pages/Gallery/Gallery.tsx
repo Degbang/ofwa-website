@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ZoomIn, Heart } from 'lucide-react';
+import { ZoomIn } from 'lucide-react';
 import { Lightbox } from '../../components/Lightbox/Lightbox';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './Gallery.module.css';
@@ -257,7 +256,7 @@ const Gallery: React.FC = () => {
       </section>
 
       {/* DONATE CTA */}
-      <section className={styles.donateCta}>
+      {/* <section className={styles.donateCta}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className={`${styles.donateCtaTag} reveal`}>Support the Mission</p>
           <h2 className={`${styles.donateCtaH} reveal d1`}>Make a Donation Today</h2>
@@ -268,7 +267,7 @@ const Gallery: React.FC = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 };

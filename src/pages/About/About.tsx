@@ -47,13 +47,13 @@ const values = [
 
 const members = {
   boardMembers: [
-    { name: 'Ama Serwah Nerquaye-Tetteh', role: 'Secretary', image: "/assets/images/board members/ama-serwah.jpg" },
+    { name: 'Raphael Berchie', role: 'Board Chairman/ Co-Founder', image: "/assets/images/board members/raphael-berchie.jpg" },
+    { name: 'Ama Serwah Nerquaye-Tetteh', role: 'Vice Chairperson', image: "/assets/images/board members/ama-serwah.jpg" },
     { name: 'Dr. George Tesilimi', role: 'Lecturer and Librarian- University of Health and Allied Sciences', image: "/assets/images/board members/george-tesilimi.jpg" },
     { name: 'Felix Nartey', role: 'Advisor to the Board', image: "/assets/images/board members/felix-nartey.jpg" },
     { name: 'Jesse Akrofi-Asiedu', role: 'Digital Humanist and Open Advocate', image: "/assets/images/board members/jesse-akrofi-asiedu.jpg" },
     { name: 'Jonathan Oberko', role: 'Principal Accounts - Accra Technical University', image: "/assets/images/board members/kweku-berko.jpg" },
-    { name: 'Philip Boakye Dua Oyinka', role: 'Creative Writing Trainer, Poet, Writer', image: "/assets/images/board members/nana-asaase.jpg" },
-    { name: 'Raphael Berchie', role: 'Board Chairman/ Co-Founder', image: "/assets/images/board members/raphael-berchie.jpg" },
+    { name: 'Philip Boakye Dua Oyinka', role: 'Creative Writing Trainer, Poet, Writer, Advisor', image: "/assets/images/board members/nana-asaase.jpg" },
   ],
   hubLeaders: [
     { name: 'Abdul-Rahim Ziblim', role: 'Tamale Wiki Hub Lead (President)', image: "/assets/images/hub leaders/abdul-rahim-ziblim.jpg" },

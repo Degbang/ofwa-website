@@ -480,14 +480,14 @@ const Home: React.FC = () => {
       </section>
 
       {/* ░░ DONATE CTA ░░ */}
-      <section className={styles.donateCta}>
+      {/* <section className={styles.donateCta}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className={`${styles.donateCtaTag} reveal`}>Make a Difference Today</p>
           <h2 className={`${styles.donateCtaH} reveal d1`}>Your Donation Funds<br />Free Knowledge for All</h2>
           <p className={`${styles.donateCtaSub} reveal d2`}>Every contribution — no matter the size — helps us train more women, open more hubs, and put African stories on Wikipedia for the world to read.</p>
           <div className="reveal d3"><Link className={styles.btnDonateBig} to="/donate"><Heart size={16} fill="currentColor" /> Donate Now</Link></div>
         </div>
-      </section>
+      </section> */}
 
       {/* ░░ GHANA HUBS & CLUBS MAP ░░ */}
       <section className={styles.cmsSection}>
@@ -510,7 +510,7 @@ const Home: React.FC = () => {
 
               <div className={styles.mapImageContainer}>
                 <img
-                  src="/assets/images/Ghana_Regional_Map.jpg"
+                  src="/assets/images/Ghana_Regional_Map.png"
                   alt="Ghana Regional Map"
                   className={styles.ghanaMapImage}
                 />
@@ -524,6 +524,16 @@ const Home: React.FC = () => {
                     const isHovered = reg.id === hoveredRegionId;
                     const isActive = reg.id === activeRegionId;
                     const hasHubs = reg.hubs.length > 0;
+                    const isTopHalf = reg.yPercent < 40;
+                    const isFarLeft = reg.xPercent < 30;
+                    const isFarRight = reg.xPercent > 70;
+
+                    const popupClassName = [
+                      styles.regionHoverPopup,
+                      isTopHalf ? styles.popupBelow : styles.popupAbove,
+                      isFarLeft ? styles.popupAlignLeft : isFarRight ? styles.popupAlignRight : styles.popupAlignCenter,
+                    ].filter(Boolean).join(' ');
+
                     return (
                       <div
                         key={reg.id}
@@ -546,7 +556,7 @@ const Home: React.FC = () => {
 
                         {/* Hover Popup Card - Only visible when actively hovered */}
                         {isHovered && (
-                          <div className={styles.regionHoverPopup}>
+                          <div className={popupClassName}>
                             <div className={styles.popupTop}>
                               <div>
                                 <span className={styles.popupRegionTag}>{reg.shortName}</span>
