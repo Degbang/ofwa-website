@@ -395,6 +395,34 @@
   align-self: center;
 }
 
+@media (max-width: 900px) {
+  .missionContentWrapper {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .missionContentCompact {
+    flex: none;
+    padding: 0;
+    align-items: flex-start;
+  }
+
+  .missionContentCompact span {
+    font-size: 2.2rem;
+    margin-top: 0;
+  }
+
+  .missionText {
+    flex: none;
+    padding: 0;
+    border-left: none;
+  }
+
+  .missionText h3 {
+    font-size: 1.4rem;
+  }
+}
+
 /* ===================== MISSION & GALLERY CONTAINER ===================== */
 .missionGalleryContainer {
   width: 100%;
@@ -662,6 +690,10 @@
 
   .galleryThumbs {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .galleryFeatured {
+    height: 260px;
   }
 }
 
