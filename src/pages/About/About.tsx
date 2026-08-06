@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Users, Scale, Lightbulb, ShieldCheck, UtensilsCrossed } from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
@@ -44,6 +44,11 @@ const values = [
   },
 ];
 
+interface DriveFile {
+  id: string;
+  name: string;
+}
+
 
 const members = {
   boardMembers: [
@@ -70,12 +75,48 @@ const members = {
   ],
   coreTeam: [
     { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
+    { name: 'Brian Ayiku Ocansey', role: 'Admin and Programs Coordinator', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
+    { name: 'Dickson Kojo Anane', role: 'Programs Officer', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
+    { name: 'Alfred Degbang', role: 'Technical Coordinator', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
+    { name: 'Edmund Quansah', role: 'Media Strategist', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
   ]
 };
 
 const About: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'boardMembers' | 'coreTeam' | 'hubLeaders'>('boardMembers');
   useScrollReveal(activeTab);
+  const [teamImages, setTeamImages] = useState<any[]>([]);
+
+
+  console.log("teamImages", teamImages);
+  console.log("teamMembers", members.coreTeam);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+      const folder = import.meta.env.VITE_TEAM_FOLDER;
+      const url = `https://www.googleapis.com/drive/v3/files?q='${folder}' in parents and mimeType starts with 'image/' and trashed = false&fields=files(id,name)&key=${apiKey}`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+      const files: DriveFile[] = data.files || [];
+
+      return files.map((file) => ({
+        full: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
+        alt: file.name.split('.')[0] || file.name,
+        cat: 'Team',
+        categories: ['team'],
+      }));
+    }
+
+    fetchImages().then((images) => {
+      setTeamImages(images);
+      members["coreTeam"].forEach((member) => {
+        member.image = images.find((image) => image.alt === member.name)?.full || member.image;
+      })
+    })
+
+  }, [])
 
   return (
     <>

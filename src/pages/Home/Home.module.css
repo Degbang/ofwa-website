@@ -928,6 +928,7 @@
   color: var(--white);
   position: relative;
   overflow: hidden;
+  min-height: 100vh;
 }
 
 .cmsSection::before {
@@ -974,9 +975,9 @@
 /* Outer Map Card */
 .mapCardOuter {
   width: 100%;
-  background: radial-gradient(circle at 50% 40%, rgba(255, 159, 67, 0.06) 0%, rgba(15, 23, 42, 0.6) 70%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: var(--r-xl, 24px);
+  /* background: radial-gradient(circle at 50% 40%, rgba(255, 159, 67, 0.06) 0%, rgba(15, 23, 42, 0.6) 70%); */
+  /* border: 1px solid rgba(255, 255, 255, 0.06); */
+  /* border-radius: var(--r-xl, 24px); */
   padding: 20px 16px;
   backdrop-filter: blur(16px);
   position: relative;
@@ -1030,6 +1031,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  /* border: 1px solid red; */
 }
 
 /* Hotspots */
@@ -1042,6 +1044,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 1px solid red; */
 }
 
 .regionHotspot:hover,
@@ -1143,12 +1146,12 @@
 .regionHoverPopup {
   position: absolute;
   width: 290px;
-  background: rgba(15, 23, 42, 0.98);
-  border: 1.5px solid rgba(255, 159, 67, 0.5);
+  background: #ffffff;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
   border-radius: 16px;
   padding: 16px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 159, 67, 0.25);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.04);
   z-index: 99999;
   pointer-events: auto;
   text-align: left;
@@ -1212,7 +1215,7 @@
   gap: 12px;
   margin-bottom: 14px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .popupRegionTag {
@@ -1228,13 +1231,13 @@
   font-family: var(--font-heading);
   font-size: 1.15rem;
   font-weight: 800;
-  color: var(--white);
+  color: var(--gray-900, #1a1a2e);
   margin: 2px 0;
 }
 
 .popupCapital {
   font-size: 0.78rem;
-  color: var(--gray-400);
+  color: var(--gray-500, #6b7280);
   display: block;
 }
 
@@ -1247,6 +1250,10 @@
   padding: 4px 10px;
   border-radius: 100px;
   white-space: nowrap;
+}
+
+.popupClassName {
+  background: #ffffff !important;
 }
 
 .popupHubsList {
@@ -1262,8 +1269,8 @@
   display: flex;
   gap: 12px;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   transition: all 0.2s ease;
   cursor: pointer;
@@ -1298,21 +1305,23 @@
   margin-bottom: 2px;
 }
 
+
+
 .popupHubName {
   font-family: var(--font-heading);
   font-size: 0.9rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--gray-900, #1a1a2e);
 }
 
 .popupHubLoc {
   font-size: 0.78rem;
-  color: var(--gray-300);
+  color: var(--gray-500, #6b7280);
 }
 
 .popupHubDetail {
   font-size: 0.72rem;
-  color: var(--gray-400);
+  color: var(--gray-500, #6b7280);
 }
 
 .popupEmptyState {
@@ -1322,7 +1331,7 @@
 
 .popupEmptyState p {
   font-size: 0.82rem;
-  color: var(--gray-300);
+  color: var(--gray-500, #6b7280);
   margin-bottom: 12px;
   line-height: 1.4;
 }
@@ -2092,7 +2101,7 @@
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: grayscale(100%);
+  /* filter: grayscale(100%); */
   mix-blend-mode: multiply;
   opacity: 0.75;
   transition: all 0.4s ease;
@@ -2215,14 +2224,17 @@
   .testimonialEventsContainer .testimonialSection {
     margin-bottom: 12px;
   }
+
   .testimonialEventsContainer .testimonialMark {
     font-size: 4rem;
     line-height: 0.5;
   }
+
   .testimonialEventsContainer .testimonialText {
     font-size: 1.15rem;
     margin-bottom: 12px;
   }
+
   .testimonialEventsContainer .sectionHeader {
     margin-bottom: 16px;
   }
