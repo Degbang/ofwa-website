@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Play, ChevronLeft, ChevronRight, ArrowRight, MapPin } from 'lucide-react';
+import { Play, ChevronLeft, ChevronRight, ArrowRight, MapPin } from 'lucide-react';
 import { VideoModal } from '../../components/VideoModal/VideoModal';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useCountUp } from '../../hooks/useCountUp';
@@ -270,7 +270,7 @@ const missionPhotos = [
 const StatItem: React.FC<{ end: number; suffix?: string; label: string; delay?: string }> = ({ end, suffix = '', label, delay }) => {
   const { formattedCount, elementRef } = useCountUp({ end, suffix });
   return (
-    <div className={`${styles.statItem} reveal ${delay || ''}`} ref={elementRef as React.Ref<HTMLDivElement>}>
+    <div className={`${styles.statItem} ${delay || ''}`} ref={elementRef as React.Ref<HTMLDivElement>}>
       <strong className={styles.statNum}>{formattedCount}</strong>
       <span className={styles.statLabel}>{label}</span>
     </div>
@@ -332,62 +332,65 @@ const Home: React.FC = () => {
       <VideoModal videoId={videoId} onClose={() => setVideoId(null)} />
 
       {/* ░░ HERO ░░ */}
-      <section className={styles.hero} aria-label="Hero">
-        {heroSlides.map((s, i) => (
-          <div key={i} className={`${styles.heroSlide} ${i === heroIdx ? styles.heroSlideActive : ''}`}>
-            <img src={s.src} alt={s.alt} />
-          </div>
-        ))}
-        <div className={styles.heroOverlay} />
-        <div className={styles.heroContent}>
-          <div className="container">
-            <p className={`${styles.heroKicker} reveal`}>Open Knowledge · Women's Empowerment · West Africa</p>
-            <h1 className={`${styles.heroTitle} reveal d1`}>
-              Building Africa's<br />
-              <span>Open Knowledge</span><br />
-              Future, Together.
-            </h1>
-            <p className={`${styles.heroSub} reveal d2`}>Empowering women and communities to contribute to, access, and lead in the global open knowledge movement.</p>
-            <div className={`${styles.heroCtas} reveal d3`}>
-              <Link className={styles.btnDonateHero} to="/donate">
-                <Heart size={16} fill="currentColor" /> Donate Now — Change a Life
-              </Link>
-              <button className={styles.btnPlayHero} onClick={() => setVideoId('cXnO3a2_bLU')}>
-                <span className={styles.playCircle}><Play size={18} fill="currentColor" /></span>
-                Watch Our Story
-              </button>
+      <div className={styles.heroContainer}>
+
+        <section className={styles.hero} aria-label="Hero">
+          {heroSlides.map((s, i) => (
+            <div key={i} className={`${styles.heroSlide} ${i === heroIdx ? styles.heroSlideActive : ''}`}>
+              <img src={s.src} alt={s.alt} />
+            </div>
+          ))}
+          <div className={styles.heroOverlay} />
+          <div className={styles.heroContent}>
+            <div className="container">
+              <p className={`${styles.heroKicker} reveal`}>Open Knowledge · Women's Empowerment · West Africa</p>
+              <h1 className={`${styles.heroTitle} reveal d1`}>
+                Building Africa's<br />
+                <span>Open Knowledge</span><br />
+                Future, Together.
+              </h1>
+              <p className={`${styles.heroSub} reveal d2`}>Empowering women and communities to contribute to, access, and lead in the global open knowledge movement.</p>
+              <div className={`${styles.heroCtas} reveal d3`}>
+                {/* <Link className={styles.btnDonateHero} to="/donate">
+                  <Heart size={16} fill="currentColor" /> Donate Now — Change a Life
+                </Link> */}
+                <button className={styles.btnPlayHero} onClick={() => setVideoId('cXnO3a2_bLU')}>
+                  <span className={styles.playCircle}><Play size={18} fill="currentColor" /></span>
+                  Watch Our Story
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <button className={`${styles.heroArrow} ${styles.heroArrowPrev}`} onClick={() => heroGoTo(heroIdx - 1)} aria-label="Previous slide"><ChevronLeft size={28} /></button>
-        <button className={`${styles.heroArrow} ${styles.heroArrowNext}`} onClick={() => heroGoTo(heroIdx + 1)} aria-label="Next slide"><ChevronRight size={28} /></button>
-        <div className={styles.heroDots}>
-          {heroSlides.map((_, i) => (
-            <button key={i} className={`${styles.heroDot} ${i === heroIdx ? styles.heroDotActive : ''}`} onClick={() => setHeroIdx(i)} aria-label={`Slide ${i + 1}`} />
-          ))}
-        </div>
-      </section>
-
-      {/* ░░ MARQUEE ░░ */}
-      <div className={styles.marqueeBand} aria-hidden="true">
-        <div className={styles.marqueeTrack}>
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span key={i} className={styles.marqueeItem}>{item} <span className={styles.marqueeSep}>✦</span></span>
-          ))}
-        </div>
-      </div>
-
-      {/* ░░ STATS ░░ */}
-      <section className={styles.statsBand}>
-        <div className="container">
-          <div className={styles.statsGrid}>
-            <StatItem end={40} suffix="K+" label="Wikipedia Articles Created" />
-            <StatItem end={18} label="Communities Impacted" delay="d1" />
-            <StatItem end={24} label="Campaigns Launched" delay="d2" />
-            <StatItem end={12} label="Active Clubs & Hubs" delay="d3" />
+          <button className={`${styles.heroArrow} ${styles.heroArrowPrev}`} onClick={() => heroGoTo(heroIdx - 1)} aria-label="Previous slide"><ChevronLeft size={28} /></button>
+          <button className={`${styles.heroArrow} ${styles.heroArrowNext}`} onClick={() => heroGoTo(heroIdx + 1)} aria-label="Next slide"><ChevronRight size={28} /></button>
+          <div className={styles.heroDots}>
+            {heroSlides.map((_, i) => (
+              <button key={i} className={`${styles.heroDot} ${i === heroIdx ? styles.heroDotActive : ''}`} onClick={() => setHeroIdx(i)} aria-label={`Slide ${i + 1}`} />
+            ))}
+          </div>
+        </section>
+        {/* ░░ MARQUEE ░░ */}
+        <div className={styles.marqueeBand} aria-hidden="true">
+          <div className={styles.marqueeTrack}>
+            {[...marqueeItems, ...marqueeItems].map((item, i) => (
+              <span key={i} className={styles.marqueeItem}>{item} <span className={styles.marqueeSep}>✦</span></span>
+            ))}
           </div>
         </div>
-      </section>
+
+        {/* ░░ STATS ░░ */}
+        <section className={styles.statsBand}>
+          <div className="container">
+            <div className={styles.statsGrid}>
+              <StatItem end={40} suffix="K+" label="Wikipedia Articles Created" />
+              <StatItem end={18} label="Communities Impacted" delay="d1" />
+              <StatItem end={24} label="Campaigns Launched" delay="d2" />
+              <StatItem end={12} label="Active Clubs & Hubs" delay="d3" />
+            </div>
+          </div>
+        </section>
+      </div>
+
 
       {/* ░░ MISSION ░░ */}
       <section className={styles.missionSection}>

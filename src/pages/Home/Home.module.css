@@ -1,10 +1,44 @@
 /* ===================== HERO ===================== */
+.heroContainer {
+  width: 100%;
+  background-color: var(--black);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop layout: force to fit exactly one viewport height */
+/* Desktop layout: force to fit exactly one viewport height minus navbar height */
+@media (min-width: 992px) {
+  .heroContainer {
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    overflow: hidden;
+  }
+}
+
+/* Mobile/Tablet layout: allow natural scrolling */
+@media (max-width: 991px) {
+  .heroContainer {
+    min-height: calc(100vh - var(--nav-h));
+    min-height: calc(100dvh - var(--nav-h));
+  }
+}
+
 .hero {
   position: relative;
-  height: 100vh;
-  min-height: 600px;
   overflow: hidden;
   background: var(--black);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .hero {
+    min-height: 480px;
+    flex: none;
+  }
 }
 
 .heroSlide {
@@ -45,7 +79,7 @@
 
 .heroKicker {
   font-family: var(--font-heading);
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -56,6 +90,7 @@
 .heroTitle {
   font-family: var(--font-heading);
   font-size: clamp(2.8rem, 7vw, 5.5rem);
+  /* font-size: 2.8rem; */
   font-weight: 900;
   line-height: 1.05;
   color: var(--white);
@@ -201,17 +236,23 @@
 /* ===================== MARQUEE ===================== */
 .marqueeBand {
   background: var(--dark2);
-  padding: 16px 0;
+  padding: 10px 0;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  flex-shrink: 0;
 }
 
 .marqueeTrack {
   display: flex;
+  width: max-content;
   gap: 0;
   white-space: nowrap;
   animation: marquee 40s linear infinite;
+}
+
+.marqueeBand:hover .marqueeTrack {
+  animation-play-state: paused;
 }
 
 .marqueeItem {
@@ -227,11 +268,29 @@
   margin: 0 8px;
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 /* ===================== STATS ===================== */
 .statsBand {
   background: var(--dark);
-  padding: 64px 0;
+  padding: 5px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 991px) {
+  .statsBand {
+    padding: 24px 0;
+  }
 }
 
 .statsGrid {
@@ -244,20 +303,20 @@
 .statItem {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
 }
 
 .statNum {
   font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 4vw, 3.5rem);
-  font-weight: 900;
+  font-size: 1.3rem;
+  font-weight: 700;
   background: var(--orange-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .statLabel {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: var(--gray-400);
   font-weight: 500;
 }
@@ -1024,6 +1083,7 @@
     opacity: 0;
     scale: 0.92;
   }
+
   to {
     opacity: 1;
     scale: 1;
@@ -1035,6 +1095,7 @@
     opacity: 0;
     scale: 0.92;
   }
+
   to {
     opacity: 1;
     scale: 1;
@@ -1999,4 +2060,4 @@
   .mapCardOuter {
     padding: 20px 14px;
   }
-}
+}

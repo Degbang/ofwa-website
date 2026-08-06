@@ -24,11 +24,11 @@ export const Navbar: React.FC = () => {
       <div className={`container ${styles.navInner}`}>
         <NavLink to="/" className={styles.navLogo} onClick={closeMenu}>
           <img src="/assets/images/ofwa-logo-new.png" alt="OFWA Logo" />
-          <div className={styles.navLogoText}>
+          {/* <div className={styles.navLogoText}>
             <p className={styles.open}>Open <span>Foundation</span></p>
             <p className={styles.westAfrica}>West Africa</p>
 
-          </div>
+          </div> */}
 
 
         </NavLink>

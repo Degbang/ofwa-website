@@ -54,10 +54,10 @@ export const Footer: React.FC<FooterProps> = () => {
         <div className={styles.brandCol}>
           <Link to="/" className={styles.brandHeader}>
             <img className={styles.footerLogo} src="/assets/images/ofwa-logo-new.png" alt="OFWA Logo" />
-            <div className={styles.footerLogoText}>
+            {/* <div className={styles.footerLogoText}>
               <p className={styles.footerBrandOpen}>Open <span>Foundation</span></p>
               <p className={styles.footerBrandWestAfrica}>West Africa</p>
-            </div>
+            </div> */}
           </Link>
 
           <div className={styles.contactList}>
