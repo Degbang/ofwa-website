@@ -52,15 +52,21 @@ const Contact: React.FC = () => {
     setStatus('submitting');
 
     const web3formsId = import.meta.env.VITE_WEB3FORMS_CONTACT_ID;
+    const newFormData = new FormData();
+    newFormData.append('name', formData.name);
+    newFormData.append('email', formData.email);
+    newFormData.append('subject', formData.subject);
+    newFormData.append('message', formData.message);
+    newFormData.append('access_key', web3formsId!);
 
     if (web3formsId) {
       try {
-        const response = await fetch(`https://formspree.io/f/${web3formsId}`, {
+        const response = await fetch("https://api.web3forms.com/submit", {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+          body: newFormData,
         });
-        if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
           setStatus('success');
           setFormData({ name: '', email: '', subject: '', message: '' });
         } else {

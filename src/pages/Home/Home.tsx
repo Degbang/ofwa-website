@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, ChevronLeft, ChevronRight, ArrowRight, MapPin } from 'lucide-react';
 import { VideoModal } from '../../components/VideoModal/VideoModal';
+import { HubModal } from '../../components/HubModal/HubModal';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useCountUp } from '../../hooks/useCountUp';
 import styles from './Home.module.css';
@@ -259,12 +260,6 @@ const newsCards = [
 ];
 
 
-const missionPhotos = [
-  '/assets/images/blog-photo-1.png',
-  '/assets/images/hub-photo-1.png',
-  '/assets/images/hub-photo-4.png',
-  '/assets/images/about-hero.png',
-];
 
 /* ── Stat Counter Component ──────────────────────── */
 const StatItem: React.FC<{ end: number; suffix?: string; label: string; delay?: string }> = ({ end, suffix = '', label, delay }) => {
@@ -291,12 +286,7 @@ const Home: React.FC = () => {
     return () => clearInterval(timer);
   }, [heroIdx, heroGoTo]);
 
-  // Mission photo stack
-  const [missionIdx, setMissionIdx] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => setMissionIdx(i => (i + 1) % missionPhotos.length), 4000);
-    return () => clearInterval(timer);
-  }, []);
+
 
   // Gallery carousel
   const [galleryIdx, setGalleryIdx] = useState(0);
@@ -306,6 +296,9 @@ const Home: React.FC = () => {
 
   // Video modal
   const [videoId, setVideoId] = useState<string | null>(null);
+
+  // Hub details & join modal
+  const [selectedHub, setSelectedHub] = useState<HubItem | null>(null);
 
   // Active region for Ghana map
   const [hoveredRegionId, setHoveredRegionId] = useState<string | null>(null);
@@ -330,6 +323,7 @@ const Home: React.FC = () => {
   return (
     <>
       <VideoModal videoId={videoId} onClose={() => setVideoId(null)} />
+      <HubModal hub={selectedHub} onClose={() => setSelectedHub(null)} />
 
       {/* ░░ HERO ░░ */}
       <div className={styles.heroContainer}>
@@ -378,7 +372,69 @@ const Home: React.FC = () => {
           </div>
         </div>
 
+      </div>
+
+
+      {/* ░░ MISSION & GALLERY FRAME ░░ */}
+      <div className={styles.missionGalleryContainer}>
+        {/* ░░ MISSION SECTION (No Image) ░░ */}
+        <section className={styles.missionSection}>
+          <div className={`container ${styles.missionContentWrapper}`}>
+            <div className={styles.missionContentCompact}>
+              <span className="section-tag reveal">Who We Are</span>
+            </div>
+            <div className={styles.missionText}>
+              <h3 className="section-h reveal d1">Driving Open Knowledge Across West Africa</h3>
+              <p className="section-body reveal d2">Open Foundation West Africa (OFWA) is a nonprofit that creates spaces where women participate, contribute, and lead in open knowledge ecosystems — from Wikipedia editing to open education and digital skills training.</p>
+              <div className={styles.missionCtaRow}>
+                <Link className="btn-orange reveal d3" to="/about">Our Full Story <ArrowRight size={16} /></Link>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ░░ GALLERY CAROUSEL ░░ */}
+        <section className={styles.galleryCarouselSection}>
+          <div className="container">
+            {/* <div className={styles.galleryCarouselHead}>
+              <h2 className={`${styles.galleryCarouselH} reveal`}>Our Work in <em>Pictures</em></h2>
+              <Link className={`${styles.linkOrange} reveal d1`} to="/gallery">View Full Gallery <ArrowRight size={14} /></Link>
+            </div> */}
+            <div className={`${styles.galleryCarousel} reveal`}>
+              <div className={styles.galleryFeatured}>
+                <img src={galleryThumbs[galleryIdx].img} alt={galleryThumbs[galleryIdx].title} className={styles.galleryFeaturedImg} />
+                <div className={styles.galleryFeaturedOverlay} />
+                <button className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`} onClick={() => galGoTo(galleryIdx - 1)} aria-label="Previous photo">
+                  <ChevronLeft size={22} />
+                </button>
+                <button className={`${styles.galleryArrow} ${styles.galleryArrowNext}`} onClick={() => galGoTo(galleryIdx + 1)} aria-label="Next photo">
+                  <ChevronRight size={22} />
+                </button>
+                <div className={styles.galleryFeaturedInfo}>
+                  <span className={styles.galleryFeaturedCat}>{galleryThumbs[galleryIdx].cat}</span>
+                  <p className={styles.galleryFeaturedTitle}>{galleryThumbs[galleryIdx].title}</p>
+                </div>
+                <span className={styles.galleryFeaturedCount}>{galleryIdx + 1} / {galleryThumbs.length}</span>
+              </div>
+              {/* <div className={styles.galleryThumbs}>
+                {galleryThumbs.map((t, i) => (
+                  <div key={i} className={`${styles.galleryThumb} ${i === galleryIdx ? styles.galleryThumbActive : ''}`} onClick={() => setGalleryIdx(i)}>
+                    <img src={t.img} alt={t.label} />
+                    <div className={styles.galleryThumbOverlay} />
+                    <span className={styles.galleryThumbLabel}>{t.label}</span>
+                  </div>
+                ))}
+              </div> */}
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* ░░ STATS & VIDEOS FRAME ░░ */}
+      <div className={styles.statsVideoContainer}>
         {/* ░░ STATS ░░ */}
+        <p className={`section-tag reveal ${styles.statsTag}`}>Our Impact in Numbers</p>
         <section className={styles.statsBand}>
           <div className="container">
             <div className={styles.statsGrid}>
@@ -389,98 +445,32 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
+
+        {/* ░░ VIDEOS ░░ */}
+        <section className={styles.videoSection}>
+          <div className="container">
+            <div className={styles.videoSectionHead}>
+              <h2 className="section-h reveal d1">Watch Our Impact</h2>
+              <p className={`${styles.videoSectionSub} reveal d2`}>Real stories, real communities, real change — straight from OFWA's YouTube channel.</p>
+            </div>
+            <div className={`${styles.videoGrid} reveal`}>
+              {videos.map((v) => (
+                <div key={v.id} className={styles.videoCard} onClick={() => setVideoId(v.id)} role="button" tabIndex={0} aria-label={`Play: ${v.title}`} onKeyDown={e => e.key === 'Enter' && setVideoId(v.id)}>
+                  <img src={v.img} alt={v.title} />
+                  <div className={styles.videoCardOverlay}>
+                    <div className={styles.videoPlayBtn}><Play size={22} fill="currentColor" /></div>
+                    <p className={styles.videoCardTitle}>{v.title}</p>
+                    <p className={styles.videoCardMeta}>{v.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className={styles.viewMoreWrap}>
+              <a className="btn-ghost-light reveal" href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener noreferrer">Watch All Videos on YouTube <ArrowRight size={14} /></a>
+            </div>
+          </div>
+        </section>
       </div>
-
-
-      {/* ░░ MISSION ░░ */}
-      <section className={styles.missionSection}>
-        <div className={styles.missionInner}>
-          <div className={styles.photoStackWrap}>
-            <div className={styles.photoStack} onClick={() => setMissionIdx(i => (i + 1) % missionPhotos.length)}>
-              {missionPhotos.map((src, i) => (
-                <div key={i} className={`${styles.stackPhoto} ${i === missionIdx ? styles.stackPhotoActive : ''}`}>
-                  <img src={src} alt={`OFWA photo ${i + 1}`} />
-                </div>
-              ))}
-              <div className={styles.stackCounter}>
-                {missionPhotos.map((_, i) => (
-                  <span key={i} className={`${styles.stackDot} ${i === missionIdx ? styles.stackDotActive : ''}`} />
-                ))}
-              </div>
-              <span className={styles.stackHint}>Click to explore →</span>
-            </div>
-          </div>
-          <div className={styles.missionContent}>
-            <span className="section-tag reveal">Who We Are</span>
-            <h2 className="section-h reveal d1">Driving Open Knowledge Across West Africa</h2>
-            <p className="section-body reveal d2">Open Foundation West Africa (OFWA) is a nonprofit that creates spaces where women participate, contribute, and lead in open knowledge ecosystems — from Wikipedia editing to open education and digital skills training.</p>
-            <p className="section-body reveal d3" style={{ marginBottom: 32 }}>Our hubs across Ghana serve as living laboratories for open knowledge, where communities come together to put African stories on the global stage.</p>
-            <Link className="btn-orange reveal d4" to="/about">Our Full Story <ArrowRight size={16} /></Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ░░ GALLERY CAROUSEL ░░ */}
-      <section className={styles.galleryCarouselSection}>
-        <div className="container">
-          <div className={styles.galleryCarouselHead}>
-            <h2 className={`${styles.galleryCarouselH} reveal`}>Our Work in <em>Pictures</em></h2>
-            <Link className={`${styles.linkOrange} reveal d1`} to="/gallery">View Full Gallery <ArrowRight size={14} /></Link>
-          </div>
-          <div className={`${styles.galleryCarousel} reveal`}>
-            <div className={styles.galleryFeatured}>
-              <img src={galleryThumbs[galleryIdx].img} alt={galleryThumbs[galleryIdx].title} className={styles.galleryFeaturedImg} />
-              <div className={styles.galleryFeaturedOverlay} />
-              <button className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`} onClick={() => galGoTo(galleryIdx - 1)} aria-label="Previous photo">
-                <ChevronLeft size={22} />
-              </button>
-              <button className={`${styles.galleryArrow} ${styles.galleryArrowNext}`} onClick={() => galGoTo(galleryIdx + 1)} aria-label="Next photo">
-                <ChevronRight size={22} />
-              </button>
-              <div className={styles.galleryFeaturedInfo}>
-                <span className={styles.galleryFeaturedCat}>{galleryThumbs[galleryIdx].cat}</span>
-                <p className={styles.galleryFeaturedTitle}>{galleryThumbs[galleryIdx].title}</p>
-              </div>
-              <span className={styles.galleryFeaturedCount}>{galleryIdx + 1} / {galleryThumbs.length}</span>
-            </div>
-            <div className={styles.galleryThumbs}>
-              {galleryThumbs.map((t, i) => (
-                <div key={i} className={`${styles.galleryThumb} ${i === galleryIdx ? styles.galleryThumbActive : ''}`} onClick={() => setGalleryIdx(i)}>
-                  <img src={t.img} alt={t.label} />
-                  <div className={styles.galleryThumbOverlay} />
-                  <span className={styles.galleryThumbLabel}>{t.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ░░ VIDEOS ░░ */}
-      <section className={styles.videoSection}>
-        <div className="container">
-          <div className={styles.videoSectionHead}>
-            <p className="section-tag reveal">Projects in Action</p>
-            <h2 className="section-h reveal d1">Watch Our Impact</h2>
-            <p className={`${styles.videoSectionSub} reveal d2`}>Real stories, real communities, real change — straight from OFWA's YouTube channel.</p>
-          </div>
-          <div className={`${styles.videoGrid} reveal`}>
-            {videos.map((v) => (
-              <div key={v.id} className={styles.videoCard} onClick={() => setVideoId(v.id)} role="button" tabIndex={0} aria-label={`Play: ${v.title}`} onKeyDown={e => e.key === 'Enter' && setVideoId(v.id)}>
-                <img src={v.img} alt={v.title} />
-                <div className={styles.videoCardOverlay}>
-                  <div className={styles.videoPlayBtn}><Play size={22} fill="currentColor" /></div>
-                  <p className={styles.videoCardTitle}>{v.title}</p>
-                  <p className={styles.videoCardMeta}>{v.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className={styles.viewMoreWrap}>
-            <a className="btn-ghost-light reveal" href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener noreferrer">Watch All Videos on YouTube <ArrowRight size={14} /></a>
-          </div>
-        </div>
-      </section>
 
       {/* ░░ DONATE CTA ░░ */}
       {/* <section className={styles.donateCta}>
@@ -574,7 +564,14 @@ const Home: React.FC = () => {
                             {reg.hubs.length > 0 ? (
                               <div className={styles.popupHubsList}>
                                 {reg.hubs.map((hub, idx) => (
-                                  <div key={idx} className={styles.popupHubItem}>
+                                  <div
+                                    key={idx}
+                                    className={styles.popupHubItem}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setSelectedHub(hub);
+                                    }}
+                                  >
                                     <div className={styles.popupHubIcon}><MapPin size={16} /></div>
                                     <div className={styles.popupHubInfo}>
                                       <div className={styles.popupHubTitleRow}>
@@ -685,39 +682,54 @@ const Home: React.FC = () => {
       </section>
 
 
-      {/* ░░ EVENTS ░░ */}
-      <section className={styles.eventsSection}>
-        <div className="container">
-          <div className={styles.sectionHeader}>
-            <div>
-              <p className="section-tag reveal">What's Coming</p>
-              <h2 className="section-h reveal d1" style={{ color: 'var(--white)' }}>Upcoming Events</h2>
+      {/* ░░ TESTIMONIAL & EVENTS FRAME ░░ */}
+      <div className={styles.testimonialEventsContainer}>
+        {/* ░░ TESTIMONIAL ░░ */}
+        <section className={styles.testimonialSection}>
+          <div className="container">
+            <div className={styles.testimonialInner}>
+              <span className={`${styles.testimonialMark} reveal`}>"</span>
+              <p className={`${styles.testimonialText} reveal d1`}>Open Foundation West Africa is at the center of the world here in Washington — getting all knowledge across the world open and free to everyone.</p>
+              <p className={`${styles.testimonialAuthor} reveal d2`}>Carlson Middleton</p>
+              <p className={`${styles.testimonialPlace} reveal d2`}>Washington, DC</p>
             </div>
-            <Link className="btn-ghost reveal d2" to="/events">All Events <ArrowRight size={14} /></Link>
           </div>
-          <div className={styles.eventsContainer}>
-            <button className={`${styles.eventsArrow} ${styles.eventsArrowLeft}`} onClick={() => scrollEvents('left')} aria-label="Scroll left"><ChevronLeft size={24} /></button>
-            <div ref={eventsScrollRef} className={styles.eventsScrollWrap}>
-              <div className={`${styles.eventsRow} reveal`}>
-                {events.map((ev, i) => (
-                  <div key={i} className={styles.eventCardH}>
-                    <div className={styles.eventCardHImg}>
-                      <img src={ev.img} alt={ev.title} />
-                      <span className={styles.eventDatePill}>{ev.date}</span>
-                    </div>
-                    <div className={styles.eventCardHBody}>
-                      <h3 className={styles.eventCardHTitle}>{ev.title}</h3>
-                      <p className={styles.eventCardHMeta}>{ev.meta}</p>
-                    </div>
-                    <Link className={styles.eventCardHCta} to="/events">Register Now</Link>
-                  </div>
-                ))}
+        </section>
+
+        {/* ░░ EVENTS ░░ */}
+        <section className={styles.eventsSection}>
+          <div className="container">
+            <div className={styles.sectionHeader}>
+              <div>
+                <p className="section-tag reveal">What's Coming</p>
+                <h2 className="section-h reveal d1" style={{ color: 'var(--white)' }}>Upcoming Events</h2>
               </div>
+              <Link className="btn-ghost reveal d2" to="/events">All Events <ArrowRight size={14} /></Link>
             </div>
-            <button className={`${styles.eventsArrow} ${styles.eventsArrowRight}`} onClick={() => scrollEvents('right')} aria-label="Scroll right"><ChevronRight size={24} /></button>
+            <div className={styles.eventsContainer}>
+              <button className={`${styles.eventsArrow} ${styles.eventsArrowLeft}`} onClick={() => scrollEvents('left')} aria-label="Scroll left"><ChevronLeft size={24} /></button>
+              <div ref={eventsScrollRef} className={styles.eventsScrollWrap}>
+                <div className={`${styles.eventsRow} reveal`}>
+                  {events.map((ev, i) => (
+                    <div key={i} className={styles.eventCardH}>
+                      <div className={styles.eventCardHImg}>
+                        <img src={ev.img} alt={ev.title} />
+                        <span className={styles.eventDatePill}>{ev.date}</span>
+                      </div>
+                      <div className={styles.eventCardHBody}>
+                        <h3 className={styles.eventCardHTitle}>{ev.title}</h3>
+                        <p className={styles.eventCardHMeta}>{ev.meta}</p>
+                      </div>
+                      <Link className={styles.eventCardHCta} to="/events">Register Now</Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <button className={`${styles.eventsArrow} ${styles.eventsArrowRight}`} onClick={() => scrollEvents('right')} aria-label="Scroll right"><ChevronRight size={24} /></button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* ░░ NEWS ░░ */}
       <section className={styles.newsSection}>
@@ -747,17 +759,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ░░ TESTIMONIAL ░░ */}
-      <section className={styles.testimonialSection}>
-        <div className="container">
-          <div className={styles.testimonialInner}>
-            <span className={`${styles.testimonialMark} reveal`}>"</span>
-            <p className={`${styles.testimonialText} reveal d1`}>Open Foundation West Africa is at the center of the world here in Washington — getting all knowledge across the world open and free to everyone.</p>
-            <p className={`${styles.testimonialAuthor} reveal d2`}>Carlson Middleton</p>
-            <p className={`${styles.testimonialPlace} reveal d2`}>Washington, DC</p>
-          </div>
-        </div>
-      </section>
+
 
       {/* ░░ PARTNERS ░░ */}
       <section className={styles.partnersStrip}>
