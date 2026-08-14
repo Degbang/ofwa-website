@@ -169,7 +169,7 @@ const Events: React.FC = () => {
   const activeEvents = getEventsForMonth(selectedMonth, selectedYear);
 
   return (
-    <>
+    <div className={styles.eventsViewportContainer}>
       {/* PAGE HERO */}
       <section className={styles.pageHero}>
         <div className="container">
@@ -326,7 +326,7 @@ const Events: React.FC = () => {
           </div>
         </div>
       </section> */}
-    </>
+    </div>
   );
 };
 

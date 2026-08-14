@@ -190,6 +190,7 @@ const News: React.FC = () => {
 
   return (
     <>
+      <div className={styles.newsViewportContainer}>
       {/* PAGE HERO */}
       <section className={styles.pageHero}>
         <div className="container">
@@ -302,6 +303,7 @@ const News: React.FC = () => {
           </div>
         </div>
       </section> */}
+    </div>
 
       <NewsModal
         article={selectedArticle}

@@ -108,7 +108,7 @@ const Donate: React.FC = () => {
   };
 
   return (
-    <>
+    <div className={styles.donateViewportContainer}>
       {/* PAGE HERO */}
       <section className={styles.donateHero}>
         <div className="container">
@@ -330,7 +330,7 @@ const Donate: React.FC = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

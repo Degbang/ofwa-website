@@ -152,8 +152,10 @@ const Partner: React.FC = () => {
 
   return (
     <>
-      {/* PAGE HERO */}
-      <section className={styles.pageHero}>
+      {/* HERO CONTAINER */}
+      <div className={styles.partnerHeroContainer}>
+        {/* PAGE HERO */}
+        <section className={styles.pageHero}>
         <div className="container">
           <div className={`${styles.heroBadge} reveal`}>
             <Sparkles size={14} />
@@ -193,6 +195,7 @@ const Partner: React.FC = () => {
           </div>
         </div>
       </section>
+      </div>
 
       {/* WHY PARTNER SECTION */}
       <section className={styles.whyPartnerSection}>

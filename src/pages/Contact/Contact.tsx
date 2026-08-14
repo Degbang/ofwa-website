@@ -90,7 +90,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <>
+    <div className={styles.contactViewportContainer}>
       {/* PAGE HERO */}
       <section className={styles.pageHero}>
         <div className="container">
@@ -310,7 +310,7 @@ const Contact: React.FC = () => {
           </div>
         </div>
       </section> */}
-    </>
+    </div>
   );
 };
 

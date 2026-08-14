@@ -1,3 +1,52 @@
+/* ═══ Viewport Container Framing ═══ */
+.eventsViewportContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 992px) and (min-height: 720px) {
+  .eventsViewportContainer {
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    overflow: hidden;
+  }
+
+  .pageHero {
+    padding: 32px 0 20px !important;
+    flex-shrink: 0;
+  }
+
+  .pageHeroTitle {
+    margin-bottom: 10px !important;
+    font-size: clamp(2rem, 4vw, 3.2rem) !important;
+  }
+
+  .calendarSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 24px 0 40px !important;
+  }
+}
+
+@media (min-width: 992px) and (max-height: 850px) {
+  .monthGrid {
+    margin-bottom: 24px !important;
+    gap: 10px !important;
+  }
+
+  .monthCard {
+    padding: 10px !important;
+  }
+
+  .eventsListHeader {
+    margin-bottom: 16px !important;
+    padding-bottom: 8px !important;
+  }
+}
+
 /* ═══ Page Hero ═══ */
 .pageHero {
   background: #0B0F1A !important;

@@ -112,41 +112,44 @@ const Volunteer: React.FC = () => {
 
   return (
     <>
-      {/* PAGE HERO */}
-      <section className={styles.pageHero}>
-        <div className={styles.heroGlowOverlay} />
-        <div className="container">
-          <span className={`${styles.heroKicker} reveal`}>
-            <Sparkles size={14} /> Join The Movement
-          </span>
-          <h1 className={`${styles.heroTitle} reveal d1`}>
-            Volunteer With <span>OFWA</span>
-          </h1>
-          <p className={`${styles.heroSub} reveal d2`}>
-            Bring your passion, talent, and voice to a movement that's putting African stories, history, and knowledge on the global stage.
-          </p>
-          <div className={`${styles.heroCtas} reveal d3`}>
-            <a href="#volunteer-form" className={styles.btnPrimary}>
-              Apply Now <ArrowRight size={16} />
-            </a>
-            <a href="#open-roles" className={styles.btnSecondary}>
-              Explore Open Roles
-            </a>
+      {/* HERO & STATS CONTAINER */}
+      <div className={styles.volunteerHeroContainer}>
+        {/* PAGE HERO */}
+        <section className={styles.pageHero}>
+          <div className={styles.heroGlowOverlay} />
+          <div className="container">
+            <span className={`${styles.heroKicker} reveal`}>
+              <Sparkles size={14} /> Join The Movement
+            </span>
+            <h1 className={`${styles.heroTitle} reveal d1`}>
+              Volunteer With <span>OFWA</span>
+            </h1>
+            <p className={`${styles.heroSub} reveal d2`}>
+              Bring your passion, talent, and voice to a movement that's putting African stories, history, and knowledge on the global stage.
+            </p>
+            <div className={`${styles.heroCtas} reveal d3`}>
+              <a href="#volunteer-form" className={styles.btnPrimary}>
+                Apply Now <ArrowRight size={16} />
+              </a>
+              <a href="#open-roles" className={styles.btnSecondary}>
+                Explore Open Roles
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* STATS BAND */}
-      <section className={styles.statsBand}>
-        <div className="container">
-          <div className={styles.statsGrid}>
-            <StatItem end={500} suffix="+" label="Trained Volunteers" />
-            <StatItem end={40} suffix="K+" label="Wikipedia Articles Created" delay="d1" />
-            <StatItem end={16} label="Ghana Regions Reached" delay="d2" />
-            <StatItem end={100} suffix="%" label="Free & Open Access" delay="d3" />
+        {/* STATS BAND */}
+        <section className={styles.statsBand}>
+          <div className="container">
+            <div className={styles.statsGrid}>
+              <StatItem end={500} suffix="+" label="Trained Volunteers" />
+              <StatItem end={40} suffix="K+" label="Wikipedia Articles Created" delay="d1" />
+              <StatItem end={16} label="Ghana Regions Reached" delay="d2" />
+              <StatItem end={100} suffix="%" label="Free & Open Access" delay="d3" />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* WHY VOLUNTEER & PERKS */}
       <section className={styles.whyVolunteerSection}>

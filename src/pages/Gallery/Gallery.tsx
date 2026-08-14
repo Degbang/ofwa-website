@@ -178,7 +178,7 @@ const Gallery: React.FC = () => {
   };
 
   return (
-    <>
+    <div className={styles.galleryViewportContainer}>
       <Lightbox
         images={displayedCards}
         currentIndex={lightboxIdx}
@@ -268,7 +268,7 @@ const Gallery: React.FC = () => {
           </div>
         </div>
       </section> */}
-    </>
+    </div>
   );
 };
 
