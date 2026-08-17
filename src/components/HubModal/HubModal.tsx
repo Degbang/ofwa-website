@@ -7,6 +7,7 @@ interface HubItem {
   type: string;
   location: string;
   detail: string;
+  description?: string;
 }
 
 interface HubModalProps {
@@ -92,17 +93,17 @@ Why Join: ${formData.message}`);
   };
 
   return (
-    <div 
-      className={styles.modalOverlay} 
-      onClick={onClose} 
-      role="dialog" 
-      aria-modal="true" 
+    <div
+      className={styles.modalOverlay}
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
       aria-label={`Hub details: ${hub.name}`}
     >
       <div className={styles.modalInner} onClick={(e) => e.stopPropagation()}>
-        <button 
-          className={styles.modalClose} 
-          onClick={onClose} 
+        <button
+          className={styles.modalClose}
+          onClick={onClose}
           aria-label="Close modal"
         >
           <X size={20} />
@@ -114,7 +115,7 @@ Why Join: ${formData.message}`);
               {hub.type}
             </span>
             <h3 className={styles.hubTitle}>{hub.name}</h3>
-            
+
             <div className={styles.infoMeta}>
               <div className={styles.metaItem}>
                 <MapPin size={18} className={styles.metaIcon} />
@@ -128,7 +129,7 @@ Why Join: ${formData.message}`);
               <h4>About the Hub</h4>
               <p>{hub.detail}</p>
               <p className={styles.extraContext}>
-                Our regional hubs and student clubs serve as community centers where we hold Wikipedia editing workshops, digital literacy classes, and open educational training. By joining, you'll receive free training, get access to networking events, and collaborate with local open knowledge leaders.
+                {hub.description ? hub.description : "Our regional hubs and student clubs serve as community centers where we hold Wikipedia editing workshops, digital literacy classes, and open educational training. By joining, you'll receive free training, get access to networking events, and collaborate with local open knowledge leaders."}
               </p>
             </div>
 

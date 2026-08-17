@@ -70,7 +70,7 @@
 
 .aboutSplitImg {
   overflow: hidden;
-  border-right: 1px solid #c5c5c5;
+  border-right: 1px solid #fa7b7b;
 }
 
 .aboutSplitImgGoals {
@@ -117,6 +117,7 @@
   /* background: var(--cream); */
   background: #ffffff !important;
   gap: 4px;
+  height: 100%;
 }
 
 .aboutSplitContentGoals p {
@@ -628,5 +629,145 @@
 
   .valuesContainerOverlay {
     padding: 24px 16px;
+  }
+}
+
+/* ═══ Hero & Mission Container (One Frame) ═══ */
+.heroMissionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
+}
+
+@media (min-width: 992px) and (min-height: 720px) {
+  .heroMissionContainer {
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    overflow: hidden;
+  }
+
+  .heroMissionContainer .pageHero {
+    padding: 60px 0 24px;
+    flex-shrink: 0;
+    background: transparent;
+  }
+
+  .heroMissionContainer .pageHero::before {
+    display: none;
+  }
+
+  .heroMissionContainer .aboutSplit {
+    margin-top: 0;
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .heroMissionContainer .aboutSplitImg,
+  .heroMissionContainer .aboutSplitContent {
+    height: 100%;
+  }
+
+  .heroMissionContainer .aboutSplitContent,
+  .heroMissionContainer .aboutSplitContentGoals {
+    justify-content: center;
+    padding: 40px 64px;
+  }
+}
+
+@media (max-width: 991px) {
+  .heroMissionContainer {
+    min-height: auto;
+  }
+}
+
+/* Squeeze margins/paddings on smaller desktop heights to prevent overflow clipping */
+@media (min-width: 992px) and (max-height: 850px) {
+  .heroMissionContainer .pageHero {
+    padding: 40px 0 16px;
+  }
+
+  .heroMissionContainer .aboutSplitContent,
+  .heroMissionContainer .aboutSplitContentGoals {
+    padding: 24px 48px;
+  }
+
+  .heroMissionContainer .bodyText {
+    margin-bottom: 8px;
+  }
+}
+
+/* ═══ Values Section Frame (One Frame) ═══ */
+@media (min-width: 992px) and (min-height: 720px) {
+  .valuesSection {
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .valuesSection :global(.container) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .valuesSectionHead {
+    margin-bottom: 40px;
+  }
+}
+
+/* Squeeze card layouts on smaller desktop heights to prevent overflow clipping */
+@media (min-width: 992px) and (min-height: 720px) and (max-height: 850px) {
+  .valuesSectionHead {
+    margin-bottom: 24px;
+  }
+
+  .valuesGrid {
+    gap: 16px;
+  }
+
+  .valueCard {
+    padding: 20px 20px;
+    flex: 0 1 calc(33.333% - 11px);
+    min-height: 0;
+  }
+
+  .valueCardHeader {
+    margin-bottom: 12px;
+  }
+
+  .valueCardIconWrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+
+  .valueCardIconWrap svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .valueTag {
+    margin-bottom: 6px;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+
+  .valueCardTitle {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+  }
+
+  .valueCardBody {
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 }

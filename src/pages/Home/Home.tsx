@@ -13,6 +13,7 @@ interface HubItem {
   type: string;
   location: string;
   detail: string;
+  description?: string;
 }
 
 interface GhanaRegion {
@@ -40,6 +41,9 @@ const ghanaRegionsData: GhanaRegion[] = [
       { name: 'UG Wiki Club', type: 'Club', location: 'University of Ghana, Legon', detail: 'University Club' },
       { name: 'GH Media Wiki Club', type: 'Club', location: 'GH Media School, Achimota', detail: 'Media & Communications Club' },
       { name: 'New Health Wiki Club', type: 'Club', location: 'Accra', detail: 'Health & Open Knowledge Initiative' },
+      { name: 'UDS Wiki Tech', type: 'Club', location: 'Accra, University of Development Studies', detail: 'UDS Wiki Tech Club', description: 'Wiki Tech UDS is a Wikimedia-focused technology hub at the University for Development Studies (UDS), bringing together students passionate about technology and the Wikimedia movement. The hub explores how software, data, AI, and other emerging technologies can support Wikimedia projects and advance open knowledge. Through workshops, projects, and collaborative learning, we equip students with the technical skills to build tools and solutions that contribute to the Wikimedia ecosystem.' },
+
+
     ],
   },
   {
@@ -65,7 +69,6 @@ const ghanaRegionsData: GhanaRegion[] = [
     yPercent: 24,
     hubs: [
       { name: 'Tamale Wiki Hub', type: 'Hub', location: 'Tamale', detail: 'Community & Regional Hub' },
-      { name: 'UDS Wiki Tech', type: 'Club', location: 'University for Development Studies, Tamale', detail: 'University Tech Club' },
     ],
   },
   {
@@ -79,6 +82,7 @@ const ghanaRegionsData: GhanaRegion[] = [
     hubs: [
       { name: 'SDD UBIDS Wiki Club', type: 'Club', location: 'SD Dombo University, Wa', detail: 'University Club' },
       { name: 'Dr. Hilla Limann Wiki Club', type: 'Club', location: 'Dr. Hilla Limann Technical University, Wa', detail: 'Technical University Club' },
+      { name: 'DHLTU Wiki Club', type: 'Club', location: 'Wa', detail: 'DHLTU Wiki Club', description: "DHLTU Wiki Club is a student-led community at DHLTU dedicated to growing free knowledge. We organize training workshops, edit-a-thons, Photo walks and outreach to help students contribute to Wikipedia and other Wikimedia projects. Our focus is documenting local history, culture, and notable figures from our region. With OFWA’s support, we aim to build digital literacy and make reliable information about our community accessible worldwide." }
     ],
   },
   {
@@ -90,7 +94,7 @@ const ghanaRegionsData: GhanaRegion[] = [
     xPercent: 63,
     yPercent: 14,
     hubs: [
-      { name: 'Walewale Wiki Hub', type: 'Hub', location: 'Walewale', detail: 'Community Hub' },
+      { name: 'Walewale Wiki Hub', type: 'Hub', location: 'Walewale', detail: 'Community Hub', description: "The Walewale Wiki Hub is a vibrant community dedicated to empowering local youth and volunteers through digital literacy and open-knowledge advocacy. Operating in the North East Region of Ghana, the hub trains members in content creation, writing, and editing across Wikimedia platforms like Wikipedia, Wikidata, and Wikimedia Commons. By documenting local heritage, culture, and marginalized stories, we bridge the digital knowledge gap and amplify regional voices. Through active contest coordination and skills workshops, we cultivate a new generation of digital custodians and open-source contributors." },
     ],
   },
   {
@@ -102,7 +106,7 @@ const ghanaRegionsData: GhanaRegion[] = [
     xPercent: 82,
     yPercent: 60,
     hubs: [
-      { name: 'Ho Wiki Hub', type: 'Hub', location: 'Ho', detail: 'Regional Community Hub' },
+      { name: 'Ho Wiki Hub', type: 'Hub', location: 'Ho', detail: 'Regional Community Hub', description: "Ho Wiki Hub is a vibrant, youth-led community transforming local knowledge into global knowledge. Rooted in the Volta Region, the Hub brings together young people passionate about technology, culture, research, creativity, and storytelling to document and amplify underrepresented  voices. Beyond editing Wikipedia, Ho Hub creates opportunities for young people to learn, lead, collaborate, and contribute to the open knowledge movement. We are building a generation of confident knowledge creators who ensure that the stories and heritage of our communities are not lost or left untold." },
     ],
   },
   {
@@ -320,6 +324,8 @@ const Home: React.FC = () => {
     }
   };
 
+  console.log(selectedHub)
+
   return (
     <>
       <VideoModal videoId={videoId} onClose={() => setVideoId(null)} />
@@ -496,10 +502,7 @@ const Home: React.FC = () => {
           <div className={`${styles.cmsCenterLayout} reveal d3`}>
             {/* Centered Map Card */}
             <div className={styles.mapCardOuter}>
-              <div className={styles.mapCardHeader}>
-                {/* <span className={styles.mapSubtitle}>Ghana Regional Network Map</span> */}
-                {/* <span className={styles.activeRegionTitle}>{activeRegion.name}</span> */}
-              </div>
+
 
               <div className={styles.mapImageContainer}>
                 <img
@@ -582,6 +585,10 @@ const Home: React.FC = () => {
                                       </div>
                                       <p className={styles.popupHubLoc}>{hub.location}</p>
                                       <p className={styles.popupHubDetail}>{hub.detail}</p>
+                                      <button className={styles.popupViewMoreBtn} onClick={(e) => {
+                                        e.stopPropagation();
+                                        setSelectedHub(hub);
+                                      }}>View More</button>
                                     </div>
                                   </div>
                                 ))}
@@ -602,82 +609,13 @@ const Home: React.FC = () => {
                 </div>
               </div>
 
-              {/* Map Footer Legend */}
-              {/* <div className={styles.mapLegend}>
-                <div className={styles.legendItem}>
-                  <span className={styles.legendDotActive} /> Regions with Active Hubs & Clubs
-                </div>
-                <div className={styles.legendItem}>
-                  <span className={styles.legendDotInactive} /> Expanding Regions
-                </div>
-              </div> */}
+
             </div>
 
-            {/* Active Region Detailed Card Below Map */}
-            {/* <div className={styles.cmsDetailsCard}>
-              <div className={styles.cmsDetailsHeader}>
-                <div>
-                  <span className={styles.regionBadge}>{activeRegion.shortName}</span>
-                  <h3 className={styles.regionTitle}>{activeRegion.name}</h3>
-                  <p className={styles.regionCapitalSub}>Capital: {activeRegion.capital}</p>
-                </div>
-                <span className={styles.hubCountTag}>
-                  {activeRegion.hubs.length} {activeRegion.hubs.length === 1 ? 'Community' : 'Communities'}
-                </span>
-              </div>
 
-              {activeRegion.hubs.length > 0 ? (
-                <div className={styles.hubsGrid}>
-                  {activeRegion.hubs.map((hub, idx) => (
-                    <div key={idx} className={styles.hubCardItem}>
-                      <div className={styles.hubCardIcon}>
-                        <MapPin size={18} />
-                      </div>
-                      <div className={styles.hubCardContent}>
-                        <div className={styles.hubCardTop}>
-                          <h4 className={styles.hubCardName}>{hub.name}</h4>
-                          <span className={`${styles.hubTypePill} ${hub.type === 'Hub' ? styles.pillHub : styles.pillClub}`}>
-                            {hub.type}
-                          </span>
-                        </div>
-                        <p className={styles.hubCardLoc}>{hub.location}</p>
-                        <p className={styles.hubCardDetail}>{hub.detail}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className={styles.emptyRegionState}>
-                  <div className={styles.emptyIcon}>📍</div>
-                  <h4>No active hubs listed in {activeRegion.name} yet</h4>
-                  <p>We are actively expanding into {activeRegion.shortName}. Interested in starting or hosting a Wiki Club in this region?</p>
-                  <Link to="/contact" className={styles.btnStartHub}>Start a Hub in {activeRegion.shortName} <ArrowRight size={14} /></Link>
-                </div>
-              )}
-            </div> */}
           </div>
 
-          {/* Quick Region Selector Pills */}
-          {/* <div className={`${styles.regionPillsBar} reveal d4`}>
-            <span className={styles.pillsLabel}>Select Region:</span>
-            <div className={styles.pillsScroll}>
-              {ghanaRegionsData.map((reg) => (
-                <button
-                  key={reg.id}
-                  className={`${styles.regionPill} ${reg.id === activeRegionId ? styles.regionPillActive : ''} ${reg.hubs.length > 0 ? styles.regionPillHasHubs : ''}`}
-                  onClick={() => setSelectedRegionId(reg.id)}
-                  onMouseEnter={() => {
-                    setHoveredRegionId(reg.id);
-                    setSelectedRegionId(reg.id);
-                  }}
-                  onMouseLeave={() => setHoveredRegionId(null)}
-                >
-                  {reg.shortName}
-                  {reg.hubs.length > 0 && <span className={styles.pillCount}>{reg.hubs.length}</span>}
-                </button>
-              ))}
-            </div>
-          </div> */}
+
         </div>
       </section>
 

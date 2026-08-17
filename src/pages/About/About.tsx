@@ -62,16 +62,19 @@ const members = {
   ],
   hubLeaders: [
     { name: 'Abdul-Rahim Ziblim', role: 'Tamale Wiki Hub Lead (President)', image: "/assets/images/hub leaders/abdul-rahim-ziblim.jpg" },
-    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi Hub Lead (Vice President)', image: "/assets/images/hub leaders/asamoah-daniel-kwame-oware.jpg" },
-    { name: 'Emmanuel Kofi Frimpong', role: 'Kumasi Hub Lead', image: "/assets/images/hub leaders/emmanuel-kofi-frimpong.jpg" },
-    { name: 'Enoch Gyeedu-Essandoh', role: 'Accra Hub Lead (President)', image: "/assets/images/hub leaders/enoch-gyeedu-essandoh.jpeg" },
-    { name: 'Frida Cheboi', role: 'Ashesi Wiki Hub Lead', image: "/assets/images/hub leaders/frida-cheboi.jpg" },
-    { name: 'Gideon Babosima Daboo', role: 'Walewale Hub Lead', image: "/assets/images/hub leaders/gideon-babosima-daboo.jpg" },
-    { name: 'Jennifer Adenam Kanchei', role: 'Walewale Hub Lead (Vice President)', image: "/assets/images/hub leaders/jennifer-adenam-kanchei.jpg" },
-    { name: 'Joshua Tetteh Ayayi', role: 'Ho Hub Vice President', image: "/assets/images/hub leaders/joshua-tetteh-ayayi.jpg" },
-    { name: 'Lookman Sunday Ibrahim', role: 'Tamale Wiki Hub Lead (Vice President)', image: "/assets/images/hub leaders/lookman-sunday-ibrahim.png" },
-    { name: 'Paul Asare', role: 'Accra Hub Lead (Vice President', image: "/assets/images/hub leaders/paul-asare.jpg" },
-    { name: 'Princess Lovia Tetteh', role: 'Ho Hub Lead (Vice President)', image: "/assets/images/hub leaders/princess-lovia-tetteh.jpg" },
+    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi WikiHub Lead (Assistant)', image: "/assets/images/hub leaders/asamoah-daniel-kwame-oware.jpg" },
+    { name: 'Lookman Sunday Ibrahim', role: 'Tamale Wiki Hub Lead (Vice)', image: "/assets/images/hub leaders/lookman-sunday-ibrahim.png" },
+    { name: "Chris Ato Quamina", role: "Walewale Hub Leader", image: "/assets/images/hub leaders/Chris Ato Quamina.png" },
+    { name: "Mehetabel Enam Effe Akoto", role: "Ho Wiki Hub Assistant Leader", image: "/assets/images/hub leaders/Mehetabel Enam Effe Akoto.jpeg" },
+    { name: "Sharif Tiisu", role: "UDS Wiki Tech Hub Leader", image: "/assets/images/hub leaders/Sharif Tiisu.jpeg" },
+    { name: "Tieruzie Zacchaeus Zinanibe", role: "DHLU Wiki Club Leader", image: "/assets/images/hub leaders/Tieruzie Zacchaeus Zinanibe.jpeg" }
+    // { name: 'Enoch Gyeedu-Essandoh', role: 'Accra Hub Lead (President)', image: "/assets/images/hub leaders/enoch-gyeedu-essandoh.jpeg" },
+    // { name: 'Frida Cheboi', role: 'Ashesi Wiki Hub Lead', image: "/assets/images/hub leaders/frida-cheboi.jpg" },
+    // { name: 'Gideon Babosima Daboo', role: 'Walewale Hub Lead', image: "/assets/images/hub leaders/gideon-babosima-daboo.jpg" },
+    // { name: 'Jennifer Adenam Kanchei', role: 'Walewale Hub Lead (Vice President)', image: "/assets/images/hub leaders/jennifer-adenam-kanchei.jpg" },
+    // { name: 'Joshua Tetteh Ayayi', role: 'Ho Hub Vice President', image: "/assets/images/hub leaders/joshua-tetteh-ayayi.jpg" },
+    // { name: 'Paul Asare', role: 'Accra Hub Lead (Vice President', image: "/assets/images/hub leaders/paul-asare.jpg" },
+    // { name: 'Princess Lovia Tetteh', role: 'Ho Hub Lead (Vice President)', image: "/assets/images/hub leaders/princess-lovia-tetteh.jpg" },
   ],
   coreTeam: [
     { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
@@ -120,34 +123,37 @@ const About: React.FC = () => {
 
   return (
     <>
-      {/* PAGE HERO */}
-      <section className={styles.pageHero}>
-        <div className="container">
-          <p className={`${styles.pageHeroKicker} reveal`}>Our Story</p>
-          <h1 className={`${styles.pageHeroTitle} reveal d1`}>About Open Foundation<br />West Africa</h1>
-          <p className={`${styles.pageHeroSub} reveal d2`}>A nonprofit building open knowledge ecosystems across Africa, one community at a time.</p>
-        </div>
-      </section>
-
-      {/* MISSION SPLIT */}
-      <section className={styles.aboutSplit}>
-        <div className={styles.aboutSplitImg}>
-          <div className={`${styles.aboutSplitContentGoals} ${styles.aboutSplitContentLight}`}>
-            <span className="section-tag mission-title reveal">Our Vision</span>
-            <h2 className={`${styles.sectionHDark} reveal `}>What We're Working Towards</h2>
-            <p>​An equitable digital landscape where African knowledge is freely shared by Africans, for everyone.</p>
+      {/* HERO & MISSION FRAME */}
+      <div className={styles.heroMissionContainer}>
+        {/* PAGE HERO */}
+        <section className={styles.pageHero}>
+          <div className="container">
+            <p className={`${styles.pageHeroKicker} reveal`}>Our Story</p>
+            <h1 className={`${styles.pageHeroTitle} reveal d1`}>About Open Foundation<br />West Africa</h1>
+            <p className={`${styles.pageHeroSub} reveal d2`}>A nonprofit building open knowledge ecosystems across Africa, one community at a time.</p>
           </div>
-        </div>
-        <div className={styles.aboutSplitContent}>
-          <span className="section-tag mission-title reveal">Our Mission</span>
-          <h2 className={`${styles.sectionHDark} reveal d1`}>Contribution to the Open Movement</h2>
-          <p className={`${styles.bodyText} reveal d2`}>​Co-creating the future of African open knowledge by building inclusive platforms and equipping communities with the tools to share their narratives.</p>
-          {/* <p className={`${styles.bodyText} reveal d3`}></p> */}
-          <button className={styles.getInvolvedBtn}>
-            <Link className="btn-orange reveal d4" to="/contact">Get Involved <ArrowRight size={16} /></Link>
-          </button>
-        </div>
-      </section>
+        </section>
+
+        {/* MISSION SPLIT */}
+        <section className={styles.aboutSplit}>
+          <div className={styles.aboutSplitImg}>
+            <div className={`${styles.aboutSplitContentGoals} ${styles.aboutSplitContentLight}`}>
+              <span className="section-tag mission-title reveal">Our Vision</span>
+              <h2 className={`${styles.sectionHDark} reveal `}>What We're Working Towards</h2>
+              <p>​An equitable digital landscape where African knowledge is freely shared by Africans, for everyone.</p>
+            </div>
+          </div>
+          <div className={styles.aboutSplitContent}>
+            <span className="section-tag mission-title reveal">Our Mission</span>
+            <h2 className={`${styles.sectionHDark} reveal d1`}>Contribution to the Open Movement</h2>
+            <p className={`${styles.bodyText} reveal d2`}>​Co-creating the future of African open knowledge by building inclusive platforms and equipping communities with the tools to share their narratives.</p>
+            {/* <p className={`${styles.bodyText} reveal d3`}></p> */}
+            <button className={styles.getInvolvedBtn}>
+              <Link className="btn-orange reveal d4" to="/contact">Get Involved <ArrowRight size={16} /></Link>
+            </button>
+          </div>
+        </section>
+      </div>
 
 
 
