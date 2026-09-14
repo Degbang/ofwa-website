@@ -1,33 +1,42 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Share2, Send, Plus, Minus } from 'lucide-react';
+import {
+  CheckCircle2,
+  Globe2,
+  Mail,
+  MapPin,
+  MessagesSquare,
+  Send,
+  Share2,
+  Users,
+} from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './Contact.module.css';
+import contactBackground from '../../assets/0A9A7736.webp';
 
-const faqs = [
+const socialLinks = [
   {
-    q: 'How can I volunteer with OFWA?',
-    a: 'Visit our Volunteer page to fill in an expression of interest form. We match volunteers with programs based on skills and availability.',
-    link: '/volunteer',
-    linkText: 'Volunteer page',
+    icon: <Users size={18} />,
+    label: 'Facebook',
+    href: 'https://www.facebook.com/ofwafrica/',
+    meta: '@ofwafrica',
   },
   {
-    q: 'Where are your hubs located?',
-    a: 'We have active community hubs and Wiki clubs in Accra (×2), Kumasi, Cape Coast, Tamale (UDS), WaleWale, and Damango. See the interactive map on our About page.',
-    link: '/about',
-    linkText: 'About page',
+    icon: <MessagesSquare size={18} />,
+    label: 'Twitter / X',
+    href: 'https://x.com/OFWAFRICA',
+    meta: '@OFWAFRICA',
   },
   {
-    q: 'Can organisations partner with OFWA?',
-    a: 'Absolutely. We welcome corporate, institutional, and civil society partnerships. Visit our Partner page to explore opportunities.',
-    link: '/partner',
-    linkText: 'Partner page',
+    icon: <Share2 size={18} />,
+    label: 'LinkedIn',
+    href: 'https://gh.linkedin.com/company/ofwafrica',
+    meta: 'OFWA company page',
   },
   {
-    q: 'How are donations used?',
-    a: 'Donations fund hub operations, training programs, equipment (especially offline KIWIX servers), community events, and our wiki-writing campaigns. See our Donate page for more.',
-    link: '/donate',
-    linkText: 'Donate page',
+    icon: <Globe2 size={18} />,
+    label: 'YouTube',
+    href: 'https://www.youtube.com/@ofwafrica/videos',
+    meta: '@ofwafrica',
   },
 ];
 
@@ -37,11 +46,9 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    subject: '',
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -55,20 +62,19 @@ const Contact: React.FC = () => {
     const newFormData = new FormData();
     newFormData.append('name', formData.name);
     newFormData.append('email', formData.email);
-    newFormData.append('subject', formData.subject);
     newFormData.append('message', formData.message);
     newFormData.append('access_key', web3formsId!);
 
     if (web3formsId) {
       try {
-        const response = await fetch("https://api.web3forms.com/submit", {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           body: newFormData,
         });
         const data = await response.json();
         if (data.success) {
           setStatus('success');
-          setFormData({ name: '', email: '', subject: '', message: '' });
+          setFormData({ name: '', email: '', message: '' });
         } else {
           setStatus('error');
         }
@@ -76,56 +82,101 @@ const Contact: React.FC = () => {
         setStatus('error');
       }
     } else {
-      // Mock API delay
       setTimeout(() => {
         setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({ name: '', email: '', message: '' });
         setTimeout(() => setStatus('idle'), 4000);
       }, 1500);
     }
   };
 
-  const toggleFaq = (index: number) => {
-    setActiveFaq((prev) => (prev === index ? null : index));
-  };
-
   return (
     <div className={styles.contactViewportContainer}>
-      {/* PAGE HERO */}
-      <section className={styles.pageHero}>
+      <section className={`${styles.pageHero} snap-frame`} id="contact-form">
+        <img className={styles.heroBackdrop} src={contactBackground} alt="" />
+        <div className={styles.heroOverlay} />
         <div className="container">
-          <p className={`${styles.pageHeroKicker} reveal`}>Say Hello</p>
-          <h1 className={`${styles.pageHeroTitle} reveal d1`}>Get in Touch</h1>
-          <p className={`${styles.pageHeroSub} reveal d2`}>We'd love to hear from you — whether you're a potential partner, volunteer, donor, or just curious about what we do.</p>
-        </div>
-      </section>
+          <div className={styles.contactIntro}>
+            <span className={`${styles.heroKicker} reveal`}>Contact OFWA</span>
+            <h1 className={`${styles.heroTitle} reveal d1`}>One message is enough to reach the right team.</h1>
+            <p className={`${styles.heroSub} reveal d2`}>
+              Use the form for partnerships, volunteering, media, programs, and general enquiries.
+            </p>
+          </div>
 
-      {/* CONTACT SECTION */}
-      <section className={styles.contactSection}>
-        <div className="container">
-          <div className={styles.contactLayout}>
-            {/* FORM */}
-            <div className={`${styles.contactFormWrap} reveal`}>
-              <h2 className={styles.contactFormH}>Send Us a Message</h2>
-              <form className="contact-form" onSubmit={handleSubmit}>
+          <div className={styles.contactFrame}>
+            <div className={`${styles.contactInfoPanel} reveal`}>
+              <span className={styles.infoEyebrow}>Reach Us</span>
+              <h2 className={styles.infoTitle}>Contact and social handles in one place.</h2>
+
+              <div className={styles.primaryInfoList}>
+                <a href="mailto:info@ofwafrica.org" className={styles.primaryInfoCard}>
+                  <span className={styles.primaryInfoIcon}>
+                    <Mail size={18} />
+                  </span>
+                  <div>
+                    <strong>Email</strong>
+                    <span>info@ofwafrica.org</span>
+                  </div>
+                </a>
+
+                <div className={styles.primaryInfoCard}>
+                  <span className={styles.primaryInfoIcon}>
+                    <MapPin size={18} />
+                  </span>
+                  <div>
+                    <strong>Location</strong>
+                    <span>132 52 Swaniker St, Achimota, Accra, Ghana</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.socialGrid}>
+                {socialLinks.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.socialCard}
+                  >
+                    <span className={styles.socialIcon}>{item.icon}</span>
+                    <strong>{item.label}</strong>
+                    <span>{item.meta}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className={`${styles.contactFormWrap} reveal d1`}>
+              <div className={styles.formHead}>
+                <h2 className={styles.contactFormH}>Send Us a Message</h2>
+                <p className={styles.contactFormSub}>
+                  Share the essentials and we will route it properly.
+                </p>
+              </div>
+
+              <form className={styles.contactForm} onSubmit={handleSubmit}>
                 {status === 'success' && (
                   <div className={styles.successBanner}>
-                    <h3>✓ Message Sent!</h3>
-                    <p>Thank you for reaching out. We have received your message and will get back to you as soon as possible.</p>
+                    <CheckCircle2 size={20} />
+                    <div>
+                      <h4>Message sent.</h4>
+                      <p>We have received your note and will follow up soon.</p>
+                    </div>
                   </div>
                 )}
 
                 {status === 'error' && (
                   <div className={styles.errorBanner}>
-                    <p>Something went wrong. Please try submitting again or email us directly at info@ofwafrica.org.</p>
+                    <p>Something went wrong. Please try again or email us directly at info@ofwafrica.org.</p>
                   </div>
                 )}
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="name">Full Name</label>
+                <div className={styles.formRow}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="name">Full Name</label>
                     <input
-                      className="form-input"
                       id="name"
                       type="text"
                       placeholder="Your full name"
@@ -135,13 +186,12 @@ const Contact: React.FC = () => {
                       required
                     />
                   </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="email">Email Address</label>
+                  <div className={styles.formGroup}>
+                    <label htmlFor="email">Email Address</label>
                     <input
-                      className="form-input"
                       id="email"
                       type="email"
-                      placeholder="your@email.com"
+                      placeholder="you@example.com"
                       value={formData.email}
                       onChange={handleChange}
                       disabled={status === 'submitting'}
@@ -150,27 +200,12 @@ const Contact: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="form-group">
-                  <label className="form-label" htmlFor="subject">Subject</label>
-                  <input
-                    className="form-input"
-                    id="subject"
-                    type="text"
-                    placeholder="How can we help?"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    disabled={status === 'submitting'}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="message">Message</label>
+                <div className={styles.formGroup}>
+                  <label htmlFor="message">Message</label>
                   <textarea
-                    className="form-input form-textarea"
                     id="message"
                     rows={6}
-                    placeholder="Tell us what's on your mind…"
+                    placeholder="Tell us what you need and any important context."
                     value={formData.message}
                     onChange={handleChange}
                     disabled={status === 'submitting'}
@@ -178,12 +213,7 @@ const Contact: React.FC = () => {
                   />
                 </div>
 
-                <button
-                  className="btn-orange"
-                  type="submit"
-                  style={{ width: '100%', justifyContent: 'center', cursor: status === 'submitting' ? 'not-allowed' : 'pointer' }}
-                  disabled={status === 'submitting'}
-                >
+                <button className={styles.submitButton} type="submit" disabled={status === 'submitting'}>
                   {status === 'submitting' ? (
                     <span className={styles.spinner} />
                   ) : (
@@ -195,121 +225,9 @@ const Contact: React.FC = () => {
                 </button>
               </form>
             </div>
-
-            {/* INFO */}
-            <div className={`${styles.contactInfo} reveal d1`}>
-              <h2 className={styles.contactInfoH}>Contact Information</h2>
-              <div className={styles.contactInfoList}>
-                <div className={styles.contactInfoItem}>
-                  <span className={styles.contactInfoIcon}>
-                    <MapPin size={20} />
-                  </span>
-                  <div>
-                    <p className={styles.contactInfoLabel}>Address</p>
-                    <p className={styles.contactInfoVal}>132 52 Swaniker St, Achimota<br />Accra, Greater Accra, Ghana</p>
-                  </div>
-                </div>
-
-                <div className={styles.contactInfoItem}>
-                  <span className={styles.contactInfoIcon}>
-                    <Mail size={20} />
-                  </span>
-                  <div>
-                    <p className={styles.contactInfoLabel}>Email</p>
-                    <p className={styles.contactInfoVal}>
-                      <a href="mailto:info@ofwafrica.org">info@ofwafrica.org</a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className={styles.contactInfoItem}>
-                  <span className={styles.contactInfoIcon}>
-                    <Phone size={20} />
-                  </span>
-                  <div>
-                    <p className={styles.contactInfoLabel}>Phone</p>
-                    <p className={styles.contactInfoVal}>
-                      <a href="tel:+233559959694">+233 55 995 9694</a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className={styles.contactInfoItem}>
-                  <span className={styles.contactInfoIcon}>
-                    <Share2 size={20} />
-                  </span>
-                  <div>
-                    <p className={styles.contactInfoLabel}>Follow Us</p>
-                    <div className={styles.contactSocials}>
-                      <a href="https://www.facebook.com/ofwafrica/" target="_blank" rel="noopener noreferrer">Facebook</a>
-                      <a href="https://x.com/OFWAFRICA" target="_blank" rel="noopener noreferrer">Twitter / X</a>
-                      <a href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener noreferrer">YouTube</a>
-                      <a href="https://gh.linkedin.com/company/ofwafrica" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.contactQuick}>
-                <h3 className={styles.contactQuickH}>Quick Links</h3>
-                <div className={styles.contactQuickLinks}>
-                  {/* <Link className={styles.contactQuickBtn} to="/donate">♥ Donate</Link> */}
-                  <Link className={styles.contactQuickBtn} to="/volunteer">Volunteer</Link>
-                  <Link className={`${styles.contactQuickBtn}`} to="/partner">Partner With Us</Link>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
-
-      {/* FAQ SECTION */}
-      <section className={styles.faqSection}>
-        <div className="container">
-          <div className={styles.faqHead}>
-            <span className="section-tag reveal">Questions &amp; Answers</span>
-            <h2 className={`${styles.faqTitle} reveal d1`}>Frequently Asked Questions</h2>
-          </div>
-
-          <div className={styles.faqList}>
-            {faqs.map((faq, i) => (
-              <div key={i} className={`${styles.faqItem} reveal ${i > 0 ? `d${i}` : ''}`}>
-                <button
-                  className={styles.faqBtn}
-                  onClick={() => toggleFaq(i)}
-                  aria-expanded={activeFaq === i}
-                >
-                  <span>{faq.q}</span>
-                  <span className={styles.faqIcon}>
-                    {activeFaq === i ? <Minus size={18} /> : <Plus size={18} />}
-                  </span>
-                </button>
-                <div className={`${styles.faqAnswer} ${activeFaq === i ? styles.faqAnswerOpen : ''}`}>
-                  <p>
-                    {faq.a.substring(0, faq.a.indexOf(faq.linkText))}
-                    <Link to={faq.link}>{faq.linkText}</Link>
-                    {faq.a.substring(faq.a.indexOf(faq.linkText) + faq.linkText.length)}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* DONATE CTA */}
-      {/* <section className={styles.donateCta}>
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <p className={`${styles.donateCtaTag} reveal`}>Support the Mission</p>
-          <h2 className={`${styles.donateCtaH} reveal d1`}>Make a Donation Today</h2>
-          <p className={`${styles.donateCtaSub} reveal d2`}>Every cedi, dollar, or pound helps us reach more women with open knowledge training and community support.</p>
-          <div className="reveal d3">
-            <Link className={styles.btnDonateBig} to="/donate">
-              <Heart size={16} fill="currentColor" /> Donate Now
-            </Link>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };

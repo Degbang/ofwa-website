@@ -46,25 +46,20 @@
   grid-template-columns: 1fr 1fr;
   min-height: 500px;
   margin-top: 60px;
-
-  /* border: 1px solid red; */
 }
-
 
 .aboutSplitGoals {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 500px;
   margin-top: 60px;
-
-  /* border: 1px solid red; */
 }
 
 .aboutSplitReversed {
   direction: rtl;
 }
 
-.aboutSplitReversed>* {
+.aboutSplitReversed > * {
   direction: ltr;
 }
 
@@ -102,9 +97,7 @@
 .aboutSplitContent {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   padding: 56px 64px;
-  /* background: var(--cream); */
   background: #ffffff !important;
   gap: 4px;
 }
@@ -114,7 +107,6 @@
   flex-direction: column;
   justify-content: center;
   padding: 56px 64px;
-  /* background: var(--cream); */
   background: #ffffff !important;
   gap: 4px;
   height: 100%;
@@ -128,12 +120,11 @@
 .aboutSplitContent span {
   font-size: 1.5rem !important;
   text-align: center;
-
 }
 
 .aboutSplitContentGoals span {
   font-size: 1.3rem;
-  text-align: center
+  text-align: center;
 }
 
 .goalItem span {
@@ -150,8 +141,6 @@
   color: #000000 !important;
   text-align: center;
   font-weight: 100;
-  /* font-size: 1.5rem !important; */
-
 }
 
 .bodyText {
@@ -187,7 +176,6 @@
 }
 
 @media (max-width: 900px) {
-
   .aboutSplit,
   .aboutSplitGoals {
     grid-template-columns: 1fr;
@@ -297,8 +285,6 @@
   line-height: 1.65;
 }
 
-/* ═══ Values Carousel ═══ */
-/* ═══ Values Grid ═══ */
 .valuesGrid {
   display: flex;
   flex-wrap: wrap;
@@ -430,7 +416,6 @@
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hover States */
 .valueCard:hover {
   transform: translateY(-10px);
   background: rgba(26, 36, 56, 0.85);
@@ -463,9 +448,6 @@
   transform: scaleX(1);
 }
 
-
-
-
 /* ═══ Team & Community ═══ */
 .teamSection {
   padding: 110px 0;
@@ -489,7 +471,6 @@
   line-height: 1.65;
 }
 
-/* ── Tab Bar Navigation ── */
 .tabContainer {
   display: flex;
   justify-content: center;
@@ -527,7 +508,6 @@
   box-shadow: 0 8px 20px rgba(255, 159, 67, 0.25);
 }
 
-/* ── Grid & Cards ── */
 .memberGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -682,7 +662,6 @@
   }
 }
 
-/* Squeeze margins/paddings on smaller desktop heights to prevent overflow clipping */
 @media (min-width: 992px) and (max-height: 850px) {
   .heroMissionContainer .pageHero {
     padding: 40px 0 16px;
@@ -698,7 +677,6 @@
   }
 }
 
-/* ═══ Values Section Frame (One Frame) ═══ */
 @media (min-width: 992px) and (min-height: 720px) {
   .valuesSection {
     height: calc(100vh - var(--nav-h));
@@ -724,7 +702,6 @@
   }
 }
 
-/* Squeeze card layouts on smaller desktop heights to prevent overflow clipping */
 @media (min-width: 992px) and (min-height: 720px) and (max-height: 850px) {
   .valuesSectionHead {
     margin-bottom: 24px;

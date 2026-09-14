@@ -5,6 +5,12 @@
   color: var(--gray-400);
 }
 
+@media (min-width: 992px) and (prefers-reduced-motion: no-preference) {
+  .siteFooter {
+    scroll-snap-align: start;
+  }
+}
+
 .footerGrid {
   display: grid;
   grid-template-columns: 320px 1fr;
@@ -407,5 +413,4 @@
   color: #475569;
   border-top: 1px solid rgba(255, 255, 255, 0.02);
 }
-
 

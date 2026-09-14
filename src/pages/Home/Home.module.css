@@ -56,16 +56,17 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation: kenBurns 8s ease both;
+  object-position: center 28%;
+  filter: brightness(0.9) contrast(1.04) saturate(1.05);
 }
 
 .heroOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg,
-      rgba(4, 6, 10, 0.4) 0%,
-      rgba(4, 6, 10, 0.6) 40%,
-      rgba(4, 6, 10, 0.85) 100%);
+      rgba(4, 6, 10, 0.42) 0%,
+      rgba(4, 6, 10, 0.58) 42%,
+      rgba(4, 6, 10, 0.78) 100%);
   z-index: 1;
 }
 
@@ -85,6 +86,7 @@
   text-transform: uppercase;
   color: var(--orange);
   margin-bottom: 20px;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
 }
 
 .heroTitle {
@@ -95,6 +97,7 @@
   line-height: 1.05;
   color: var(--white);
   margin-bottom: 24px;
+  text-shadow: 0 5px 28px rgba(0, 0, 0, 0.72);
 }
 
 .heroTitle span {
@@ -105,10 +108,11 @@
 
 .heroSub {
   font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.78);
   max-width: 580px;
   line-height: 1.7;
   margin-bottom: 36px;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.7);
 }
 
 .heroCtas {
@@ -334,92 +338,123 @@
 }
 
 /* ===================== MISSION ===================== */
-/* .missionSection {
-  padding: 80px 0;
+.missionSection {
+  padding: 26px 0 10px;
   background: transparent;
-} */
-
-.missionContentWrapper {
-  display: flex;
 }
 
-.missionContentCompact {
-  display: flex;
-  padding: 15px;
-  flex: 0.4;
+.missionPanel {
+  padding: 18px 8px 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.missionTop {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) 1px minmax(0, 1.1fr);
+  gap: 34px;
   align-items: center;
-
 }
 
-.missionContentCompact span {
-  font-size: 3.2rem;
-  font-weight: 900;
-  font-family: var(--font-heading);
-  margin-top: 10px;
+.missionIntro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.missionText {
-  padding: 15px;
-  padding-left: 55px;
-  flex: 0.6;
-  border-left: 1px solid var(--orange);
-  align-items: start !important;
+.missionLead {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-}
-
-.missionText h3 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--black);
-}
-
-
-
-.missionContentCompact p {
-  margin-bottom: 8px;
-  max-width: 850px;
-  color: var(--black);
-}
-
-.missionContentCompact h2 {
-  color: var(--black);
-}
-
-.missionCtaRow {
-  margin-top: 4px;
-  display: flex;
+  align-items: flex-start;
   justify-content: center;
-  /* border: 1px solid red; */
-  align-self: center;
 }
 
-@media (max-width: 900px) {
-  .missionContentWrapper {
-    flex-direction: column;
-    gap: 16px;
+.missionDivider {
+  width: 1px;
+  min-height: 190px;
+  background: linear-gradient(180deg, rgba(255, 159, 67, 0.18), rgba(255, 159, 67, 0.9), rgba(255, 159, 67, 0.18));
+}
+
+.missionEyebrow {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(3.4rem, 7vw, 5.2rem);
+  font-weight: 900;
+  line-height: 0.95;
+  color: #ff9f43;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.missionTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.3vw, 3.2rem);
+  line-height: 1.1;
+  color: #15110d;
+  max-width: 16ch;
+  margin-bottom: 18px;
+}
+
+.missionBody {
+  max-width: 740px;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #94a3b8;
+}
+
+.missionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.missionPrimaryBtn,
+.missionSecondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 28px;
+  border-radius: 18px;
+  font-weight: 800;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
+}
+
+.missionPrimaryBtn {
+  background: linear-gradient(135deg, #ff9f43, #ff6b4a);
+  color: var(--black) !important;
+  box-shadow: 0 14px 28px rgba(255, 159, 67, 0.24);
+}
+
+.missionSecondaryBtn {
+  background: #15110d;
+  color: #ffffff;
+}
+
+.missionPrimaryBtn:hover,
+.missionSecondaryBtn:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1100px) {
+  .missionTop {
+    grid-template-columns: 1fr;
+    gap: 22px;
   }
 
-  .missionContentCompact {
-    flex: none;
-    padding: 0;
-    align-items: flex-start;
+  .missionDivider {
+    width: 100%;
+    min-height: 1px;
+    height: 1px;
   }
+}
 
-  .missionContentCompact span {
-    font-size: 2.2rem;
-    margin-top: 0;
-  }
-
-  .missionText {
-    flex: none;
-    padding: 0;
-    border-left: none;
-  }
-
-  .missionText h3 {
-    font-size: 1.4rem;
+@media (max-width: 760px) {
+  .missionPanel {
+    padding: 8px 0 0;
   }
 }
 
@@ -443,7 +478,7 @@
 
   .missionSection {
     padding: 0;
-    margin-bottom: 48px;
+    margin-bottom: 18px;
   }
 
   .galleryCarouselSection {
@@ -458,7 +493,7 @@
   }
 
   .missionSection {
-    padding: 64px 0 40px;
+    padding: 56px 0 24px;
   }
 
   .galleryCarouselSection {
@@ -485,7 +520,7 @@
 
 /* ===================== GALLERY CAROUSEL ===================== */
 .galleryCarouselSection {
-  padding: 48px 0 36px;
+  padding: 24px 0 16px;
   /* background: var(--dark); */
   background: #ffffff;
 }
@@ -542,8 +577,19 @@
   position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
-  height: 450px;
+  height: 340px;
   width: 100%;
+}
+
+.galleryImageButton {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
 }
 
 .galleryFeaturedImg {
@@ -556,7 +602,10 @@
 .galleryFeaturedOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 60%);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.35) 72%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.24) 62%, rgba(0, 0, 0, 0.32) 100%);
+  pointer-events: none;
 }
 
 .galleryFeaturedInfo {
@@ -929,6 +978,27 @@
   position: relative;
   overflow: hidden;
   min-height: 100vh;
+}
+
+@media (max-width: 560px) {
+  .missionButtons {
+    justify-content: flex-start;
+  }
+
+  .missionPrimaryBtn,
+  .missionSecondaryBtn {
+    width: auto;
+  }
+}
+
+@media (min-width: 992px) and (min-height: 720px) {
+  .cmsSection {
+    min-height: calc(100vh - var(--nav-h));
+    min-height: calc(100dvh - var(--nav-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .cmsSection::before {
@@ -1352,6 +1422,14 @@
 .popupStartBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(255, 159, 67, 0.4);
+}
+
+.popupFooter {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: flex-end;
 }
 
 .popupViewMoreBtn {
@@ -1970,6 +2048,16 @@
 .newsSection {
   padding: 80px 0;
   background: var(--dark);
+}
+
+@media (min-width: 992px) and (min-height: 720px) {
+  .newsSection {
+    min-height: calc(100vh - var(--nav-h));
+    min-height: calc(100dvh - var(--nav-h));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .newsGrid {

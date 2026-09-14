@@ -49,7 +49,7 @@ export const Footer: React.FC<FooterProps> = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={styles.siteFooter}>
+    <footer className={`${styles.siteFooter} snap-frame`}>
       <div className={`container ${styles.footerGrid}`}>
         <div className={styles.brandCol}>
           <Link to="/" className={styles.brandHeader}>
@@ -88,8 +88,7 @@ export const Footer: React.FC<FooterProps> = () => {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about">About Us</Link></li>
               <li><Link to="/events">Events</Link></li>
-              <li><Link to="/gallery">Gallery</Link></li>
-              <li><Link to="/blog">News</Link></li>
+              <li><Link to="/news">News</Link></li>
               <li><Link to="/volunteer">Volunteer</Link></li>
               <li><Link to="/contact">Contact</Link></li>
             </ul>

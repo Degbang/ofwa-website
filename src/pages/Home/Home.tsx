@@ -3,9 +3,23 @@ import { Link } from 'react-router-dom';
 import { Play, ChevronLeft, ChevronRight, ArrowRight, MapPin } from 'lucide-react';
 import { VideoModal } from '../../components/VideoModal/VideoModal';
 import { HubModal } from '../../components/HubModal/HubModal';
+import { Lightbox } from '../../components/Lightbox/Lightbox';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useCountUp } from '../../hooks/useCountUp';
+import { diffNewsStories } from '../../data/diffNews';
 import styles from './Home.module.css';
+import heroAfroCreatives2 from '../../assets/Hero/AfroCreatives 2025 Launch-2.jpg';
+import heroAfroCreatives3 from '../../assets/Hero/AfroCreatives 2025 Launch-3.jpg';
+import heroDscf0565 from '../../assets/Hero/DSCF0565.jpg';
+import heroDscf8408 from '../../assets/Hero/DSCF8408.jpg';
+import heroDscf8423 from '../../assets/Hero/DSCF8423.jpg';
+import heroDscf8434 from '../../assets/Hero/DSCF8434.jpg';
+import heroDsc5306 from '../../assets/Hero/DSC_5306.jpg';
+import whoAccraHub from '../../assets/Who we are/Accra Wiki Hub.jpg';
+import whoAfricaWikiChallenge from '../../assets/Who we are/Africa Wiki Challenge 2025 Launch.jpg';
+import whoDigitalSkills from '../../assets/Who we are/Digital Skills Workshop for Women.jpg';
+import whoKiwixSchools from '../../assets/Who we are/Kiwix 4 Schools Initiative.jpg';
+import whoKumasiHub from '../../assets/Who we are/Kumasi Wiki Hub.jpg';
 
 /* ── Ghana Regions & Hubs Data ───────────────────── */
 interface HubItem {
@@ -217,11 +231,13 @@ const ghanaRegionsData: GhanaRegion[] = [
 
 /* ── Data ────────────────────────────────────────── */
 const heroSlides = [
-  { src: '/assets/images/hero-banner.png', alt: 'OFWA community at work' },
-  { src: '/assets/images/hub-photo-1.png', alt: 'Accra Wiki Hub session' },
-  { src: '/assets/images/hub-photo-2.png', alt: 'Kumasi community training' },
-  { src: '/assets/images/about-hero.png', alt: 'OFWA team gathering' },
-  { src: '/assets/images/hub-photo-3.png', alt: 'Cape Coast Hub' },
+  { src: heroAfroCreatives2, alt: 'AfroCreatives 2025 launch' },
+  { src: heroAfroCreatives3, alt: 'AfroCreatives 2025 launch participants' },
+  { src: heroDscf0565, alt: 'OFWA community program' },
+  { src: heroDscf8408, alt: 'OFWA training session' },
+  { src: heroDscf8423, alt: 'OFWA workshop audience' },
+  { src: heroDscf8434, alt: 'OFWA event presentation' },
+  { src: heroDsc5306, alt: 'OFWA group session' },
 ];
 
 const marqueeItems = [
@@ -234,12 +250,11 @@ const marqueeItems = [
 ];
 
 const galleryThumbs = [
-  { img: '/assets/images/hub-photo-1.png', cat: 'Hubs', title: 'Accra Wiki Hub — Community Editing Session', label: 'Accra Hub' },
-  { img: '/assets/images/blog-photo-1.png', cat: 'Training', title: 'Digital Skills Workshop for Women', label: 'Skills Training' },
-  { img: '/assets/images/hub-photo-2.png', cat: 'Hubs', title: 'Kumasi Hub — Monthly Meetup', label: 'Kumasi Hub' },
-  { img: '/assets/images/blog-photo-2.png', cat: 'Campaigns', title: 'Africa Wiki Challenge 2025 Launch', label: 'Campaigns' },
-  { img: '/assets/images/hub-photo-3.png', cat: 'Events', title: 'Open Knowledge Summit — Cape Coast', label: 'Cape Coast' },
-  { img: '/assets/images/hub-photo-4.png', cat: 'Community', title: 'KIWIX4Schools Initiative — UDS Hub', label: 'UDS Hub' },
+  { img: whoAccraHub, cat: 'Hubs', title: 'Accra Wiki Hub', label: 'Accra Hub' },
+  { img: whoAfricaWikiChallenge, cat: 'Campaigns', title: 'Africa Wiki Challenge 2025 Launch', label: 'Campaigns' },
+  { img: whoDigitalSkills, cat: 'Training', title: 'Digital Skills Workshop for Women', label: 'Skills Training' },
+  { img: whoKiwixSchools, cat: 'Community', title: 'Kiwix 4 Schools Initiative', label: 'Kiwix 4 Schools' },
+  { img: whoKumasiHub, cat: 'Hubs', title: 'Kumasi Wiki Hub', label: 'Kumasi Hub' },
 ];
 
 const videos = [
@@ -257,13 +272,7 @@ const events = [
   { img: '/assets/images/hub-photo-1.png', date: 'Jan 20, 2026', title: 'Digital Skills for Women Bootcamp', meta: '📍 UDS Hub, Tamale · Jan 20–25, 2026' },
 ];
 
-const newsCards = [
-  { img: '/assets/images/blog-photo-1.png', cat: 'Edit-a-thon', title: 'AWC Edit-A-Thon: Growing African Voices on Wikipedia', meta: 'June 24, 2025 · 5 min read' },
-  { img: '/assets/images/hub-photo-2.png', cat: 'Training', title: 'Digital Skills Training Reaches 500 Women in Kumasi', meta: 'June 18, 2025 · 4 min read' },
-  { img: '/assets/images/library-photo.png', cat: 'Announcement', title: 'OFWA Opens New Community Hub in Northern Ghana', meta: 'June 10, 2025 · 3 min read' },
-];
-
-
+const newsCards = diffNewsStories.slice(0, 3);
 
 /* ── Stat Counter Component ──────────────────────── */
 const StatItem: React.FC<{ end: number; suffix?: string; label: string; delay?: string }> = ({ end, suffix = '', label, delay }) => {
@@ -294,9 +303,14 @@ const Home: React.FC = () => {
 
   // Gallery carousel
   const [galleryIdx, setGalleryIdx] = useState(0);
+  const [lightboxIdx, setLightboxIdx] = useState(-1);
   const galGoTo = useCallback((n: number) => {
     setGalleryIdx((n + galleryThumbs.length) % galleryThumbs.length);
   }, []);
+  const galleryLightboxImages = galleryThumbs.map((item) => ({
+    full: item.img,
+    alt: item.title,
+  }));
 
   // Video modal
   const [videoId, setVideoId] = useState<string | null>(null);
@@ -324,15 +338,20 @@ const Home: React.FC = () => {
     }
   };
 
-  console.log(selectedHub)
-
   return (
     <>
       <VideoModal videoId={videoId} onClose={() => setVideoId(null)} />
       <HubModal hub={selectedHub} onClose={() => setSelectedHub(null)} />
+      <Lightbox
+        images={galleryLightboxImages}
+        currentIndex={lightboxIdx}
+        onClose={() => setLightboxIdx(-1)}
+        onPrev={() => setLightboxIdx((prev) => (prev - 1 + galleryThumbs.length) % galleryThumbs.length)}
+        onNext={() => setLightboxIdx((prev) => (prev + 1) % galleryThumbs.length)}
+      />
 
       {/* ░░ HERO ░░ */}
-      <div className={styles.heroContainer}>
+      <div className={`${styles.heroContainer} snap-frame`}>
 
         <section className={styles.hero} aria-label="Hero">
           {heroSlides.map((s, i) => (
@@ -382,20 +401,26 @@ const Home: React.FC = () => {
 
 
       {/* ░░ MISSION & GALLERY FRAME ░░ */}
-      <div className={styles.missionGalleryContainer}>
+      <div className={`${styles.missionGalleryContainer} snap-frame`}>
         {/* ░░ MISSION SECTION (No Image) ░░ */}
         <section className={styles.missionSection}>
-          <div className={`container ${styles.missionContentWrapper}`}>
-            <div className={styles.missionContentCompact}>
-              <span className="section-tag reveal">Who We Are</span>
-            </div>
-            <div className={styles.missionText}>
-              <h3 className="section-h reveal d1">Driving Open Knowledge Across West Africa</h3>
-              <p className="section-body reveal d2">Open Foundation West Africa (OFWA) is a nonprofit that creates spaces where women participate, contribute, and lead in open knowledge ecosystems — from Wikipedia editing to open education and digital skills training.</p>
-              <div className={styles.missionCtaRow}>
-                <Link className="btn-orange reveal d3" to="/about">Our Full Story <ArrowRight size={16} /></Link>
+          <div className="container">
+            <div className={`${styles.missionPanel} reveal`}>
+              <div className={styles.missionTop}>
+                <div className={styles.missionIntro}>
+                  <span className={styles.missionEyebrow}>Who We Are</span>
+                </div>
+                <div className={styles.missionDivider} />
+                <div className={styles.missionLead}>
+                  <h2 className={styles.missionTitle}>Driving Open Knowledge Across West Africa</h2>
+                  <p className={styles.missionBody}>
+                    Open Foundation West Africa (OFWA) is a nonprofit that creates spaces where women participate, contribute, and lead in open knowledge ecosystems, from Wikipedia editing to open education and digital skills training.
+                  </p>
+                  <div className={styles.missionButtons}>
+                    <Link className={styles.missionPrimaryBtn} to="/about">Our Full Story <ArrowRight size={16} /></Link>
+                  </div>
+                </div>
               </div>
-
             </div>
           </div>
         </section>
@@ -409,7 +434,13 @@ const Home: React.FC = () => {
             </div> */}
             <div className={`${styles.galleryCarousel} reveal`}>
               <div className={styles.galleryFeatured}>
-                <img src={galleryThumbs[galleryIdx].img} alt={galleryThumbs[galleryIdx].title} className={styles.galleryFeaturedImg} />
+                <button
+                  className={styles.galleryImageButton}
+                  onClick={() => setLightboxIdx(galleryIdx)}
+                  aria-label={`Open photo: ${galleryThumbs[galleryIdx].title}`}
+                >
+                  <img src={galleryThumbs[galleryIdx].img} alt={galleryThumbs[galleryIdx].title} className={styles.galleryFeaturedImg} />
+                </button>
                 <div className={styles.galleryFeaturedOverlay} />
                 <button className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`} onClick={() => galGoTo(galleryIdx - 1)} aria-label="Previous photo">
                   <ChevronLeft size={22} />
@@ -438,7 +469,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* ░░ STATS & VIDEOS FRAME ░░ */}
-      <div className={styles.statsVideoContainer}>
+      <div className={`${styles.statsVideoContainer} snap-frame`}>
         {/* ░░ STATS ░░ */}
         <p className={`section-tag reveal ${styles.statsTag}`}>Our Impact in Numbers</p>
         <section className={styles.statsBand}>
@@ -489,7 +520,7 @@ const Home: React.FC = () => {
       </section> */}
 
       {/* ░░ GHANA HUBS & CLUBS MAP ░░ */}
-      <section className={styles.cmsSection}>
+      <section className={`${styles.cmsSection} snap-frame`}>
         <div className="container">
           <div className={styles.cmsHeader}>
             <span className="section-tag reveal">Hubs & Clubs Network</span>
@@ -596,11 +627,14 @@ const Home: React.FC = () => {
                             ) : (
                               <div className={styles.popupEmptyState}>
                                 <p>No active hubs listed here yet. We are expanding into {reg.shortName}!</p>
-                                <Link to="/contact" className={styles.popupStartBtn}>
-                                  Start a Hub in {reg.shortName} <ArrowRight size={12} />
-                                </Link>
                               </div>
                             )}
+
+                            <div className={styles.popupFooter}>
+                              <Link to="/contact" className={styles.popupStartBtn}>
+                                Start a Hub in {reg.shortName} <ArrowRight size={12} />
+                              </Link>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -621,7 +655,7 @@ const Home: React.FC = () => {
 
 
       {/* ░░ TESTIMONIAL & EVENTS FRAME ░░ */}
-      <div className={styles.testimonialEventsContainer}>
+      <div className={`${styles.testimonialEventsContainer} snap-frame`}>
         {/* ░░ TESTIMONIAL ░░ */}
         <section className={styles.testimonialSection}>
           <div className="container">
@@ -639,7 +673,7 @@ const Home: React.FC = () => {
           <div className="container">
             <div className={styles.sectionHeader}>
               <div>
-                <p className="section-tag reveal">What's Coming</p>
+                <p className="section-tag reveal">Events</p>
                 <h2 className="section-h reveal d1" style={{ color: 'var(--white)' }}>Upcoming Events</h2>
               </div>
               <Link className="btn-ghost reveal d2" to="/events">All Events <ArrowRight size={14} /></Link>
@@ -670,28 +704,41 @@ const Home: React.FC = () => {
       </div>
 
       {/* ░░ NEWS ░░ */}
-      <section className={styles.newsSection}>
+      <section className={`${styles.newsSection} snap-frame`}>
         <div className="container">
           <div className={styles.sectionHeader}>
             <div>
-              <p className="section-tag reveal">Latest Stories</p>
-              <h2 className="section-h reveal d1">News & Highlights</h2>
+              <p className="section-tag reveal">News</p>
+              <h2 className="section-h reveal d1">Latest News</h2>
             </div>
-            <Link className="btn-ghost reveal d2" to="/blog">All Stories <ArrowRight size={14} /></Link>
+            <Link className="btn-ghost reveal d2" to="/news">All News <ArrowRight size={14} /></Link>
           </div>
           <div className={styles.newsGrid}>
             {newsCards.map((nc, i) => (
-              <article key={i} className={`${styles.newsCard} reveal ${i > 0 ? `d${i}` : ''}`}>
+              <a
+                key={nc.url}
+                href={nc.url}
+                target="_blank"
+                rel="noreferrer"
+                className={`${styles.newsCard} reveal ${i > 0 ? `d${i}` : ''}`}
+              >
                 <div className={styles.newsCardImg}>
-                  <img src={nc.img} alt={nc.title} />
+                  <img
+                    src={nc.image || '/assets/images/blog-photo-1.png'}
+                    alt=""
+                    loading="lazy"
+                    onError={(event) => {
+                      event.currentTarget.src = '/assets/images/blog-photo-1.png';
+                    }}
+                  />
                   <div className={styles.newsCardOverlay} />
                 </div>
                 <div className={styles.newsCardBody}>
-                  <span className={styles.newsCardCat}>{nc.cat}</span>
+                  <span className={styles.newsCardCat}>Wikimedia Diff</span>
                   <h3 className={styles.newsCardTitle}>{nc.title}</h3>
-                  <p className={styles.newsCardMeta}>{nc.meta}</p>
+                  <p className={styles.newsCardMeta}>{nc.date}</p>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         </div>
@@ -700,7 +747,7 @@ const Home: React.FC = () => {
 
 
       {/* ░░ PARTNERS ░░ */}
-      <section className={styles.partnersStrip}>
+      <section className={`${styles.partnersStrip} snap-frame`}>
         <div className="container">
           <p className={styles.partnersLabel}>Trusted Partners & Supporters</p>
           <img className={styles.partnersImg} src="/assets/images/partners-strip.png" alt="Our partner organisations" />

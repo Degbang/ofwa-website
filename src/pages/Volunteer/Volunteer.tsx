@@ -3,6 +3,7 @@ import { Send, CheckCircle2, Award, Users, BookOpen, MapPin, ArrowRight, Sparkle
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useCountUp } from '../../hooks/useCountUp';
 import styles from './Volunteer.module.css';
+import volunteerImage from '../../assets/Volunteer.jpg';
 
 /* ── Stat Item Component ─────────────────────────── */
 const StatItem: React.FC<{ end: number; suffix?: string; label: string; delay?: string }> = ({ end, suffix = '', label, delay }) => {
@@ -113,11 +114,11 @@ const Volunteer: React.FC = () => {
   return (
     <>
       {/* HERO & STATS CONTAINER */}
-      <div className={styles.volunteerHeroContainer}>
+      <div className={`${styles.volunteerHeroContainer} snap-frame`}>
         {/* PAGE HERO */}
         <section className={styles.pageHero}>
           <div className={styles.heroGlowOverlay} />
-          <div className="container">
+          <div className={styles.wideContainer}>
             <span className={`${styles.heroKicker} reveal`}>
               <Sparkles size={14} /> Join The Movement
             </span>
@@ -140,7 +141,7 @@ const Volunteer: React.FC = () => {
 
         {/* STATS BAND */}
         <section className={styles.statsBand}>
-          <div className="container">
+          <div className={styles.wideContainer}>
             <div className={styles.statsGrid}>
               <StatItem end={500} suffix="+" label="Trained Volunteers" />
               <StatItem end={40} suffix="K+" label="Wikipedia Articles Created" delay="d1" />
@@ -152,38 +153,59 @@ const Volunteer: React.FC = () => {
       </div>
 
       {/* WHY VOLUNTEER & PERKS */}
-      <section className={styles.whyVolunteerSection}>
-        <div className="container">
-          <div className={styles.splitGrid}>
-            <div className="reveal">
-              <span className="section-tag">Why It Matters</span>
-              <h2 className={styles.splitTitle}>Your Skills Can Reframe African History</h2>
-              <p className={styles.splitBody}>
-                Wikipedia is the world's primary source of free knowledge, yet less than 20% of contributors are women, and African topics remain severely underrepresented.
-              </p>
-              <p className={styles.splitBody}>
-                At Open Foundation West Africa (OFWA), our volunteers are the driving engine closing this gap. Whether you write, teach, translate, capture photos, or code — there is a high-impact role for you.
-              </p>
+      <section id="why-it-matters" className={`${styles.whyVolunteerSection} snap-frame`}>
+        <div className={styles.wideContainer}>
+          <div className={styles.whyVolunteerStack}>
+            <div className={styles.splitGrid}>
+              <div className={`${styles.impactCopy} reveal`}>
+                <span className="section-tag">Why It Matters</span>
+                <h2 className={styles.splitTitle}>Your Skills Can Reframe African History</h2>
+                <p className={styles.splitBody}>
+                  Wikipedia is the world&apos;s primary source of free knowledge, yet less than 20% of contributors are women, and African topics remain severely underrepresented.
+                </p>
+                <p className={styles.splitBody}>
+                  At Open Foundation West Africa (OFWA), our volunteers are the driving engine closing this gap. Whether you write, teach, translate, capture photos, or code — there is a high-impact role for you.
+                </p>
 
-              <div className={styles.perksList}>
-                {perks.map((perk, idx) => (
-                  <div key={idx} className={styles.perkItem}>
-                    <CheckCircle2 size={18} className={styles.perkIcon} />
-                    <span>{perk}</span>
-                  </div>
-                ))}
+                <div className={styles.perksList}>
+                  {perks.map((perk, idx) => (
+                    <div key={idx} className={styles.perkItem}>
+                      <CheckCircle2 size={18} className={styles.perkIcon} />
+                      <span>{perk}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className={styles.whyVolunteerCtas}>
+                  <a href="#volunteer-form" className={styles.whyVolunteerPrimaryBtn}>
+                    Volunteer Now <ArrowRight size={15} />
+                  </a>
+                  <a href="#open-roles" className={styles.whyVolunteerSecondaryBtn}>
+                    Explore Roles
+                  </a>
+                </div>
               </div>
-            </div>
 
-            <div className={`${styles.splitImgColumn} reveal d2`}>
-              <div className={styles.imgCardWrap}>
-                <img src="/assets/images/hub-photo-2.png" alt="OFWA volunteers in training session" className={styles.splitImg} />
-                <div className={styles.imgCardOverlay} />
-                <div className={styles.imgCardBadge}>
-                  <ShieldCheck size={20} />
-                  <div>
-                    <strong>Impact-Driven Community</strong>
-                    <span>Ghana & West Africa</span>
+              <div className={`${styles.splitImgColumn} reveal d2`}>
+                <div className={styles.imgCardWrap}>
+                  <img src={volunteerImage} alt="OFWA volunteers in training session" className={styles.splitImg} />
+                  <div className={styles.imgCardOverlay} />
+                  <div className={styles.imgCardBadge}>
+                    <ShieldCheck size={20} />
+                    <div>
+                      <strong>Impact-Driven Community</strong>
+                      <span>Ghana & West Africa</span>
+                    </div>
+                  </div>
+                  <div className={styles.quoteCard}>
+                    <span className={styles.quoteEyebrow}>Volunteer Story</span>
+                    <p className={styles.quoteText}>
+                      “Volunteering with OFWA gave me a platform to document the history of Ghanaian women who were invisible online.”
+                    </p>
+                    <div className={styles.quoteAuthor}>
+                      <strong>Akosua Mensah</strong>
+                      <span>Lead Community Editor · Kumasi Hub</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -193,8 +215,8 @@ const Volunteer: React.FC = () => {
       </section>
 
       {/* ROLES SECTION */}
-      <section id="open-roles" className={styles.rolesSection}>
-        <div className="container">
+      <section id="open-roles" className={`${styles.rolesSection} snap-frame`}>
+        <div className={styles.wideContainer}>
           <div className={styles.rolesHead}>
             <span className="section-tag reveal">Opportunities</span>
             <h2 className={`${styles.rolesTitle} reveal d1`}>How You Can Contribute</h2>
@@ -223,25 +245,9 @@ const Volunteer: React.FC = () => {
         </div>
       </section>
 
-      {/* VOLUNTEER TESTIMONIAL */}
-      <section className={styles.quoteSection}>
-        <div className="container">
-          <div className={styles.quoteCard}>
-            <span className={styles.quoteMark}>“</span>
-            <p className={styles.quoteText}>
-              Volunteering with OFWA gave me a platform to document the history of Ghanaian women who were invisible online. Now their contributions inspire thousands of readers around the world every single day.
-            </p>
-            <div className={styles.quoteAuthor}>
-              <strong>Akosua Mensah</strong>
-              <span>Lead Community Editor · Kumasi Hub</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FORM SECTION */}
-      <section id="volunteer-form" className={styles.formSection}>
-        <div className="container" style={{ maxWidth: 820 }}>
+      <section id="volunteer-form" className={`${styles.formSection} snap-frame`}>
+        <div className={styles.formShell}>
           <div className={styles.formCard}>
             <div className={styles.formHead}>
               <span className="section-tag">Get Started</span>
@@ -399,4 +405,3 @@ const Volunteer: React.FC = () => {
 };
 
 export default Volunteer;
-

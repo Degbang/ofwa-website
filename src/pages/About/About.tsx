@@ -11,36 +11,35 @@ const values = [
     title: 'Collaboration',
     body: 'We believe in the power of the collective, co-creating solutions through meaningful partnerships rather than working in silos.',
     number: '01',
-    tag: 'Togetherness'
+    tag: 'Togetherness',
   },
   {
     icon: <UtensilsCrossed size={26} />,
     title: 'Afro-heritage',
     body: 'We root our work in the pride of our identity, ensuring African narratives are owned, shaped, and told by Africans.',
     number: '02',
-    tag: 'Diaspora'
+    tag: 'Diaspora',
   },
-
   {
     icon: <Scale size={26} />,
     title: 'Equity & Inclusion',
     body: 'We dismantle barriers to participation, creating a welcoming space where diverse voices are amplified, respected, and heard.',
     number: '03',
-    tag: 'Inclusivity'
+    tag: 'Inclusivity',
   },
   {
     icon: <Lightbulb size={26} />,
     title: 'Innovation',
     body: 'We create platforms and embrace forward-thinking solutions, leveraging new technologies to find effective ways to capture and share knowledge.',
     number: '04',
-    tag: 'Pioneering'
+    tag: 'Pioneering',
   },
   {
     icon: <ShieldCheck size={26} />,
     title: 'Transparency',
     body: 'We work in the open with integrity, building trust by making our decisions, processes, and finances visible to our community and partners.',
     number: '05',
-    tag: 'Integrity'
+    tag: 'Integrity',
   },
 ];
 
@@ -49,50 +48,37 @@ interface DriveFile {
   name: string;
 }
 
-
 const members = {
   boardMembers: [
-    { name: 'Raphael Berchie', role: 'Board Chairman/ Co-Founder', image: "/assets/images/board members/raphael-berchie.jpg" },
-    { name: 'Ama Serwah Nerquaye-Tetteh', role: 'Vice Chairperson', image: "/assets/images/board members/ama-serwah.jpg" },
-    { name: 'Dr. George Tesilimi', role: 'Lecturer and Librarian- University of Health and Allied Sciences', image: "/assets/images/board members/george-tesilimi.jpg" },
-    { name: 'Jesse Akrofi-Asiedu', role: 'Digital Humanist and Open Advocate', image: "/assets/images/board members/jesse-akrofi-asiedu.jpg" },
-    { name: 'Jonathan Oberko', role: 'Principal Accounts - Accra Technical University', image: "/assets/images/board members/kweku-berko.jpg" },
-    { name: 'Philip Boakye Dua Oyinka', role: 'Creative Writing Trainer, Poet, Writer, Advisor', image: "/assets/images/board members/nana-asaase.jpg" },
-    { name: 'Felix Nartey', role: 'Advisor to the Board', image: "/assets/images/board members/felix-nartey.jpg" },
+    { name: 'Raphael Berchie', role: 'Board Chairman/ Co-Founder', image: '/assets/images/board members/raphael-berchie.jpg' },
+    { name: 'Ama Serwah Nerquaye-Tetteh', role: 'Vice Chairperson', image: '/assets/images/board members/ama-serwah.jpg' },
+    { name: 'Dr. George Tesilimi', role: 'Lecturer and Librarian- University of Health and Allied Sciences', image: '/assets/images/board members/george-tesilimi.jpg' },
+    { name: 'Jesse Akrofi-Asiedu', role: 'Digital Humanist and Open Advocate', image: '/assets/images/board members/jesse-akrofi-asiedu.jpg' },
+    { name: 'Jonathan Oberko', role: 'Principal Accounts - Accra Technical University', image: '/assets/images/board members/kweku-berko.jpg' },
+    { name: 'Philip Boakye Dua Oyinka', role: 'Creative Writing Trainer, Poet, Writer, Advisor', image: '/assets/images/board members/nana-asaase.jpg' },
+    { name: 'Felix Nartey', role: 'Advisor to the Board', image: '/assets/images/board members/felix-nartey.jpg' },
   ],
   hubLeaders: [
-    { name: 'Abdul-Rahim Ziblim', role: 'Tamale Wiki Hub Lead (President)', image: "/assets/images/hub leaders/abdul-rahim-ziblim.jpg" },
-    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi WikiHub Lead (Assistant)', image: "/assets/images/hub leaders/asamoah-daniel-kwame-oware.jpg" },
-    { name: 'Lookman Sunday Ibrahim', role: 'Tamale Wiki Hub Lead (Vice)', image: "/assets/images/hub leaders/lookman-sunday-ibrahim.png" },
-    { name: "Chris Ato Quamina", role: "Walewale Hub Leader", image: "/assets/images/hub leaders/Chris Ato Quamina.png" },
-    { name: "Mehetabel Enam Effe Akoto", role: "Ho Wiki Hub Assistant Leader", image: "/assets/images/hub leaders/Mehetabel Enam Effe Akoto.jpeg" },
-    { name: "Sharif Tiisu", role: "UDS Wiki Tech Hub Leader", image: "/assets/images/hub leaders/Sharif Tiisu.jpeg" },
-    { name: "Tieruzie Zacchaeus Zinanibe", role: "DHLU Wiki Club Leader", image: "/assets/images/hub leaders/Tieruzie Zacchaeus Zinanibe.jpeg" }
-    // { name: 'Enoch Gyeedu-Essandoh', role: 'Accra Hub Lead (President)', image: "/assets/images/hub leaders/enoch-gyeedu-essandoh.jpeg" },
-    // { name: 'Frida Cheboi', role: 'Ashesi Wiki Hub Lead', image: "/assets/images/hub leaders/frida-cheboi.jpg" },
-    // { name: 'Gideon Babosima Daboo', role: 'Walewale Hub Lead', image: "/assets/images/hub leaders/gideon-babosima-daboo.jpg" },
-    // { name: 'Jennifer Adenam Kanchei', role: 'Walewale Hub Lead (Vice President)', image: "/assets/images/hub leaders/jennifer-adenam-kanchei.jpg" },
-    // { name: 'Joshua Tetteh Ayayi', role: 'Ho Hub Vice President', image: "/assets/images/hub leaders/joshua-tetteh-ayayi.jpg" },
-    // { name: 'Paul Asare', role: 'Accra Hub Lead (Vice President', image: "/assets/images/hub leaders/paul-asare.jpg" },
-    // { name: 'Princess Lovia Tetteh', role: 'Ho Hub Lead (Vice President)', image: "/assets/images/hub leaders/princess-lovia-tetteh.jpg" },
+    { name: 'Abdul-Rahim Ziblim', role: 'Tamale Wiki Hub Lead (President)', image: '/assets/images/hub leaders/abdul-rahim-ziblim.jpg' },
+    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi WikiHub Lead (Assistant)', image: '/assets/images/hub leaders/asamoah-daniel-kwame-oware.jpg' },
+    { name: 'Lookman Sunday Ibrahim', role: 'Tamale Wiki Hub Lead (Vice)', image: '/assets/images/hub leaders/lookman-sunday-ibrahim.png' },
+    { name: 'Chris Ato Quamina', role: 'Walewale Hub Leader', image: '/assets/images/hub leaders/Chris Ato Quamina.png' },
+    { name: 'Mehetabel Enam Effe Akoto', role: 'Ho Wiki Hub Assistant Leader', image: '/assets/images/hub leaders/Mehetabel Enam Effe Akoto.jpeg' },
+    { name: 'Sharif Tiisu', role: 'UDS Wiki Tech Hub Leader', image: '/assets/images/hub leaders/Sharif Tiisu.jpeg' },
+    { name: 'Tieruzie Zacchaeus Zinanibe', role: 'DHLU Wiki Club Leader', image: '/assets/images/hub leaders/Tieruzie Zacchaeus Zinanibe.jpeg' },
   ],
   coreTeam: [
-    { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
-    { name: 'Brian Ayiku Ocansey', role: 'Admin and Programs Coordinator', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
-    { name: 'Dickson Kojo Anane', role: 'Programs Officer', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
-    { name: 'Alfred Degbang', role: 'Technical Coordinator', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
-    { name: 'Edmund Quansah', role: 'Media Strategist', image: "/assets/images/core team/jael-serwaa-boateng.jpg" },
-  ]
+    { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
+    { name: 'Brian Ayiku Ocansey', role: 'Admin and Programs Coordinator', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
+    { name: 'Dickson Kojo Anane', role: 'Programs Officer', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
+    { name: 'Alfred Degbang', role: 'Technical Coordinator', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
+    { name: 'Edmund Quansah', role: 'Media Strategist', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
+  ],
 };
 
 const About: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'boardMembers' | 'coreTeam' | 'hubLeaders'>('boardMembers');
   useScrollReveal(activeTab);
-  const [teamImages, setTeamImages] = useState<any[]>([]);
-
-
-  console.log("teamImages", teamImages);
-  console.log("teamMembers", members.coreTeam);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -110,22 +96,18 @@ const About: React.FC = () => {
         cat: 'Team',
         categories: ['team'],
       }));
-    }
+    };
 
     fetchImages().then((images) => {
-      setTeamImages(images);
-      members["coreTeam"].forEach((member) => {
+      members.coreTeam.forEach((member) => {
         member.image = images.find((image) => image.alt === member.name)?.full || member.image;
-      })
-    })
-
-  }, [])
+      });
+    });
+  }, []);
 
   return (
     <>
-      {/* HERO & MISSION FRAME */}
-      <div className={styles.heroMissionContainer}>
-        {/* PAGE HERO */}
+      <div className={`${styles.heroMissionContainer} snap-frame`}>
         <section className={styles.pageHero}>
           <div className="container">
             <p className={`${styles.pageHeroKicker} reveal`}>Our Story</p>
@@ -134,20 +116,18 @@ const About: React.FC = () => {
           </div>
         </section>
 
-        {/* MISSION SPLIT */}
         <section className={styles.aboutSplit}>
           <div className={styles.aboutSplitImg}>
             <div className={`${styles.aboutSplitContentGoals} ${styles.aboutSplitContentLight}`}>
               <span className="section-tag mission-title reveal">Our Vision</span>
-              <h2 className={`${styles.sectionHDark} reveal `}>What We're Working Towards</h2>
-              <p>​An equitable digital landscape where African knowledge is freely shared by Africans, for everyone.</p>
+              <h2 className={`${styles.sectionHDark} reveal`}>What We're Working Towards</h2>
+              <p>An equitable digital landscape where African knowledge is freely shared by Africans, for everyone.</p>
             </div>
           </div>
           <div className={styles.aboutSplitContent}>
             <span className="section-tag mission-title reveal">Our Mission</span>
             <h2 className={`${styles.sectionHDark} reveal d1`}>Contribution to the Open Movement</h2>
-            <p className={`${styles.bodyText} reveal d2`}>​Co-creating the future of African open knowledge by building inclusive platforms and equipping communities with the tools to share their narratives.</p>
-            {/* <p className={`${styles.bodyText} reveal d3`}></p> */}
+            <p className={`${styles.bodyText} reveal d2`}>Co-creating the future of African open knowledge by building inclusive platforms and equipping communities with the tools to share their narratives.</p>
             <button className={styles.getInvolvedBtn}>
               <Link className="btn-orange reveal d4" to="/contact">Get Involved <ArrowRight size={16} /></Link>
             </button>
@@ -155,10 +135,7 @@ const About: React.FC = () => {
         </section>
       </div>
 
-
-
-      {/* VALUES */}
-      <section className={styles.valuesSection}>
+      <section className={`${styles.valuesSection} snap-frame`}>
         <div className={styles.ambientGlow} />
         <div className="container">
           <div className={styles.valuesSectionHead}>
@@ -192,9 +169,7 @@ const About: React.FC = () => {
         </div>
       </section>
 
-
-      {/* MEMBERS SECTION */}
-      <section className={styles.teamSection}>
+      <section className={`${styles.teamSection} snap-frame`}>
         <div className="container">
           <div className={styles.teamSectionHead}>
             <span className="section-tag reveal">Our People</span>
@@ -204,7 +179,6 @@ const About: React.FC = () => {
             </p>
           </div>
 
-          {/* Tab Selector Buttons */}
           <div className={`${styles.tabContainer} reveal d3`}>
             <button
               className={clsx(styles.tabBtn, activeTab === 'boardMembers' && styles.tabBtnActive)}
@@ -226,7 +200,6 @@ const About: React.FC = () => {
             </button>
           </div>
 
-          {/* Grid of Active Members */}
           <div className={styles.memberGrid}>
             {members[activeTab].map((m, i) => (
               <div key={`${activeTab}-${i}`} className={`${styles.memberCard} reveal ${i > 0 ? `d${i % 4}` : ''}`}>
@@ -235,7 +208,7 @@ const About: React.FC = () => {
                     src={m.image}
                     alt={m.name}
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/assets/images/team-member.png";
+                      (e.target as HTMLImageElement).src = '/assets/images/team-member.png';
                     }}
                   />
                 </div>
