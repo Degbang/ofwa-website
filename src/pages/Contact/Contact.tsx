@@ -126,7 +126,7 @@ const Contact: React.FC = () => {
                   </span>
                   <div>
                     <strong>Location</strong>
-                    <span>132 52 Swaniker St, Achimota, Accra, Ghana</span>
+                    <span>52 Swaniker St, Achimota, Accra, Ghana</span>
                   </div>
                 </div>
               </div>

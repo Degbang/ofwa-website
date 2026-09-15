@@ -27,6 +27,7 @@
 
   .whyPartnerSection,
   .modelsSection,
+  .trustedSection,
   .formSection {
     min-height: calc(100vh - var(--nav-h));
     min-height: calc(100dvh - var(--nav-h));
@@ -34,6 +35,24 @@
     flex-direction: column;
     justify-content: center;
     padding: 60px 0 !important;
+  }
+}
+
+@media (max-width: 991px), (max-height: 719px) {
+  .partnerHeroContainer {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .whyPartnerSection,
+  .modelsSection,
+  .trustedSection,
+  .formSection {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 

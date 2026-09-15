@@ -20,6 +20,15 @@
   }
 }
 
+@media (max-width: 991px), (max-height: 719px) {
+  .donateHero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+  }
+}
+
 .confettiLayer {
   position: absolute;
   inset: 0;

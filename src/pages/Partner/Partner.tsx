@@ -153,7 +153,7 @@ const Partner: React.FC = () => {
   return (
     <>
       {/* HERO CONTAINER */}
-      <div className={styles.partnerHeroContainer}>
+      <div className={`${styles.partnerHeroContainer} snap-frame`}>
         {/* PAGE HERO */}
         <section className={styles.pageHero}>
         <div className="container">
@@ -198,7 +198,7 @@ const Partner: React.FC = () => {
       </div>
 
       {/* WHY PARTNER SECTION */}
-      <section className={styles.whyPartnerSection}>
+      <section className={`${styles.whyPartnerSection} snap-frame`}>
         <div className="container">
           <div className={styles.splitGrid}>
             <div>
@@ -248,7 +248,7 @@ const Partner: React.FC = () => {
       </section>
 
       {/* PARTNERSHIP MODELS SECTION */}
-      <section id="models-section" className={styles.modelsSection}>
+      <section id="models-section" className={`${styles.modelsSection} snap-frame`}>
         <div className="container">
           <div className={styles.modelsHead}>
             <span className="section-tag reveal">Partnership Frameworks</span>
@@ -296,7 +296,7 @@ const Partner: React.FC = () => {
       </section>
 
       {/* TESTIMONIAL / TRUSTED NETWORK STRIP */}
-      <section className={styles.trustedSection}>
+      <section className={`${styles.trustedSection} snap-frame`}>
         <div className="container">
           <span className="section-tag reveal">Our Global Network</span>
           <h2 className={`${styles.trustedTitle} reveal d1`}>Trusted By Leading Organisations</h2>
@@ -325,7 +325,7 @@ const Partner: React.FC = () => {
       </section>
 
       {/* PARTNERSHIP PORTAL / INQUIRY FORM */}
-      <section id="partner-form" className={styles.formSection}>
+      <section id="partner-form" className={`${styles.formSection} snap-frame`}>
         <div className="container">
           <div className={styles.formSectionGrid}>
             {/* LEFT COLUMN: GUIDANCE & TIMELINE */}
@@ -489,7 +489,7 @@ const Partner: React.FC = () => {
       </section>
 
       {/* DIRECT DONATE / ALTERNATE CTA */}
-      <section className={styles.donateCta}>
+      <section className={`${styles.donateCta} snap-frame`}>
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
           <p className={`${styles.donateCtaTag} reveal`}>Direct Support</p>
           <h2 className={`${styles.donateCtaH} reveal d1`}>Looking for Direct Financial Support?</h2>

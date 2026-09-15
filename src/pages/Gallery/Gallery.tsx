@@ -178,7 +178,7 @@ const Gallery: React.FC = () => {
   };
 
   return (
-    <div className={styles.galleryViewportContainer}>
+    <div className={`${styles.galleryViewportContainer} snap-frame`}>
       <Lightbox
         images={displayedCards}
         currentIndex={lightboxIdx}

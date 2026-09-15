@@ -31,6 +31,13 @@
   }
 }
 
+@media (max-width: 991px), (max-height: 719px) {
+  .eventsViewportContainer {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}
+
 @media (min-width: 992px) and (max-height: 850px) {
   .monthGrid {
     margin-bottom: 24px !important;

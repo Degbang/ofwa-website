@@ -8,7 +8,7 @@
 
 /* Desktop layout: force to fit exactly one viewport height */
 /* Desktop layout: force to fit exactly one viewport height minus navbar height */
-@media (min-width: 992px) {
+@media (min-width: 992px) and (min-height: 720px) {
   .heroContainer {
     height: calc(100vh - var(--nav-h));
     height: calc(100dvh - var(--nav-h));
@@ -16,8 +16,8 @@
   }
 }
 
-/* Mobile/Tablet layout: allow natural scrolling */
-@media (max-width: 991px) {
+/* Mobile/Tablet layout, and short desktop windows: allow natural scrolling */
+@media (max-width: 991px), (max-height: 719px) {
   .heroContainer {
     min-height: calc(100vh - var(--nav-h));
     min-height: calc(100dvh - var(--nav-h));
@@ -487,9 +487,10 @@
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991px), (max-height: 719px) {
   .missionGalleryContainer {
-    min-height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .missionSection {
@@ -634,6 +635,32 @@
   color: var(--white);
   font-size: 1.05rem;
   line-height: 1.3;
+}
+
+.galleryViewAllLink {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  color: var(--white) !important;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: all 0.2s ease;
+}
+
+.galleryViewAllLink:hover {
+  background: var(--orange-gradient);
+  color: var(--black) !important;
+  border-color: transparent;
+  transform: translateY(-1px);
 }
 
 .galleryFeaturedCount {
@@ -802,9 +829,10 @@
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991px), (max-height: 719px) {
   .statsVideoContainer {
-    min-height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 }
 
@@ -2050,6 +2078,16 @@
   background: var(--dark);
 }
 
+@media (max-width: 991px), (max-height: 719px) {
+  .newsSection {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 @media (min-width: 992px) and (min-height: 720px) {
   .newsSection {
     min-height: calc(100vh - var(--nav-h));
@@ -2306,9 +2344,10 @@
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991px), (max-height: 719px) {
   .testimonialEventsContainer {
-    min-height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 
   .testimonialEventsContainer .testimonialSection {

@@ -442,6 +442,10 @@ const Home: React.FC = () => {
                   <img src={galleryThumbs[galleryIdx].img} alt={galleryThumbs[galleryIdx].title} className={styles.galleryFeaturedImg} />
                 </button>
                 <div className={styles.galleryFeaturedOverlay} />
+                <Link className={styles.galleryViewAllLink} to="/gallery" aria-label="View full gallery">
+                  <span>View Gallery</span>
+                  <ArrowRight size={13} />
+                </Link>
                 <button className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`} onClick={() => galGoTo(galleryIdx - 1)} aria-label="Previous photo">
                   <ChevronLeft size={22} />
                 </button>

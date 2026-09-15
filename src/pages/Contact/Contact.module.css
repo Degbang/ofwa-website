@@ -18,6 +18,15 @@
   }
 }
 
+@media (max-width: 991px), (max-height: 719px) {
+  .pageHero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+  }
+}
+
 .pageHero {
   position: relative;
   overflow: hidden;

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
+import Programs from './pages/Programs/Programs';
 import Events from './pages/Events/Events';
 import Gallery from './pages/Gallery/Gallery';
 import News from './pages/News/News';
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/programs" element={<Programs />} />
           <Route path="/events" element={<Events />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/news" element={<News />} />

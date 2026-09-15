@@ -60,12 +60,14 @@ const members = {
   ],
   hubLeaders: [
     { name: 'Abdul-Rahim Ziblim', role: 'Tamale Wiki Hub Lead (President)', image: '/assets/images/hub leaders/abdul-rahim-ziblim.jpg' },
-    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi WikiHub Lead (Assistant)', image: '/assets/images/hub leaders/asamoah-daniel-kwame-oware.jpg' },
+    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi WikiHub Lead (Assistant)', image: '/assets/images/hub leaders/asamoah-daniel-kwame-oware-headshot.jpg' },
     { name: 'Lookman Sunday Ibrahim', role: 'Tamale Wiki Hub Lead (Vice)', image: '/assets/images/hub leaders/lookman-sunday-ibrahim.png' },
     { name: 'Chris Ato Quamina', role: 'Walewale Hub Leader', image: '/assets/images/hub leaders/Chris Ato Quamina.png' },
     { name: 'Mehetabel Enam Effe Akoto', role: 'Ho Wiki Hub Assistant Leader', image: '/assets/images/hub leaders/Mehetabel Enam Effe Akoto.jpeg' },
     { name: 'Sharif Tiisu', role: 'UDS Wiki Tech Hub Leader', image: '/assets/images/hub leaders/Sharif Tiisu.jpeg' },
     { name: 'Tieruzie Zacchaeus Zinanibe', role: 'DHLU Wiki Club Leader', image: '/assets/images/hub leaders/Tieruzie Zacchaeus Zinanibe.jpeg' },
+    { name: 'Constantine Appiah', role: 'Ho Wiki Club Leader', image: '/assets/images/hub leaders/constantine-appiah.jpg' },
+    { name: 'Rexford Ameyaw', role: 'Enchicoe Wiki Club Leader', image: '/assets/images/hub leaders/rexford-ameyaw.jpg' },
   ],
   coreTeam: [
     { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },

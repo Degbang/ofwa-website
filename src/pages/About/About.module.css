@@ -243,6 +243,16 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+@media (max-width: 991px), (max-height: 719px) {
+  .valuesSection {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 .ambientGlow {
   position: absolute;
   top: 50%;
@@ -656,9 +666,10 @@
   }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991px), (max-height: 719px) {
   .heroMissionContainer {
-    min-height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 }
 

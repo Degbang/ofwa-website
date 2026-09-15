@@ -52,7 +52,7 @@ export const Navbar: React.FC = () => {
       setIsWhatsNewOpen(false);
     }, 280);
   };
-  const isWhatsNewActive = location.pathname === '/events' || location.pathname === '/news';
+  const isWhatsNewActive = location.pathname === '/events' || location.pathname === '/news' || location.pathname === '/programs';
 
   return (
     <nav className={`${styles.siteNav} ${scrolled ? styles.scrolled : ''}`} data-open={isOpen}>
@@ -96,6 +96,13 @@ export const Navbar: React.FC = () => {
               <ChevronDown size={16} className={styles.chevron} />
             </button>
             <div className={styles.dropdownMenu}>
+              <NavLink
+                to="/programs"
+                className={({ isActive }) => `${styles.dropdownLink} ${isActive ? styles.dropdownActive : ''}`}
+                onClick={closeMenu}
+              >
+                Programs
+              </NavLink>
               <NavLink
                 to="/events"
                 className={({ isActive }) => `${styles.dropdownLink} ${isActive ? styles.dropdownActive : ''}`}

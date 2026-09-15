@@ -63,7 +63,7 @@ export const Footer: React.FC<FooterProps> = () => {
           <div className={styles.contactList}>
             <div className={styles.contactItem}>
               <MapPin size={15} className={styles.contactIcon} />
-              <span>132 52 Swaniker St, Accra, Ghana</span>
+              <span>52 Swaniker St, Accra, Ghana</span>
             </div>
             <div className={styles.contactItem}>
               <Mail size={15} className={styles.contactIcon} />
@@ -87,6 +87,7 @@ export const Footer: React.FC<FooterProps> = () => {
             <ul className={styles.colLinks}>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/programs">Programs</Link></li>
               <li><Link to="/events">Events</Link></li>
               <li><Link to="/news">News</Link></li>
               <li><Link to="/volunteer">Volunteer</Link></li>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Navbar } from '../Navbar/Navbar';
 import { Footer } from '../Footer/Footer';
+import { useFrameScroll } from '../../hooks/useFrameScroll';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { pathname } = useLocation();
+  useFrameScroll();
 
   // Scroll to top and handle body theme switching on route change
   useEffect(() => {
