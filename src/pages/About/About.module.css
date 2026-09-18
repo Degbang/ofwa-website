@@ -196,6 +196,21 @@
     max-height: 300px;
   }
 
+  /* .aboutSplitImg is also (mis)used as a plain text wrapper for the "Our
+     Vision" block (not just image columns), carrying overflow:hidden and a
+     max-height meant for cropping photos. Combined with
+     aboutSplitContentGoals's height:100%, that clipped the vision text
+     whenever the grid row resolved shorter than the text needed. Text
+     content shouldn't be capped/cropped here. */
+  .aboutSplitImg {
+    max-height: none;
+    overflow: visible;
+  }
+
+  .aboutSplitContentGoals {
+    height: auto;
+  }
+
   .getInvolvedBtn {
     width: 100%;
   }

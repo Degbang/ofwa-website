@@ -48,17 +48,6 @@
   .heroKickerRegion {
     display: none;
   }
-
-  /* Was position:absolute + flex-centered inside a fixed-height, overflow:
-     hidden .hero — when the stacked kicker/heading/sub/button content was
-     taller than the 480px floor, centering pushed its top half above the
-     box and overflow:hidden clipped it off (only the tail of the kicker
-     survived). Normal flow lets .hero grow to fit instead of clipping. */
-  .heroContent {
-    position: static;
-    display: block;
-    padding: 48px 0 40px;
-  }
 }
 
 .heroSlide {
@@ -96,6 +85,19 @@
   z-index: 2;
   display: flex;
   align-items: center;
+}
+
+/* Was position:absolute + flex-centered inside a fixed-height, overflow:
+   hidden .hero — when the stacked kicker/heading/sub/button content was
+   taller than the 480px floor, centering pushed its top half above the box
+   and overflow:hidden clipped it off (only the tail of the kicker survived
+   the clip). Normal flow lets .hero grow to fit instead of clipping. */
+@media (max-width: 991px) {
+  .heroContent {
+    position: static;
+    display: block;
+    padding: 48px 0 40px;
+  }
 }
 
 .heroKicker {
