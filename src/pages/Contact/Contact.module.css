@@ -97,7 +97,7 @@
   gap: 14px;
   padding: 14px;
   border-radius: 24px;
-  background: rgba(255, 250, 242, 0.96);
+  background: rgba(255, 250, 242, 0.1);
   border: 1px solid rgba(255, 159, 67, 0.14);
   box-shadow: 0 28px 80px rgba(10, 8, 8, 0.24);
 }
@@ -214,8 +214,10 @@
 }
 
 .contactFormWrap {
-  background: #fffdf9;
-  border: 1px solid rgba(35, 26, 19, 0.08);
+  background: rgba(255, 253, 249, 0.5);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .formHead {

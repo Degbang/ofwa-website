@@ -58,8 +58,6 @@ const roles = [
 const perks = [
   'Gain globally recognized Wikimedia digital skills & certification',
   'Receive hands-on mentorship from experienced open knowledge leaders',
-  'Network with tech, research, and open knowledge communities across Africa',
-  'Access sponsored edit-a-thons, internet data stipends, & event passes',
   'Lead national projects like Africa Wiki Challenge & KIWIX4Schools',
 ];
 
@@ -161,10 +159,7 @@ const Volunteer: React.FC = () => {
                 <span className="section-tag">Why It Matters</span>
                 <h2 className={styles.splitTitle}>Your Skills Can Reframe African History</h2>
                 <p className={styles.splitBody}>
-                  Wikipedia is the world&apos;s primary source of free knowledge, yet less than 20% of contributors are women, and African topics remain severely underrepresented.
-                </p>
-                <p className={styles.splitBody}>
-                  At Open Foundation West Africa (OFWA), our volunteers are the driving engine closing this gap. Whether you write, teach, translate, capture photos, or code — there is a high-impact role for you.
+                  Less than 20% of Wikipedia contributors are women, and African topics remain severely underrepresented. OFWA volunteers are closing that gap — whether you write, teach, translate, or code, there&apos;s a high-impact role for you.
                 </p>
 
                 <div className={styles.perksList}>

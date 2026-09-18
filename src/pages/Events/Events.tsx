@@ -169,149 +169,157 @@ const Events: React.FC = () => {
   const activeEvents = getEventsForMonth(selectedMonth, selectedYear);
 
   return (
-    <div className={`${styles.eventsViewportContainer} snap-frame`}>
-      {/* PAGE HERO */}
-      <section className={styles.pageHero}>
-        <div className="container">
-          <p className={`${styles.pageHeroKicker} reveal`}>Schedule of Programs</p>
-          <h1 className={`${styles.pageHeroTitle} reveal d1`}>Events Calendar</h1>
-          <p className={`${styles.pageHeroSub} reveal d2`}>
-            Explore our open workshops, hackathons, and edit-a-thons scheduled throughout the year. Select a month to see details.
-          </p>
-        </div>
-      </section>
+    <>
+      {/* FRAME 1: HERO + CALENDAR MONTH GRID */}
+      <div className={`${styles.eventsViewportContainer} snap-frame`}>
+        <section className={styles.pageHero}>
+          <div className="container">
+            <p className={`${styles.pageHeroKicker} reveal`}>Schedule of Programs</p>
+            <h1 className={`${styles.pageHeroTitle} reveal d1`}>Events Calendar</h1>
+            <p className={`${styles.pageHeroSub} reveal d2`}>
+              Explore our open workshops, hackathons, and edit-a-thons scheduled throughout the year. Select a month to see details.
+            </p>
+          </div>
+        </section>
 
-      {/* CALENDAR SECTION */}
-      <section className={styles.calendarSection}>
-        <div className="container">
-          {loading ? (
-            <div className={styles.loadingContainer}>
-              <Loader2 className={styles.spinner} size={48} />
-              <p>Fetching scheduled events from the database...</p>
-            </div>
-          ) : error ? (
-            <div className={styles.errorContainer}>
-              <AlertCircle size={48} className={styles.errorIcon} />
-              <p className={styles.errorText}>{error}</p>
-              <button onClick={() => window.location.reload()} className="btn-orange">
-                Retry Loading
-              </button>
-            </div>
-          ) : (
-            <>
-              {/* YEAR NAVIGATION */}
-              <div className={styles.calendarHeader}>
-                <div className={styles.yearNavigator}>
-                  <button
-                    onClick={handlePrevYear}
-                    disabled={uniqueYears.indexOf(selectedYear) <= 0}
-                    className={styles.navBtn}
-                    aria-label="Previous Year"
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-                  <h2 className={styles.yearTitle}>{selectedYear}</h2>
-                  <button
-                    onClick={handleNextYear}
-                    disabled={uniqueYears.indexOf(selectedYear) >= uniqueYears.length - 1}
-                    className={styles.navBtn}
-                    aria-label="Next Year"
-                  >
-                    <ChevronRight size={20} />
-                  </button>
-                </div>
+        <section className={styles.calendarSection}>
+          <div className="container">
+            {loading ? (
+              <div className={styles.loadingContainer}>
+                <Loader2 className={styles.spinner} size={48} />
+                <p>Fetching scheduled events from the database...</p>
               </div>
-
-              {/* MONTH CARD GRID */}
-              <div className={styles.monthGrid}>
-                {MONTH_NAMES.map((monthName, idx) => {
-                  const monthEvents = getEventsForMonth(monthName, selectedYear);
-                  const isSelected = selectedMonth === monthName;
-                  const hasEvents = monthEvents.length > 0;
-
-                  return (
+            ) : error ? (
+              <div className={styles.errorContainer}>
+                <AlertCircle size={48} className={styles.errorIcon} />
+                <p className={styles.errorText}>{error}</p>
+                <button onClick={() => window.location.reload()} className="btn-orange">
+                  Retry Loading
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* YEAR NAVIGATION */}
+                <div className={styles.calendarHeader}>
+                  <div className={styles.yearNavigator}>
                     <button
-                      key={monthName}
-                      className={`${styles.monthCard} ${isSelected ? styles.monthCardActive : ''} ${!hasEvents ? styles.monthCardEmpty : ''}`}
-                      onClick={() => setSelectedMonth(monthName)}
+                      onClick={handlePrevYear}
+                      disabled={uniqueYears.indexOf(selectedYear) <= 0}
+                      className={styles.navBtn}
+                      aria-label="Previous Year"
                     >
-                      <span className={styles.monthAbbr}>{MONTH_ABBREVIATIONS[idx]}</span>
-                      <span className={styles.monthNameFull}>{monthName}</span>
-                      <div className={styles.dotContainer}>
-                        {monthEvents.slice(0, 4).map((_, dotIdx) => (
-                          <span key={dotIdx} className={styles.eventDot} />
-                        ))}
-                        {monthEvents.length > 4 && <span className={styles.dotMore}>+</span>}
-                      </div>
-                      {hasEvents && (
-                        <span className={styles.eventCountBadge}>
-                          {monthEvents.length} {monthEvents.length === 1 ? 'Event' : 'Events'}
-                        </span>
-                      )}
+                      <ChevronLeft size={20} />
                     </button>
-                  );
-                })}
-              </div>
+                    <h2 className={styles.yearTitle}>{selectedYear}</h2>
+                    <button
+                      onClick={handleNextYear}
+                      disabled={uniqueYears.indexOf(selectedYear) >= uniqueYears.length - 1}
+                      className={styles.navBtn}
+                      aria-label="Next Year"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </div>
+                </div>
 
-              {/* DYNAMIC EVENTS LIST HEADER */}
-              <div className={styles.eventsListHeader}>
-                <span className="section-tag">Schedule</span>
-                <h3 className={styles.eventsListTitle}>
-                  Events in {selectedMonth} {selectedYear}
-                </h3>
-              </div>
-
-              {/* EVENTS CARDS GRID */}
-              {activeEvents.length > 0 ? (
-                <div className={styles.eventsGrid}>
-                  {activeEvents.map((ev, i) => {
-                    const categoryName = getEventCategory(ev['Event / Programme']);
+                {/* MONTH CARD GRID */}
+                <div className={styles.monthGrid}>
+                  {MONTH_NAMES.map((monthName, idx) => {
+                    const monthEvents = getEventsForMonth(monthName, selectedYear);
+                    const isSelected = selectedMonth === monthName;
+                    const hasEvents = monthEvents.length > 0;
 
                     return (
-                      <article
-                        key={i}
-                        className={styles.eventCard}
+                      <button
+                        key={monthName}
+                        className={`${styles.monthCard} ${isSelected ? styles.monthCardActive : ''} ${!hasEvents ? styles.monthCardEmpty : ''}`}
+                        onClick={() => setSelectedMonth(monthName)}
                       >
-                        <div className={styles.eventCardBody}>
-                          <span className={styles.eventTag}>
-                            {categoryName}
-                          </span>
-
-                          <h4 className={styles.eventTitle}>{ev['Event / Programme']}</h4>
-
-                          <div className={styles.eventMeta}>
-                            <div className={styles.metaItem}>
-                              <Calendar size={14} className={styles.metaIcon} />
-                              <span>{ev.Period} {ev.Year}</span>
-                            </div>
-                            {ev['End Week'] && (
-                              <div className={styles.metaItem}>
-                                <MapPin size={14} className={styles.metaIcon} />
-                                <span>Timeline: Ends {ev['End Week']}</span>
-                              </div>
-                            )}
-                          </div>
-
-                          <p className={styles.eventDesc}>{ev['Main activity shown in plan']}</p>
-
-                          <Link className={`${styles.registerBtn} btn-orange`} to="/contact">
-                            Register Interest <ArrowRight size={15} />
-                          </Link>
+                        <span className={styles.monthAbbr}>{MONTH_ABBREVIATIONS[idx]}</span>
+                        <span className={styles.monthNameFull}>{monthName}</span>
+                        <div className={styles.dotContainer}>
+                          {monthEvents.slice(0, 4).map((_, dotIdx) => (
+                            <span key={dotIdx} className={styles.eventDot} />
+                          ))}
+                          {monthEvents.length > 4 && <span className={styles.dotMore}>+</span>}
                         </div>
-                      </article>
+                        {hasEvents && (
+                          <span className={styles.eventCountBadge}>
+                            {monthEvents.length} {monthEvents.length === 1 ? 'Event' : 'Events'}
+                          </span>
+                        )}
+                      </button>
                     );
                   })}
                 </div>
-              ) : (
-                <div className={styles.noEvents}>
-                  <p>No events scheduled for {selectedMonth} {selectedYear}.</p>
-                  <p className={styles.noEventsSubtitle}>Please select another month on the calendar above to browse.</p>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </section>
+              </>
+            )}
+          </div>
+        </section>
+      </div>
+
+      {/* FRAME 2: EVENTS LIST FOR SELECTED MONTH */}
+      {!loading && !error && (
+        <section className={`${styles.eventsListSection} snap-frame`}>
+          <div className="container">
+            {/* DYNAMIC EVENTS LIST HEADER */}
+            <div className={styles.eventsListHeader}>
+              <span className="section-tag">Schedule</span>
+              <h3 className={styles.eventsListTitle}>
+                Events in {selectedMonth} {selectedYear}
+              </h3>
+            </div>
+
+            {/* EVENTS CARDS GRID */}
+            {activeEvents.length > 0 ? (
+              <div className={styles.eventsGrid}>
+                {activeEvents.map((ev, i) => {
+                  const categoryName = getEventCategory(ev['Event / Programme']);
+
+                  return (
+                    <article
+                      key={i}
+                      className={styles.eventCard}
+                    >
+                      <div className={styles.eventCardBody}>
+                        <span className={styles.eventTag}>
+                          {categoryName}
+                        </span>
+
+                        <h4 className={styles.eventTitle}>{ev['Event / Programme']}</h4>
+
+                        <div className={styles.eventMeta}>
+                          <div className={styles.metaItem}>
+                            <Calendar size={14} className={styles.metaIcon} />
+                            <span>{ev.Period} {ev.Year}</span>
+                          </div>
+                          {ev['End Week'] && (
+                            <div className={styles.metaItem}>
+                              <MapPin size={14} className={styles.metaIcon} />
+                              <span>Timeline: Ends {ev['End Week']}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        <p className={styles.eventDesc}>{ev['Main activity shown in plan']}</p>
+
+                        <Link className={`${styles.registerBtn} btn-orange`} to="/contact">
+                          Register Interest <ArrowRight size={15} />
+                        </Link>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className={styles.noEvents}>
+                <p>No events scheduled for {selectedMonth} {selectedYear}.</p>
+                <p className={styles.noEventsSubtitle}>Please select another month on the calendar above to browse.</p>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* DONATE CTA */}
       {/* <section className={styles.donateCta}>
@@ -326,7 +334,7 @@ const Events: React.FC = () => {
           </div>
         </div>
       </section> */}
-    </div>
+    </>
   );
 };
 
