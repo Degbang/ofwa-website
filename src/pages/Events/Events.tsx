@@ -5,6 +5,7 @@ import {
   MapPin,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   AlertCircle,
   Loader2,
   Calendar
@@ -256,11 +257,22 @@ const Events: React.FC = () => {
             )}
           </div>
         </section>
+
+        {!loading && !error && (
+          <button
+            type="button"
+            className={styles.scrollHint}
+            onClick={() => document.getElementById('events-list-frame')?.scrollIntoView({ behavior: 'smooth' })}
+            aria-label="Scroll down to see events for this month"
+          >
+            <ChevronDown size={22} />
+          </button>
+        )}
       </div>
 
       {/* FRAME 2: EVENTS LIST FOR SELECTED MONTH */}
       {!loading && !error && (
-        <section className={`${styles.eventsListSection} snap-frame`}>
+        <section id="events-list-frame" className={`${styles.eventsListSection} snap-frame`}>
           <div className="container">
             {/* DYNAMIC EVENTS LIST HEADER */}
             <div className={styles.eventsListHeader}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './Donate.module.css';
@@ -9,8 +9,45 @@ const supportPoints = [
   'Keep open learning tools active and accessible.',
 ];
 
+const confettiPieces = [
+  { top: '16%', left: '10%', size: 12, color: '#ffb44d', delay: 0, duration: 9, depth: 18 },
+  { top: '12%', left: '30%', size: 9, color: '#ffffff', delay: -2, duration: 11, depth: 30 },
+  { top: '18%', left: '78%', size: 14, color: '#ff7f50', delay: -4, duration: 8, depth: 14 },
+  { top: '34%', left: '86%', size: 9, color: '#ffffff', delay: -1, duration: 10, depth: 34 },
+  { top: '55%', left: '6%', size: 11, color: '#ffb44d', delay: -3, duration: 12, depth: 20 },
+  { top: '68%', left: '22%', size: 8, color: '#ff9f43', delay: -5, duration: 9, depth: 26 },
+  { top: '8%', left: '55%', size: 10, color: '#ff7f50', delay: -6, duration: 10, depth: 16 },
+  { top: '46%', left: '46%', size: 13, color: '#ffffff', delay: -2.5, duration: 11, depth: 24 },
+  { top: '72%', left: '64%', size: 9, color: '#ffb44d', delay: -4.5, duration: 8, depth: 30 },
+  { top: '28%', left: '92%', size: 11, color: '#ff9f43', delay: -1.5, duration: 13, depth: 18 },
+  { top: '60%', left: '90%', size: 8, color: '#ffffff', delay: -3.5, duration: 9, depth: 28 },
+  { top: '4%', left: '14%', size: 10, color: '#ff7f50', delay: -5.5, duration: 12, depth: 20 },
+  { top: '82%', left: '38%', size: 12, color: '#ffb44d', delay: -0.5, duration: 10, depth: 24 },
+  { top: '40%', left: '4%', size: 9, color: '#ffffff', delay: -6.5, duration: 11, depth: 16 },
+];
+
 const Donate: React.FC = () => {
   useScrollReveal();
+
+  const confettiLayerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const layer = confettiLayerRef.current;
+    if (!layer) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const handleMove = (e: MouseEvent) => {
+      const rect = layer.getBoundingClientRect();
+      const mx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+      const my = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      layer.style.setProperty('--mx', mx.toFixed(3));
+      layer.style.setProperty('--my', my.toFixed(3));
+    };
+
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
 
   const [selectedPreset, setSelectedPreset] = useState<number | null>(25);
   const [customAmount, setCustomAmount] = useState('');
@@ -76,11 +113,24 @@ const Donate: React.FC = () => {
   return (
     <div className={styles.donateViewportContainer}>
       <section className={`${styles.donateHero} snap-frame`} id="donate-form">
-        <div className={styles.confettiLayer} aria-hidden="true">
-          <span className={`${styles.confettiPiece} ${styles.confettiOne}`} />
-          <span className={`${styles.confettiPiece} ${styles.confettiTwo}`} />
-          <span className={`${styles.confettiPiece} ${styles.confettiThree}`} />
-          <span className={`${styles.confettiPiece} ${styles.confettiFour}`} />
+        <div className={styles.confettiLayer} ref={confettiLayerRef} aria-hidden="true">
+          {confettiPieces.map((p, i) => (
+            <span
+              key={i}
+              className={styles.confettiPiece}
+              style={{ top: p.top, left: p.left, '--depth': `${p.depth}px` } as React.CSSProperties}
+            >
+              <span
+                className={styles.confettiPieceInner}
+                style={{
+                  '--size': `${p.size}px`,
+                  '--piece-color': p.color,
+                  animationDuration: `${p.duration}s`,
+                  animationDelay: `${p.delay}s`,
+                } as React.CSSProperties}
+              />
+            </span>
+          ))}
         </div>
 
         <div className="container">

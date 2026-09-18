@@ -33,21 +33,34 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  --mx: 0;
+  --my: 0;
 }
 
+/* Outer: drifts toward/away from the pointer, each piece by its own --depth,
+   giving a layered parallax feel. Inner: the constant floating bob/rotate.
+   Split into two elements since both need their own transform. */
 .confettiPiece {
   position: absolute;
-  width: 12px;
-  height: 24px;
-  border-radius: 999px;
-  opacity: 0.8;
-  animation: confettiFloat 10s linear infinite;
+  transform: translate3d(calc(var(--mx) * var(--depth, 20px)), calc(var(--my) * var(--depth, 20px)), 0);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
-.confettiOne { top: 16%; left: 10%; background: #ffb44d; animation-delay: 0s; }
-.confettiTwo { top: 12%; left: 30%; background: #ffffff; animation-delay: -2s; }
-.confettiThree { top: 18%; right: 18%; background: #ff7f50; animation-delay: -4s; }
-.confettiFour { top: 34%; right: 8%; background: #ffffff; animation-delay: -1s; }
+.confettiPieceInner {
+  display: block;
+  width: var(--size, 12px);
+  height: calc(var(--size, 12px) * 2);
+  border-radius: 999px;
+  opacity: 0.8;
+  background: var(--piece-color, #ffb44d);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .confettiPieceInner {
+    animation: confettiFloat 10s ease-in-out infinite;
+  }
+}
 
 .donateIntro {
   position: relative;
@@ -349,11 +362,15 @@
 @keyframes confettiFloat {
   0%,
   100% {
-    transform: translateY(0) rotate(0deg);
+    transform: translateY(0) translateX(0) rotate(0deg);
   }
 
-  50% {
-    transform: translateY(18px) rotate(18deg);
+  33% {
+    transform: translateY(-16px) translateX(7px) rotate(-14deg);
+  }
+
+  66% {
+    transform: translateY(12px) translateX(-9px) rotate(18deg);
   }
 }
 
