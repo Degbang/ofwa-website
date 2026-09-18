@@ -1,8 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const LOCK_MS = 800;
-const WHEEL_THRESHOLD = 4;
+const LOCK_MS = 900;
+// Trackpads report continuous, fine-grained deltaY even from a light or
+// accidental touch — a low threshold here made frame jumps trigger far too
+// easily compared to a deliberate mouse-wheel notch or keypress, which read
+// as "faster"/twitchy. This requires a real, deliberate swipe.
+const WHEEL_THRESHOLD = 15;
 
 const getNavH = (): number => {
   const raw = getComputedStyle(document.documentElement).getPropertyValue('--nav-h');

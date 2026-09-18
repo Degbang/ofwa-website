@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import {
+  Camera,
   CheckCircle2,
   Globe2,
   Mail,
   MapPin,
   MessagesSquare,
+  Music2,
   Send,
   Share2,
   Users,
@@ -25,6 +27,18 @@ const socialLinks = [
     label: 'Twitter / X',
     href: 'https://x.com/OFWAFRICA',
     meta: '@OFWAFRICA',
+  },
+  {
+    icon: <Camera size={18} />,
+    label: 'Instagram',
+    href: 'https://www.instagram.com/ofwafrica/',
+    meta: '@ofwafrica',
+  },
+  {
+    icon: <Music2 size={18} />,
+    label: 'TikTok',
+    href: 'https://www.tiktok.com/@ofwafrica',
+    meta: '@ofwafrica',
   },
   {
     icon: <Share2 size={18} />,

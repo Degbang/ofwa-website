@@ -362,7 +362,7 @@ const Home: React.FC = () => {
           <div className={styles.heroOverlay} />
           <div className={styles.heroContent}>
             <div className="container">
-              <p className={`${styles.heroKicker} reveal`}>Open Knowledge · Women's Empowerment · West Africa</p>
+              <p className={`${styles.heroKicker} reveal`}>Open Knowledge · Women's Empowerment<span className={styles.heroKickerRegion}> · West Africa</span></p>
               <h1 className={`${styles.heroTitle} reveal d1`}>
                 Building Africa's<br />
                 <span>Open Knowledge</span><br />

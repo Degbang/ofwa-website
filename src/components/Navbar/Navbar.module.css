@@ -289,16 +289,9 @@
 }
 
 @media (max-width: 480px) {
-  .navDonate span {
-    display: none;
-  }
-
   .navDonate {
-    padding: 8px;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    justify-content: center;
+    padding: 7px 14px;
+    font-size: 0.74rem;
   }
 
   .navLogo img {

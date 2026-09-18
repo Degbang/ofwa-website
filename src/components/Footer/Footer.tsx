@@ -109,6 +109,8 @@ export const Footer: React.FC<FooterProps> = () => {
             <ul className={styles.colLinks}>
               <li><a href="https://www.facebook.com/ofwafrica/" target="_blank" rel="noopener noreferrer">Facebook</a></li>
               <li><a href="https://x.com/OFWAFRICA" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
+              <li><a href="https://www.instagram.com/ofwafrica/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+              <li><a href="https://www.tiktok.com/@ofwafrica" target="_blank" rel="noopener noreferrer">TikTok</a></li>
               <li><a href="https://gh.linkedin.com/company/ofwafrica" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
               <li><a href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener noreferrer">YouTube</a></li>
             </ul>

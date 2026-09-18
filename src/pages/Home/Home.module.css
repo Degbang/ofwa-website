@@ -16,13 +16,18 @@
   }
 }
 
-/* Mobile/Tablet layout, and short desktop windows: allow natural scrolling */
-@media (max-width: 991px), (max-height: 719px) {
+/* Short desktop windows (still wide, so the kicker doesn't wrap the way it
+   does on narrow phones): keep a full-viewport floor. */
+@media (min-width: 992px) and (max-height: 719px) {
   .heroContainer {
     min-height: calc(100vh - var(--nav-h));
     min-height: calc(100dvh - var(--nav-h));
   }
 }
+
+/* Mobile/tablet: hug the actual content height (hero + marquee) instead of
+   forcing a full-viewport floor, which left dead black space below the
+   marquee whenever that content was naturally shorter than the screen. */
 
 .hero {
   position: relative;
@@ -38,6 +43,21 @@
   .hero {
     min-height: 480px;
     flex: none;
+  }
+
+  .heroKickerRegion {
+    display: none;
+  }
+
+  /* Was position:absolute + flex-centered inside a fixed-height, overflow:
+     hidden .hero — when the stacked kicker/heading/sub/button content was
+     taller than the 480px floor, centering pushed its top half above the
+     box and overflow:hidden clipped it off (only the tail of the kicker
+     survived). Normal flow lets .hero grow to fit instead of clipping. */
+  .heroContent {
+    position: static;
+    display: block;
+    padding: 48px 0 40px;
   }
 }
 
@@ -203,11 +223,11 @@
 }
 
 .heroArrowPrev {
-  left: 24px;
+  left: 36px;
 }
 
 .heroArrowNext {
-  right: 24px;
+  right: 36px;
 }
 
 .heroDots {
