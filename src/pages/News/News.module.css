@@ -13,9 +13,11 @@
 .featuredHero {
   position: relative;
   isolation: isolate;
-  min-height: 100vh;
-  min-height: 100dvh;
-  padding: 148px 0 64px;
+  /* <main> already pads for the fixed nav, so the frame is one viewport
+     minus the nav — a full 100dvh pushed the featured card below the fold. */
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100dvh - var(--nav-h));
+  padding: 64px 0 48px;
   overflow: hidden;
   background: #0c1117;
   scroll-snap-align: start;
@@ -38,15 +40,17 @@
 
 .featuredShade {
   z-index: -1;
-  background: rgba(4, 8, 13, 0.7);
+  background:
+    linear-gradient(90deg, rgba(4, 8, 13, 0.78) 0%, rgba(4, 8, 13, 0.5) 50%, rgba(4, 8, 13, 0.25) 100%),
+    linear-gradient(180deg, rgba(4, 8, 13, 0) 55%, rgba(4, 8, 13, 0.55) 100%);
 }
 
 .heroInner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 88px;
-  min-height: calc(100dvh - 212px);
+  gap: 56px;
+  min-height: calc(100dvh - var(--nav-h) - 112px);
 }
 
 .heroHeading {
@@ -86,9 +90,42 @@
 
 .featuredContent {
   align-self: flex-end;
-  width: min(680px, 64%);
-  padding-left: 28px;
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+  width: min(760px, 66%);
+  padding: 20px;
+  border-radius: 14px;
   border-left: 3px solid #ff9f43;
+  background: rgba(8, 12, 19, 0.74);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.featuredThumb {
+  flex: 0 0 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1a2230;
+}
+
+.featuredThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.featuredContent:hover .featuredThumb img {
+  transform: scale(1.04);
+}
+
+.featuredText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .featuredMetaLine {
@@ -111,7 +148,7 @@
   max-width: 660px;
   color: #ffffff;
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3.45rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
   font-weight: 800;
   line-height: 1.04;
 }
@@ -151,10 +188,10 @@
 .allPostsSection {
   display: flex;
   align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: calc(100vh - var(--nav-h));
+  min-height: calc(100dvh - var(--nav-h));
   background: var(--dark);
-  padding: calc(var(--nav-h) + 22px) 0 28px;
+  padding: 28px 0;
   overflow: hidden;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -182,7 +219,7 @@
 .postsSectionH {
   color: var(--white);
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-size: clamp(2rem, 3.6vw, 2.75rem);
   font-weight: 850;
   line-height: 1.06;
 }
@@ -280,7 +317,7 @@
 
 .newsCard {
   display: flex;
-  flex: 0 0 calc((100% - 44px) / 3);
+  flex: 0 0 calc((100% - 66px) / 4);
   min-width: 0;
   flex-direction: column;
   overflow: hidden;
@@ -315,7 +352,7 @@
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
-  padding: 21px;
+  padding: 18px;
 }
 
 .newsCardMeta {
@@ -406,6 +443,14 @@
   line-height: 1.15;
 }
 
+.archiveNote {
+  color: var(--gray-400);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  max-width: 62ch;
+  margin-top: 8px;
+}
+
 .loadMoreBtn {
   flex: 0 0 auto;
   font-size: 0.9rem;
@@ -420,13 +465,23 @@
   outline-offset: 4px;
 }
 
+@media (max-width: 1100px) {
+  .newsCard {
+    flex-basis: calc((100% - 44px) / 3);
+  }
+}
+
 @media (max-width: 900px) {
   .heroInner {
     gap: 72px;
   }
 
   .featuredContent {
-    width: min(720px, 82%);
+    width: min(720px, 88%);
+  }
+
+  .featuredThumb {
+    flex-basis: 150px;
   }
 
   .newsCard {
@@ -436,8 +491,7 @@
 
 @media (max-width: 620px) {
   .featuredHero {
-    min-height: 100dvh;
-    padding: 118px 0 48px;
+    padding: 40px 0 32px;
   }
 
   .featuredBackdrop {
@@ -445,8 +499,8 @@
   }
 
   .heroInner {
-    gap: 52px;
-    min-height: calc(100dvh - 166px);
+    gap: 40px;
+    min-height: calc(100dvh - var(--nav-h) - 72px);
   }
 
   .pageHeroTitle {
@@ -460,7 +514,11 @@
   .featuredContent {
     align-self: stretch;
     width: 100%;
-    padding-left: 20px;
+    padding: 16px;
+  }
+
+  .featuredThumb {
+    display: none;
   }
 
   .featuredTitle {
@@ -475,7 +533,7 @@
 
   .allPostsSection {
     align-items: flex-start;
-    padding: calc(var(--nav-h) + 18px) 0 30px;
+    padding: 28px 0 30px;
   }
 
   .postsHeader {
@@ -501,8 +559,18 @@
     border-bottom: 0;
   }
 
-  .loadMoreWrap > div {
-    display: none;
+  .loadMoreWrap {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .archiveTitle {
+    font-size: 1.2rem;
+  }
+
+  .archiveNote {
+    font-size: 0.85rem;
   }
 
   .loadMoreBtn {

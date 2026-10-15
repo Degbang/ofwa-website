@@ -44,41 +44,37 @@
     min-height: 480px;
     flex: none;
   }
-
-  .heroKickerRegion {
-    display: none;
-  }
 }
 
-.heroSlide {
+/* Background film (HeroVideo.tsx) */
+.heroMedia {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 1.2s ease;
+  overflow: hidden;
+  background: var(--black);
 }
 
-.heroSlideActive {
-  opacity: 1;
-}
-
-.heroSlide img {
+.heroMedia video,
+.heroMedia img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 28%;
-  filter: brightness(0.9) contrast(1.04) saturate(1.05);
 }
 
+/* Shade only the left (behind the text column) and the foot, so the right
+   side of the film stays bright. */
 .heroOverlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-      rgba(4, 6, 10, 0.42) 0%,
-      rgba(4, 6, 10, 0.58) 42%,
-      rgba(4, 6, 10, 0.78) 100%);
   z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(4, 6, 10, 0.45) 0%, rgba(4, 6, 10, 0.15) 45%, rgba(4, 6, 10, 0) 70%),
+    linear-gradient(180deg, rgba(4, 6, 10, 0.25) 0%, rgba(4, 6, 10, 0) 18%, rgba(4, 6, 10, 0) 70%, rgba(4, 6, 10, 0.5) 100%);
 }
 
+/* ── Layout: one column, one left edge ── */
 .heroContent {
   position: absolute;
   inset: 0;
@@ -87,176 +83,160 @@
   align-items: center;
 }
 
-/* Was position:absolute + flex-centered inside a fixed-height, overflow:
-   hidden .hero — when the stacked kicker/heading/sub/button content was
-   taller than the 480px floor, centering pushed its top half above the box
-   and overflow:hidden clipped it off (only the tail of the kicker survived
-   the clip). Normal flow lets .hero grow to fit instead of clipping. */
+.heroLayout {
+  /* Inner padding shared by the headline bands and the sentence panel, so
+     every line of text starts at exactly the same x. */
+  --hero-pad: clamp(12px, 1.25vw, 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Small screens: normal flow (no clipping), with room on top for the film. */
 @media (max-width: 991px) {
   .heroContent {
-    position: static;
+    position: relative;
     display: block;
-    padding: 48px 0 40px;
+    padding: clamp(150px, 30vh, 280px) 0 36px;
   }
 }
 
-.heroKicker {
-  font-family: var(--font-heading);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--orange);
-  margin-bottom: 20px;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
-}
-
+/* ── Headline: one line on a highlighter band ── */
 .heroTitle {
+  max-width: 100%;
+  margin-bottom: 18px;
   font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
-  /* font-size: 2.8rem; */
+  font-size: clamp(2rem, 3.3vw, 3rem); /* 3rem max keeps the line inside the 1200px container */
   font-weight: 900;
-  line-height: 1.05;
-  color: var(--white);
-  margin-bottom: 24px;
-  text-shadow: 0 5px 28px rgba(0, 0, 0, 0.72);
+  line-height: 1.32;
+  letter-spacing: -0.015em;
+  color: #fff;
 }
 
-.heroTitle span {
-  background: var(--orange-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@media (min-width: 992px) {
+  .heroTitle {
+    white-space: nowrap;
+  }
 }
 
+/* The band wipes in left-to-right (per line when it wraps on phones)… */
+.hlBand {
+  padding: 0.08em var(--hero-pad) 0.14em;
+  background-image: linear-gradient(rgba(4, 6, 10, 0.86), rgba(4, 6, 10, 0.86));
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  animation: hlSweep 0.7s cubic-bezier(0.77, 0, 0.18, 1) 0.15s forwards;
+}
+
+/* …each word rises into it… */
+.hlWord {
+  display: inline-block;
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(0.45em);
+  animation: hlWord 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(0.45s + var(--w) * 0.1s);
+}
+
+/* …then the orange marker sweeps across "Open Knowledge", inking the words
+   dark as it passes. */
+.hlAccent {
+  white-space: nowrap; /* never split "Open Knowledge" across lines */
+  padding: 0.02em 0.16em 0.06em;
+  margin: 0 -0.06em;
+  border-radius: 0.08em;
+  background-image: linear-gradient(100deg, #ffb066 0%, #ff9f43 50%, #ff7a45 100%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  animation:
+    hlSweep 0.55s cubic-bezier(0.77, 0, 0.18, 1) 1.2s forwards,
+    hlInk 0.3s ease 1.45s forwards;
+}
+
+@keyframes hlSweep {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes hlWord {
+  to {
+    clip-path: inset(-25% -10% -25% -10%);
+    transform: none;
+  }
+}
+
+@keyframes hlInk {
+  to {
+    color: #04060a;
+  }
+}
+
+/* ── Sentence ── */
 .heroSub {
-  font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.78);
-  max-width: 580px;
-  line-height: 1.7;
-  margin-bottom: 36px;
-  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.7);
+  max-width: 34rem;
+  padding: 12px var(--hero-pad) 13px;
+  background: rgba(4, 6, 10, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  clip-path: inset(0 100% 0 0);
+  animation: heroWipe 0.7s cubic-bezier(0.77, 0, 0.18, 1) 1.55s forwards;
 }
 
-.heroCtas {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
+.heroSub span {
+  display: block;
+  opacity: 0;
+  animation: heroFade 0.6s ease 1.9s forwards;
 }
 
-.btnDonateHero {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--orange-gradient);
-  color: var(--black) !important;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1rem;
-  padding: 16px 32px;
-  border-radius: 100px;
-  box-shadow: 0 8px 30px var(--orange-glow);
-  transition: all 0.2s ease;
+@keyframes heroWipe {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
-.btnDonateHero:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 14px 40px rgba(255, 159, 67, 0.5);
+@keyframes heroFade {
+  to {
+    opacity: 1;
+  }
 }
 
-.btnPlayHero {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--white);
-  font-weight: 600;
-  font-size: 0.95rem;
-  padding: 8px 0;
-  background: none;
-  cursor: pointer;
-  transition: color 0.2s;
+/* Wide screens: the sentence gets its own single line too. */
+@media (min-width: 1200px) {
+  .heroSub {
+    max-width: none;
+    white-space: nowrap;
+  }
 }
 
-.btnPlayHero:hover {
-  color: var(--orange);
+@media (max-width: 480px) {
+  .heroSub {
+    font-size: 0.95rem;
+  }
 }
 
-.playCircle {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(8px);
-  transition: all 0.2s;
-}
+@media (prefers-reduced-motion: reduce) {
+  .hlBand,
+  .hlAccent,
+  .hlWord,
+  .heroSub,
+  .heroSub span {
+    animation: none;
+    transform: none;
+    clip-path: none;
+    opacity: 1;
+    background-size: 100% 100%;
+  }
 
-.btnPlayHero:hover .playCircle {
-  background: var(--orange-gradient);
-  border-color: transparent;
-  color: var(--black);
-}
-
-.heroArrow {
-  position: absolute;
-  z-index: 3;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--white);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  backdrop-filter: blur(4px);
-}
-
-.heroArrow:hover {
-  background: var(--orange-gradient);
-  border-color: transparent;
-  color: var(--black);
-}
-
-.heroArrowPrev {
-  left: 36px;
-}
-
-.heroArrowNext {
-  right: 36px;
-}
-
-.heroDots {
-  position: absolute;
-  bottom: 36px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex;
-  gap: 10px;
-}
-
-.heroDot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.heroDotActive {
-  background: var(--orange);
-  border-color: var(--orange);
-  box-shadow: 0 0 12px var(--orange-glow);
-  transform: scale(1.2);
+  .hlAccent {
+    color: #04060a;
+  }
 }
 
 /* ===================== MARQUEE ===================== */
@@ -2280,15 +2260,6 @@
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 768px) {
-  .heroArrow {
-    display: none;
-  }
-
-  .heroCtas {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
   .missionSection,
   .galleryCarouselSection,
   .videoSection,
@@ -2303,23 +2274,6 @@
 }
 
 @media (max-width: 480px) {
-  .heroSub {
-    font-size: 0.95rem;
-    margin-bottom: 24px;
-  }
-
-  .heroKicker {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-  }
-
-  .btnDonateHero {
-    width: 100%;
-    justify-content: center;
-    padding: 14px 24px;
-    font-size: 0.92rem;
-  }
-
   .btnDonateBig {
     width: 100%;
     justify-content: center;

@@ -70,11 +70,11 @@ const members = {
     { name: 'Rexford Ameyaw', role: 'Enchicoe Wiki Club Leader', image: '/assets/images/hub leaders/rexford-ameyaw.jpg' },
   ],
   coreTeam: [
-    { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
-    { name: 'Brian Ayiku Ocansey', role: 'Admin and Programs Coordinator', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
-    { name: 'Dickson Kojo Anane', role: 'Programs Officer', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
-    { name: 'Alfred Degbang', role: 'Technical Coordinator', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
-    { name: 'Edmund Quansah', role: 'Media Strategist', image: '/assets/images/core team/jael-serwaa-boateng.jpg' },
+    { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: '/assets/images/core team/jael-serwaa-boateng.webp' },
+    { name: 'Brian Ayiku Ocansey', role: 'Admin and Programs Coordinator', image: '/assets/images/core team/brian-ayiku-ocansey.webp' },
+    { name: 'Dickson Kojo Anane', role: 'Programs Officer', image: '/assets/images/core team/dickson-kojo-anane.webp' },
+    { name: 'Alfred Degbang', role: 'Technical Coordinator', image: '/assets/images/core team/alfred-degbang.webp' },
+    { name: 'Edmund Quansah', role: 'Media Strategist', image: '/assets/images/core team/edmund-quansah.webp' },
   ],
 };
 

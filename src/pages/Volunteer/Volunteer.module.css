@@ -1,932 +1,330 @@
-/* ═══ Viewport Framing ═══ */
-.volunteerHeroContainer {
-  width: 100%;
+/* Volunteer: two frames. 1) hero with the why; 2) pick a role + short form. */
+
+/* ═══ Hero ═══ */
+.hero {
+  background: var(--dark);
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  padding: 56px 0;
 }
 
-.wideContainer {
-  width: min(1440px, 96vw);
-  margin: 0 auto;
-}
-
-.formShell {
-  width: min(980px, 94vw);
-  margin: 0 auto;
-}
-
-@media (min-width: 992px) and (min-height: 720px) {
-  .volunteerHeroContainer {
-    height: calc(100vh - var(--nav-h));
-    height: calc(100dvh - var(--nav-h));
-    overflow: hidden;
-    justify-content: center;
-  }
-
-  .pageHero {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 0 40px !important;
-  }
-
-  .whyVolunteerSection,
-  .rolesSection,
-  .formSection {
+@media (min-width: 992px) {
+  .hero {
     min-height: calc(100vh - var(--nav-h));
     min-height: calc(100dvh - var(--nav-h));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 0 !important;
   }
 }
 
-@media (max-width: 991px), (max-height: 719px) {
-  .volunteerHeroContainer {
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
-
-  .whyVolunteerSection,
-  .rolesSection,
-  .formSection {
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
-@media (min-width: 992px) and (max-height: 850px) {
-  .pageHero {
-    padding: 40px 0 20px !important;
-  }
-
-  .heroTitle {
-    font-size: clamp(2.2rem, 4.5vw, 3.2rem) !important;
-    margin-bottom: 12px !important;
-  }
-
-  .heroSub {
-    margin-bottom: 20px !important;
-  }
-
-  .splitGrid {
-    gap: 0 !important;
-  }
-
-  .rolesGrid {
-    gap: 16px !important;
-  }
-
-  .rolesSection {
-    padding: 40px 0 !important;
-  }
-}
-
-/* ═══ Page Hero ═══ */
-.pageHero {
-  background: var(--dark);
-  padding: 140px 0 80px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.heroGlowOverlay {
-  position: absolute;
-  top: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 400px;
-  background: radial-gradient(ellipse at center, rgba(255, 159, 67, 0.15) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.heroKicker {
-  display: inline-flex;
+.heroGrid {
+  width: min(1240px, 92vw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
   align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+}
+
+.kicker {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--orange, #ff9f43);
-  background: rgba(255, 159, 67, 0.1);
-  border: 1px solid rgba(255, 159, 67, 0.25);
-  padding: 6px 16px;
-  border-radius: 100px;
-  margin-bottom: 20px;
+  color: var(--orange);
+  margin-bottom: 14px;
 }
 
 .heroTitle {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  font-size: clamp(3rem, 6vw, 5.4rem);
   font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
   color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .heroTitle span {
-  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
+  background: var(--orange-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .heroSub {
-  font-size: 1.1rem;
-  color: var(--gray-400);
-  max-width: 620px;
-  margin: 0 auto 32px;
+  font-size: 1.12rem;
   line-height: 1.7;
+  color: var(--gray-300);
+  max-width: 54ch;
+  margin-bottom: 24px;
 }
 
-.heroCtas {
+.heroPoints {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.heroPoints li {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.heroPoints svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--orange);
 }
 
 .btnPrimary {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
-  color: #000;
+  background: var(--orange-gradient);
+  color: #04060a;
+  font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 0.95rem;
-  padding: 14px 28px;
+  font-size: 1rem;
+  padding: 15px 30px;
   border-radius: 100px;
-  box-shadow: 0 8px 30px rgba(255, 159, 67, 0.4);
-  transition: all 0.3s ease;
+  box-shadow: 0 10px 28px rgba(255, 159, 67, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btnPrimary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(255, 159, 67, 0.6);
-}
-
-.btnSecondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--white);
-  font-weight: 700;
-  font-size: 0.95rem;
-  padding: 14px 28px;
-  border-radius: 100px;
-  transition: all 0.3s ease;
-}
-
-.btnSecondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-/* ═══ Stats Band ═══ */
-.statsBand {
-  background: #0f172a;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 40px 0;
-}
-
-.statsGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-.statItem {
-  text-align: center;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: var(--r-lg, 16px);
-  transition: transform 0.3s ease;
-}
-
-.statItem:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 159, 67, 0.04);
-  border-color: rgba(255, 159, 67, 0.2);
-}
-
-.statNum {
-  display: block;
-  font-family: var(--font-heading);
-  font-size: clamp(2.2rem, 3.8vw, 3rem);
-  font-weight: 900;
-  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.statLabel {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--gray-400);
-}
-
-@media (max-width: 800px) {
-  .statsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* ═══ Why Volunteer ═══ */
-.whyVolunteerSection {
-  background: #121a17;
-  padding: 0;
-  position: relative;
-}
-
-.whyVolunteerSection > .wideContainer {
-  width: 100%;
-  height: 100%;
-}
-
-.whyVolunteerStack {
-  height: 100%;
-  border-radius: 0;
-  background: #121a17;
-  overflow: hidden;
-}
-
-.splitGrid {
-  display: grid;
-  grid-template-columns: minmax(390px, 0.82fr) minmax(0, 1.18fr);
-  gap: 0;
-  align-items: stretch;
-  min-height: 640px;
-}
-
-.impactCopy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(42px, 5vw, 76px);
-}
-
-.splitTitle {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 900;
-  color: #ffffff;
-  line-height: 1.2;
-  margin-top: 8px;
-  margin-bottom: 20px;
-}
-
-.splitBody {
-  color: #c9d2cd;
-  font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-
-.perksList {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 22px;
-  margin-top: 24px;
-}
-
-.perkItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  font-size: 0.86rem;
-  font-weight: 600;
-  line-height: 1.45;
-  color: #edf2ef;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 14px 0;
-}
-
-.perkIcon {
-  color: var(--orange, #ff9f43);
-  flex-shrink: 0;
-}
-
-.whyVolunteerCtas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 26px;
-}
-
-.whyVolunteerPrimaryBtn,
-.whyVolunteerSecondaryBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 50px;
-  padding: 14px 24px;
-  border-radius: 999px;
-  font-weight: 800;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
-}
-
-.whyVolunteerPrimaryBtn {
-  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
-  color: #130f0c;
-  box-shadow: 0 14px 30px rgba(255, 159, 67, 0.22);
-}
-
-.whyVolunteerSecondaryBtn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  color: #ffffff;
-}
-
-.whyVolunteerPrimaryBtn:hover,
-.whyVolunteerSecondaryBtn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255, 159, 67, 0.5);
 }
 
-/* Image Column */
-.splitImgColumn {
-  width: 100%;
-  min-width: 0;
-}
-
-.imgCardWrap {
+.heroImgWrap {
   position: relative;
+  border-radius: 24px;
   overflow: hidden;
-  height: 100%;
-  min-height: 640px;
+  aspect-ratio: 4 / 5;
+  max-height: calc(100dvh - var(--nav-h) - 112px);
+  width: 100%;
+  justify-self: end;
+  box-shadow: 0 30px 60px rgba(10, 14, 26, 0.18);
 }
 
-@media (min-width: 992px) and (min-height: 720px) {
-  .whyVolunteerSection {
-    height: calc(100vh - var(--nav-h));
-    height: calc(100dvh - var(--nav-h));
-    min-height: 0;
-    padding: 0 !important;
-    overflow: hidden;
-  }
-
-  .splitGrid {
-    height: 100%;
-    min-height: 0;
-  }
-
-  .impactCopy {
-    padding: clamp(24px, 4vh, 48px) clamp(36px, 4.5vw, 68px);
-  }
-
-  .splitTitle {
-    margin-bottom: 12px;
-  }
-
-  .splitBody {
-    line-height: 1.55;
-    margin-bottom: 10px;
-  }
-
-  .perksList {
-    margin-top: 12px;
-  }
-
-  .perkItem {
-    padding: 10px 0;
-  }
-
-  .whyVolunteerCtas {
-    margin-top: 14px;
-  }
-
-  .whyVolunteerPrimaryBtn,
-  .whyVolunteerSecondaryBtn {
-    min-height: 44px;
-    padding: 11px 20px;
-  }
-
-  .imgCardWrap {
-    min-height: 0;
-  }
-}
-
-@media (min-width: 992px) and (max-height: 850px) {
-  .impactCopy {
-    padding: 20px 42px;
-  }
-
-  .splitTitle {
-    font-size: clamp(1.9rem, 3vw, 2.25rem);
-    line-height: 1.08;
-    margin-top: 4px;
-    margin-bottom: 10px;
-  }
-
-  .splitBody {
-    font-size: 0.84rem;
-    line-height: 1.42;
-    margin-bottom: 8px;
-  }
-
-  .perksList {
-    margin-top: 8px;
-  }
-
-  .perkItem {
-    gap: 9px;
-    padding: 7px 0;
-    font-size: 0.74rem;
-    line-height: 1.3;
-  }
-
-  .perkIcon {
-    width: 15px;
-    height: 15px;
-  }
-
-  .whyVolunteerCtas {
-    margin-top: 10px;
-  }
-
-  .whyVolunteerPrimaryBtn,
-  .whyVolunteerSecondaryBtn {
-    min-height: 40px;
-    padding: 9px 18px;
-    font-size: 0.86rem;
-  }
-
-  .imgCardBadge {
-    top: 20px;
-    left: 20px;
-  }
-
-  .quoteCard {
-    bottom: 24px;
-  }
-}
-
-.splitImg {
+.heroImgWrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: 50% 80%;
 }
 
-.imgCardOverlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(18, 26, 23, 0.3) 0%, transparent 28%),
-    linear-gradient(0deg, rgba(9, 14, 12, 0.88) 0%, rgba(9, 14, 12, 0.1) 58%, transparent 78%);
-}
-
-.imgCardBadge {
-  position: absolute;
-  top: 28px;
-  left: 28px;
-  background: rgba(10, 16, 13, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  backdrop-filter: blur(10px);
-  padding: 12px 16px;
-  border-radius: 6px;
+/* ═══ Join ═══ */
+.join {
+  background: var(--dark3);
   display: flex;
   align-items: center;
-  gap: 14px;
-  color: var(--orange, #ff9f43);
+  padding: 48px 0;
 }
 
-.imgCardBadge strong {
-  display: block;
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.imgCardBadge span {
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.72);
-}
-
-@media (max-width: 900px) {
-  .splitGrid {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-
-  .imgCardWrap {
-    min-height: 560px;
-  }
-
-  .rolesGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (min-width: 992px) {
+  .join {
+    min-height: calc(100vh - var(--nav-h));
+    min-height: calc(100dvh - var(--nav-h));
   }
 }
 
-/* ═══ Roles Section ═══ */
-.rolesSection {
-  background: #0f172a;
-  padding: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+.joinShell {
+  width: min(1240px, 92vw);
+  margin: 0 auto;
 }
 
-.rolesSection > .wideContainer {
-  width: 100%;
-  padding: 64px clamp(28px, 4vw, 64px);
-}
-
-.rolesHead {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 36px;
-}
-
-.rolesTitle {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 900;
-  color: #ffffff;
-  margin-top: 8px;
-  margin-bottom: 12px;
-}
-
-.rolesSub {
-  color: #d8d8d8;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.rolesGrid {
+.joinForm {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+  align-items: start;
 }
 
-.roleCard {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 24px;
-  backdrop-filter: blur(12px);
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
+.roleColumn,
+.detailsColumn {
+  border: 0;
+  min-width: 0;
+  background: var(--dark2);
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 18px 40px rgba(10, 14, 26, 0.06);
 }
 
-.roleCard:hover {
-  transform: translateY(-4px);
-  background: rgba(255, 159, 67, 0.06);
-  border-color: rgba(255, 159, 67, 0.3);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 159, 67, 0.1);
+.detailsColumn {
+  display: grid;
+  gap: 14px;
 }
 
-.roleCardTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
-}
-
-.roleIconBox {
-  width: 42px;
-  height: 42px;
-  border-radius: 7px;
-  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
-  color: #000;
+.joinTitle {
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
-}
-
-.roleTag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--orange, #ff9f43);
-  background: rgba(255, 159, 67, 0.12);
-  border: 1px solid rgba(255, 159, 67, 0.25);
-  padding: 4px 12px;
-  border-radius: 100px;
-}
-
-.roleTitle {
+  gap: 12px;
   font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
   font-weight: 800;
-  font-size: 1.25rem;
-  color: #ffffff;
-  margin-bottom: 8px;
+  color: var(--white);
+  margin-bottom: 18px;
+  float: left; /* lets the legend sit inside the fieldset padding like a heading */
+  width: 100%;
 }
 
-.roleBody {
-  font-size: 0.86rem;
-  color: #d8d8d8;
-  line-height: 1.5;
-  margin-bottom: 16px;
-  flex: 1;
+.joinTitle + * {
+  clear: both;
 }
 
-.roleApplyLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--orange, #ff9f43);
-  font-size: 0.88rem;
-  font-weight: 700;
-  transition: gap 0.2s ease;
+.step {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--orange-gradient);
+  color: #04060a;
+  font-size: 0.95rem;
+  font-weight: 900;
 }
 
-.roleCard:hover .roleApplyLink {
+.roleList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-@media (min-width: 992px) and (min-height: 720px) {
-  .rolesSection {
-    height: calc(100vh - var(--nav-h));
-    height: calc(100dvh - var(--nav-h));
-    min-height: 0;
-    padding: 0 !important;
-    overflow: hidden;
-  }
-
-  .rolesSection > .wideContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: clamp(28px, 4vh, 48px) clamp(28px, 4vw, 64px);
-  }
-
-  .rolesHead {
-    flex: 0 0 auto;
-    margin-bottom: clamp(18px, 3vh, 30px);
-  }
-
-  .rolesGrid {
-    flex: 1;
-    min-height: 0;
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-  }
-
-  .roleCard {
-    min-height: 0;
-  }
-}
-
-@media (min-width: 992px) and (max-height: 850px) {
-  .rolesSection > .wideContainer {
-    padding: 20px 36px;
-  }
-
-  .rolesHead {
-    margin-bottom: 14px;
-  }
-
-  .rolesTitle {
-    font-size: 2rem;
-    margin-top: 4px;
-    margin-bottom: 6px;
-  }
-
-  .rolesSub {
-    font-size: 0.82rem;
-    line-height: 1.4;
-  }
-
-  .rolesGrid {
-    gap: 12px !important;
-  }
-
-  .roleCard {
-    padding: 14px 16px;
-  }
-
-  .roleCardTop {
-    margin-bottom: 9px;
-  }
-
-  .roleIconBox {
-    width: 36px;
-    height: 36px;
-  }
-
-  .roleIconBox svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .roleTag {
-    padding: 3px 8px;
-    font-size: 0.62rem;
-  }
-
-  .roleTitle {
-    font-size: 1rem;
-    margin-bottom: 5px;
-  }
-
-  .roleBody {
-    font-size: 0.74rem;
-    line-height: 1.35;
-    margin-bottom: 8px;
-  }
-
-  .roleApplyLink {
-    font-size: 0.76rem;
-  }
-}
-
-/* ═══ Quote / Testimonial ═══ */
-.quoteSection {
-  padding: 80px 0;
-  background: var(--dark);
-}
-
-.quoteCard {
-  position: absolute;
-  left: clamp(24px, 4vw, 48px);
-  right: clamp(24px, 4vw, 48px);
-  bottom: clamp(24px, 4vw, 44px);
-  z-index: 1;
-  padding: 0;
-  text-align: left;
-  background: transparent;
-}
-
-.quoteEyebrow {
-  display: inline-flex;
-  padding: 6px 12px;
-  border-radius: 4px;
-  background: #ff9f43;
-  color: #16120f;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-
-.quoteText {
-  font-family: var(--font-heading);
-  font-size: clamp(1rem, 1.7vw, 1.3rem);
-  font-weight: 700;
-  color: #ffffff;
-  line-height: 1.45;
-  max-width: 650px;
-  margin: 0 0 12px;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
-}
-
-.quoteAuthor strong {
-  display: block;
-  font-size: 1rem;
-  font-weight: 800;
-  color: #ffffff;
-}
-
-.quoteAuthor span {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.72);
-}
-
-/* ═══ Form Section ═══ */
-.formSection {
-  background: #111827;
-  padding: 0;
-}
-
-.formSection > .formShell {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-
-.formCard {
-  min-height: 100%;
-  background: #111827;
-  padding: 0;
-  display: grid;
-  grid-template-columns: minmax(340px, 0.72fr) minmax(0, 1.28fr);
-  align-items: stretch;
-  gap: 0;
-}
-
-.formHead {
+.roleOption {
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: left;
-  margin: 0;
-  padding: clamp(44px, 5vw, 76px);
-  border-right: 1px solid rgba(255, 255, 255, 0.14);
-  background:
-    linear-gradient(180deg, rgba(7, 13, 11, 0.42), rgba(7, 13, 11, 0.82)),
-    url('../../assets/Volunteer.jpg') center center / cover no-repeat;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 40px 14px 14px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(10, 14, 26, 0.09);
+  background: var(--dark);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 }
 
-.formTitle {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
-  font-weight: 900;
-  color: #ffffff;
-  margin-top: 8px;
-  margin-bottom: 10px;
-  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.72);
+.roleOption:hover {
+  border-color: rgba(255, 159, 67, 0.55);
+  transform: translateY(-1px);
 }
 
-.formSub {
-  color: rgba(255, 255, 255, 0.88);
-  font-size: 0.95rem;
-  max-width: 520px;
-  margin: 0;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.72);
+.roleOption:last-child {
+  grid-column: 1 / -1;
 }
 
-.volunteerForm {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 100%;
-  align-self: center;
-  padding: clamp(38px, 4.5vw, 68px);
+/* Visually hidden but still focusable/required for native validation. */
+.roleOption input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  bottom: 0;
+  left: 50%;
 }
 
-.formRow {
+.roleOption:has(input:focus-visible) {
+  outline: 3px solid rgba(255, 159, 67, 0.6);
+  outline-offset: 2px;
+}
+
+.roleOptionOn {
+  border-color: var(--orange);
+  background: rgba(255, 159, 67, 0.09);
+}
+
+.roleIcon {
+  flex: 0 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 159, 67, 0.14);
+  color: var(--orange-dk);
 }
 
-@media (max-width: 640px) {
-  .formCard {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 0;
-  }
-
-  .formHead {
-    min-height: 420px;
-    padding: 48px 20px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-    background-position: center center;
-  }
-
-  .volunteerForm {
-    padding: 36px 20px;
-  }
-
-  .formRow {
-    grid-template-columns: 1fr;
-  }
+.roleText {
+  display: grid;
+  gap: 3px;
 }
 
-.formGroup {
-  display: flex;
-  flex-direction: column;
+.roleText strong {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.25;
+}
+
+.roleText span {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--gray-400);
+}
+
+.roleCheck {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: var(--orange);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.roleOptionOn .roleCheck {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.field {
+  display: grid;
   gap: 6px;
 }
 
-.formLabel {
-  font-size: 0.85rem;
+.field > span {
+  font-size: 0.82rem;
   font-weight: 700;
-  color: #e3cfbc;
+  color: var(--gray-300);
 }
 
-.formInput {
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  padding: 12px 14px;
-  border-radius: 7px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.formInput:focus {
-  border-color: var(--orange, #ff9f43);
-  box-shadow: 0 0 0 3px rgba(255, 159, 67, 0.2);
-  background: rgba(15, 23, 42, 0.95);
-}
-
-.formInput::placeholder {
+.field em {
+  font-style: normal;
+  font-weight: 500;
   color: var(--gray-500);
 }
 
-.formTextarea {
+.field input,
+.field textarea {
+  width: 100%;
+  font-size: 0.95rem;
+  color: var(--white);
+  background: var(--dark);
+  border: 1.5px solid rgba(10, 14, 26, 0.1);
+  border-radius: 12px;
+  padding: 12px 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field textarea {
   resize: vertical;
-  min-height: 96px;
+  min-height: 84px;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255, 159, 67, 0.15);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--gray-500);
 }
 
 .btnSubmit {
@@ -934,157 +332,54 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
-  color: #000;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1rem;
-  min-height: 48px;
-  padding: 12px 28px;
-  border-radius: 100px;
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 8px 30px rgba(255, 159, 67, 0.4);
-  transition: all 0.3s ease;
+  min-height: 52px;
   margin-top: 4px;
+  border-radius: 100px;
+  background: var(--orange-gradient);
+  color: #04060a;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 10px 26px rgba(255, 159, 67, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btnSubmit:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(255, 159, 67, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(255, 159, 67, 0.45);
 }
 
 .btnSubmit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  opacity: 0.75;
+  cursor: wait;
 }
 
-.successBanner {
-  background: rgba(46, 117, 89, 0.15);
-  border: 1px solid rgba(46, 117, 89, 0.4);
-  color: #4ade80;
-  padding: 20px 24px;
-  border-radius: 14px;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  text-align: left;
+.formNote {
+  font-size: 0.84rem;
+  color: var(--gray-400);
+  text-align: center;
 }
 
-.successBanner h3 {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-
-.successBanner p {
-  font-size: 0.88rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
+.formNote strong {
+  color: var(--white);
 }
 
 .errorBanner {
-  background: rgba(255, 82, 82, 0.15);
-  border: 1px solid rgba(255, 82, 82, 0.3);
-  color: #ff6b6b;
-  padding: 16px 20px;
-  border-radius: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #b91c1c;
   font-size: 0.88rem;
-  text-align: left;
-}
-
-@media (min-width: 992px) and (min-height: 720px) {
-  .formSection {
-    height: calc(100vh - var(--nav-h));
-    height: calc(100dvh - var(--nav-h));
-    min-height: 0;
-    padding: 0 !important;
-    overflow: hidden;
-  }
-
-  .formCard {
-    height: 100%;
-  }
-
-  .formTextarea {
-    resize: none;
-  }
-}
-
-@media (min-width: 992px) and (max-height: 850px) {
-  .formCard {
-    padding: 0;
-    gap: 0;
-  }
-
-  .formHead {
-    padding: 32px 42px;
-  }
-
-  .volunteerForm {
-    padding: 22px 42px;
-  }
-
-  .formTitle {
-    font-size: 2rem;
-    line-height: 1.1;
-    margin-top: 4px;
-    margin-bottom: 8px;
-  }
-
-  .formSub {
-    font-size: 0.82rem;
-    line-height: 1.45;
-  }
-
-  .volunteerForm {
-    gap: 9px;
-  }
-
-  .formRow {
-    gap: 12px;
-  }
-
-  .formGroup {
-    gap: 4px;
-  }
-
-  .formLabel {
-    font-size: 0.76rem;
-  }
-
-  .formInput {
-    min-height: 40px;
-    padding: 9px 12px;
-    font-size: 0.84rem;
-  }
-
-  .formTextarea {
-    min-height: 72px;
-  }
-
-  .btnSubmit {
-    min-height: 42px;
-    margin-top: 0;
-    padding: 9px 24px;
-    font-size: 0.88rem;
-  }
-
-  .successBanner,
-  .errorBanner {
-    padding: 10px 14px;
-  }
 }
 
 .spinner {
   width: 20px;
   height: 20px;
-  border: 2px solid rgba(0, 0, 0, 0.2);
-  border-left-color: #000;
+  border: 2.5px solid rgba(4, 6, 10, 0.25);
+  border-top-color: #04060a;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
-  display: inline-block;
 }
 
 @keyframes spin {
@@ -1093,146 +388,108 @@
   }
 }
 
-/* ═══ Donate CTA ═══ */
-.donateCta {
-  position: relative;
-  padding: 100px 0;
+.successPanel {
+  max-width: 560px;
+  margin: 0 auto;
   text-align: center;
-  background: #ffffff;
-  overflow: hidden;
+  background: var(--dark2);
+  border-radius: 24px;
+  padding: 48px 36px;
+  box-shadow: 0 18px 40px rgba(10, 14, 26, 0.06);
 }
 
-.donateCta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 80%, rgba(255, 159, 67, 0.12) 0%, transparent 65%);
+.successPanel svg {
+  color: #16a34a;
+  margin: 0 auto 16px;
 }
 
-.donateCtaTag {
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #ff9f43;
-  margin-bottom: 16px;
-}
-
-.donateCtaH {
+.successPanel h2 {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: 1.8rem;
   font-weight: 900;
   color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.donateCtaSub {
-  font-size: 1.05rem;
+.successPanel p {
   color: var(--gray-400);
-  max-width: 580px;
-  margin: 0 auto 36px;
-  line-height: 1.7;
+  line-height: 1.65;
+  margin-bottom: 24px;
 }
 
-.btnDonateBig {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--orange-gradient, linear-gradient(135deg, #ff9f43, #ff5252));
-  color: #000;
+.btnGhost {
   font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.05rem;
-  padding: 16px 36px;
+  font-weight: 700;
+  color: var(--white);
+  padding: 11px 22px;
   border-radius: 100px;
-  box-shadow: 0 8px 30px rgba(255, 159, 67, 0.4);
-  transition: all 0.3s ease;
+  border: 1.5px solid rgba(10, 14, 26, 0.15);
 }
 
-.btnDonateBig:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 14px 45px rgba(255, 159, 67, 0.6);
+.btnGhost:hover {
+  border-color: var(--orange);
 }
 
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 768px) {
-  .pageHero {
-    padding: 100px 0 48px;
-  }
-
-  .rolesSection,
-  .quoteSection,
-  .donateCta {
-    padding: 56px 0;
-  }
-
-  .rolesGrid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-  }
-
-  .whyVolunteerStack {
-    border-radius: 0;
-  }
-
-  .impactCopy {
-    padding: 36px 24px 40px;
-  }
-
-  .perksList {
+/* ═══ Responsive ═══ */
+@media (max-width: 1100px) {
+  .roleList {
     grid-template-columns: 1fr;
   }
 
-  .whyVolunteerCtas {
-    flex-direction: column;
-  }
-
-  .whyVolunteerPrimaryBtn,
-  .whyVolunteerSecondaryBtn {
-    width: 100%;
-  }
-
-  .imgCardWrap {
-    min-height: 500px;
-  }
-
-  .imgCardBadge {
-    top: 18px;
-    left: 18px;
-  }
-
-  .quoteCard {
-    left: 18px;
-    right: 18px;
-    bottom: 20px;
+  .roleOption:last-child {
+    grid-column: auto;
   }
 }
 
-@media (max-width: 480px) {
-  .wideContainer,
-  .formShell {
-    width: 92vw;
-  }
-
-  .pageHero {
-    padding: 90px 0 40px;
-  }
-
-  .rolesGrid {
+@media (max-width: 991px) {
+  .heroGrid,
+  .joinForm {
     grid-template-columns: 1fr;
   }
 
-  .quoteCard {
-    padding: 28px 20px;
+  .heroImgWrap {
+    aspect-ratio: 16 / 10;
+    max-height: none;
+    order: -1;
   }
 
-  .btnDonateBig,
+  .roleList {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .roleOption:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 28px 0 40px;
+  }
+
+  .heroTitle {
+    font-size: 2.8rem;
+  }
+
+  .heroSub {
+    font-size: 1rem;
+  }
+
+  .roleList {
+    grid-template-columns: 1fr;
+  }
+
+  .roleColumn,
+  .detailsColumn {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roleOption,
+  .roleCheck,
   .btnPrimary,
-  .btnSecondary {
-    width: 100%;
-    justify-content: center;
-    padding: 14px 24px;
-    font-size: 0.95rem;
+  .btnSubmit {
+    transition: none;
   }
 }

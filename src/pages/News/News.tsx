@@ -3,6 +3,7 @@ import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-reac
 import { DIFF_SEARCH_URL, diffNewsStories } from '../../data/diffNews';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './News.module.css';
+import newsCover from '../../assets/web/news-cover.webp';
 
 const FALLBACK_IMAGE = '/assets/images/blog-photo-1.png';
 const VISIBLE_STORY_COUNT = 10;
@@ -45,6 +46,14 @@ const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
   if (!event.currentTarget.src.endsWith(FALLBACK_IMAGE)) {
     event.currentTarget.src = FALLBACK_IMAGE;
   }
+};
+
+// Diff story images come from WordPress with a small `fit=W,H` thumbnail size
+// baked into the URL (e.g. 400x400), which looks soft once enlarged. The same
+// media library serves larger sizes from the same URL on request.
+const upsizeDiffImage = (url: string, size = '800,800'): string => {
+  if (!url || !url.includes('diff.wikimedia.org')) return url;
+  return url.replace(/([?&])fit=[^&]*/, `$1fit=${encodeURIComponent(size)}`);
 };
 
 const News: React.FC = () => {
@@ -101,12 +110,11 @@ const News: React.FC = () => {
     <main className={styles.newsViewportContainer}>
       {featuredStory && (
         <section className={[styles.featuredHero, 'snap-frame'].join(' ')}>
-          <img
-            className={styles.featuredBackdrop}
-            src={featuredStory.image || FALLBACK_IMAGE}
-            alt=""
-            onError={handleImageError}
-          />
+          {/* A fixed OFWA photo rather than the latest story's artwork: Diff
+              images are often campaign posters with their own large type,
+              which fought the page heading. The story's image sits in the
+              featured card instead. */}
+          <img className={styles.featuredBackdrop} src={newsCover} alt="" />
           <div className={styles.featuredShade} />
           <div className={['container', styles.heroInner].join(' ')}>
             <header className={styles.heroHeading}>
@@ -119,27 +127,45 @@ const News: React.FC = () => {
             </header>
 
             <article className={styles.featuredContent}>
-              <div className={styles.featuredMetaLine}>
-                <span className={styles.featuredCat}>Latest story</span>
-                <time dateTime={featuredStory.dateTime}>{featuredStory.date}</time>
-              </div>
-              <h2 className={styles.featuredTitle}>
-                <a href={featuredStory.url} target="_blank" rel="noreferrer">
-                  {featuredStory.title}
+              {featuredStory.image && (
+                <a
+                  className={styles.featuredThumb}
+                  href={featuredStory.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                >
+                  <img
+                    src={upsizeDiffImage(featuredStory.image)}
+                    alt=""
+                    onError={handleImageError}
+                  />
                 </a>
-              </h2>
-              <p className={styles.featuredByline}>
-                By {featuredStory.author || 'Open Foundation West Africa'}
-              </p>
-              <a
-                href={featuredStory.url}
-                target="_blank"
-                rel="noreferrer"
-                className={styles.featuredLink}
-              >
-                Read the latest story
-                <ExternalLink size={17} aria-hidden="true" />
-              </a>
+              )}
+              <div className={styles.featuredText}>
+                <div className={styles.featuredMetaLine}>
+                  <span className={styles.featuredCat}>Latest story</span>
+                  <time dateTime={featuredStory.dateTime}>{featuredStory.date}</time>
+                </div>
+                <h2 className={styles.featuredTitle}>
+                  <a href={featuredStory.url} target="_blank" rel="noreferrer">
+                    {featuredStory.title}
+                  </a>
+                </h2>
+                <p className={styles.featuredByline}>
+                  By {featuredStory.author || 'Open Foundation West Africa'}
+                </p>
+                <a
+                  href={featuredStory.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.featuredLink}
+                >
+                  Read the latest story
+                  <ExternalLink size={17} aria-hidden="true" />
+                </a>
+              </div>
             </article>
           </div>
         </section>
@@ -256,6 +282,11 @@ const News: React.FC = () => {
             <div>
               <p className={styles.archiveLabel}>Full archive</p>
               <h2 className={styles.archiveTitle}>Continue reading on Wikimedia Diff</h2>
+              <p className={styles.archiveNote}>
+                Diff is the Wikimedia movement&apos;s community blog, run by the
+                Wikimedia Foundation. Volunteers and affiliates like OFWA post
+                project updates, event recaps and stories there.
+              </p>
             </div>
             <a
               href={DIFF_SEARCH_URL}

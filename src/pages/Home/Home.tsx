@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, ChevronLeft, ChevronRight, ArrowRight, MapPin } from 'lucide-react';
 import { VideoModal } from '../../components/VideoModal/VideoModal';
@@ -8,13 +8,7 @@ import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useCountUp } from '../../hooks/useCountUp';
 import { diffNewsStories } from '../../data/diffNews';
 import styles from './Home.module.css';
-import heroAfroCreatives2 from '../../assets/Hero/AfroCreatives 2025 Launch-2.jpg';
-import heroAfroCreatives3 from '../../assets/Hero/AfroCreatives 2025 Launch-3.jpg';
-import heroDscf0565 from '../../assets/Hero/DSCF0565.jpg';
-import heroDscf8408 from '../../assets/Hero/DSCF8408.jpg';
-import heroDscf8423 from '../../assets/Hero/DSCF8423.jpg';
-import heroDscf8434 from '../../assets/Hero/DSCF8434.jpg';
-import heroDsc5306 from '../../assets/Hero/DSC_5306.jpg';
+import { HeroVideo } from './HeroVideo';
 import whoAccraHub from '../../assets/Who we are/Accra Wiki Hub.jpg';
 import whoAfricaWikiChallenge from '../../assets/Who we are/Africa Wiki Challenge 2025 Launch.jpg';
 import whoDigitalSkills from '../../assets/Who we are/Digital Skills Workshop for Women.jpg';
@@ -230,16 +224,6 @@ const ghanaRegionsData: GhanaRegion[] = [
 ];
 
 /* ── Data ────────────────────────────────────────── */
-const heroSlides = [
-  { src: heroAfroCreatives2, alt: 'AfroCreatives 2025 launch' },
-  { src: heroAfroCreatives3, alt: 'AfroCreatives 2025 launch participants' },
-  { src: heroDscf0565, alt: 'OFWA community program' },
-  { src: heroDscf8408, alt: 'OFWA training session' },
-  { src: heroDscf8423, alt: 'OFWA workshop audience' },
-  { src: heroDscf8434, alt: 'OFWA event presentation' },
-  { src: heroDsc5306, alt: 'OFWA group session' },
-];
-
 const marqueeItems = [
   '40,000+ Wikipedia Articles',
   '18 Communities Impacted',
@@ -274,6 +258,40 @@ const events = [
 
 const newsCards = diffNewsStories.slice(0, 3);
 
+/* ── Hero headline ───────────────────────────────── */
+// One line on a highlighter band: the band wipes in, the words rise into it
+// one by one, then an orange marker sweeps across "Open Knowledge".
+const HERO_WORDS: { word: string; accent?: boolean }[] = [
+  { word: 'Building' },
+  { word: "Africa's" },
+  { word: 'Open', accent: true },
+  { word: 'Knowledge', accent: true },
+  { word: 'Future,' },
+  { word: 'Together.' },
+];
+
+const HeroWord: React.FC<{ word: string; index: number }> = ({ word, index }) => (
+  <span className={styles.hlWord} style={{ '--w': index } as React.CSSProperties}>{word}</span>
+);
+
+const HeroHeadline: React.FC = () => {
+  const plain = (from: number, to: number) =>
+    HERO_WORDS.slice(from, to).map(({ word }, i) => (
+      <React.Fragment key={word}>{from + i > 0 && ' '}<HeroWord word={word} index={from + i} /></React.Fragment>
+    ));
+  return (
+    <h1 className={styles.heroTitle} aria-label="Building Africa's Open Knowledge Future, Together.">
+      <span className={styles.hlBand} aria-hidden="true">
+        {plain(0, 2)}{' '}
+        <span className={styles.hlAccent}>
+          <HeroWord word="Open" index={2} /> <HeroWord word="Knowledge" index={3} />
+        </span>
+        {plain(4, 6)}
+      </span>
+    </h1>
+  );
+};
+
 /* ── Stat Counter Component ──────────────────────── */
 const StatItem: React.FC<{ end: number; suffix?: string; label: string; delay?: string }> = ({ end, suffix = '', label, delay }) => {
   const { formattedCount, elementRef } = useCountUp({ end, suffix });
@@ -288,18 +306,6 @@ const StatItem: React.FC<{ end: number; suffix?: string; label: string; delay?: 
 /* ── Home Page ───────────────────────────────────── */
 const Home: React.FC = () => {
   useScrollReveal();
-
-  // Hero carousel
-  const [heroIdx, setHeroIdx] = useState(0);
-  const heroGoTo = useCallback((n: number) => {
-    setHeroIdx((n + heroSlides.length) % heroSlides.length);
-  }, []);
-  useEffect(() => {
-    const timer = setInterval(() => heroGoTo(heroIdx + 1), 5500);
-    return () => clearInterval(timer);
-  }, [heroIdx, heroGoTo]);
-
-
 
   // Gallery carousel
   const [galleryIdx, setGalleryIdx] = useState(0);
@@ -354,38 +360,16 @@ const Home: React.FC = () => {
       <div className={`${styles.heroContainer} snap-frame`}>
 
         <section className={styles.hero} aria-label="Hero">
-          {heroSlides.map((s, i) => (
-            <div key={i} className={`${styles.heroSlide} ${i === heroIdx ? styles.heroSlideActive : ''}`}>
-              <img src={s.src} alt={s.alt} />
-            </div>
-          ))}
+          <HeroVideo paused={videoId !== null} />
           <div className={styles.heroOverlay} />
+          {/* Headline and sentence share one left edge. */}
           <div className={styles.heroContent}>
-            <div className="container">
-              <p className={`${styles.heroKicker} reveal`}>Open Knowledge · Women's Empowerment<span className={styles.heroKickerRegion}> · West Africa</span></p>
-              <h1 className={`${styles.heroTitle} reveal d1`}>
-                Building Africa's<br />
-                <span>Open Knowledge</span><br />
-                Future, Together.
-              </h1>
-              <p className={`${styles.heroSub} reveal d2`}>Empowering women and communities to contribute to, access, and lead in the global open knowledge movement.</p>
-              <div className={`${styles.heroCtas} reveal d3`}>
-                {/* <Link className={styles.btnDonateHero} to="/donate">
-                  <Heart size={16} fill="currentColor" /> Donate Now — Change a Life
-                </Link> */}
-                <button className={styles.btnPlayHero} onClick={() => setVideoId('cXnO3a2_bLU')}>
-                  <span className={styles.playCircle}><Play size={18} fill="currentColor" /></span>
-                  Watch Our Story
-                </button>
-              </div>
+            <div className={`container ${styles.heroLayout}`}>
+              <HeroHeadline />
+              <p className={styles.heroSub}>
+                <span>Empowering women and communities to contribute to, access, and lead in the global open knowledge movement.</span>
+              </p>
             </div>
-          </div>
-          <button className={`${styles.heroArrow} ${styles.heroArrowPrev}`} onClick={() => heroGoTo(heroIdx - 1)} aria-label="Previous slide"><ChevronLeft size={28} /></button>
-          <button className={`${styles.heroArrow} ${styles.heroArrowNext}`} onClick={() => heroGoTo(heroIdx + 1)} aria-label="Next slide"><ChevronRight size={28} /></button>
-          <div className={styles.heroDots}>
-            {heroSlides.map((_, i) => (
-              <button key={i} className={`${styles.heroDot} ${i === heroIdx ? styles.heroDotActive : ''}`} onClick={() => setHeroIdx(i)} aria-label={`Slide ${i + 1}`} />
-            ))}
           </div>
         </section>
         {/* ░░ MARQUEE ░░ */}
