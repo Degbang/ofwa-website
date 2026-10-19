@@ -49,7 +49,6 @@ const ghanaRegionsData: GhanaRegion[] = [
       { name: 'UG Wiki Club', type: 'Club', location: 'University of Ghana, Legon', detail: 'University Club' },
       { name: 'GH Media Wiki Club', type: 'Club', location: 'GH Media School, Achimota', detail: 'Media & Communications Club' },
       { name: 'New Health Wiki Club', type: 'Club', location: 'Accra', detail: 'Health & Open Knowledge Initiative' },
-      { name: 'UDS Wiki Tech', type: 'Club', location: 'Accra, University of Development Studies', detail: 'UDS Wiki Tech Club', description: 'Wiki Tech UDS is a Wikimedia-focused technology hub at the University for Development Studies (UDS), bringing together students passionate about technology and the Wikimedia movement. The hub explores how software, data, AI, and other emerging technologies can support Wikimedia projects and advance open knowledge. Through workshops, projects, and collaborative learning, we equip students with the technical skills to build tools and solutions that contribute to the Wikimedia ecosystem.' },
 
 
     ],
@@ -77,6 +76,7 @@ const ghanaRegionsData: GhanaRegion[] = [
     yPercent: 24,
     hubs: [
       { name: 'Tamale Wiki Hub', type: 'Hub', location: 'Tamale', detail: 'Community & Regional Hub' },
+      { name: 'UDS Wiki Tech', type: 'Club', location: 'University for Development Studies, Nyankpala', detail: 'Wikitech Student Developers Club', description: 'Wiki Tech UDS is a Wikimedia-focused technology hub at the University for Development Studies (UDS), bringing together students passionate about technology and the Wikimedia movement. The hub explores how software, data, AI, and other emerging technologies can support Wikimedia projects and advance open knowledge. Through workshops, projects, and collaborative learning, we equip students with the technical skills to build tools and solutions that contribute to the Wikimedia ecosystem.' },
     ],
   },
   {
@@ -89,8 +89,7 @@ const ghanaRegionsData: GhanaRegion[] = [
     yPercent: 14,
     hubs: [
       { name: 'SDD UBIDS Wiki Club', type: 'Club', location: 'SD Dombo University, Wa', detail: 'University Club' },
-      { name: 'Dr. Hilla Limann Wiki Club', type: 'Club', location: 'Dr. Hilla Limann Technical University, Wa', detail: 'Technical University Club' },
-      { name: 'DHLTU Wiki Club', type: 'Club', location: 'Wa', detail: 'DHLTU Wiki Club', description: "DHLTU Wiki Club is a student-led community at DHLTU dedicated to growing free knowledge. We organize training workshops, edit-a-thons, Photo walks and outreach to help students contribute to Wikipedia and other Wikimedia projects. Our focus is documenting local history, culture, and notable figures from our region. With OFWA’s support, we aim to build digital literacy and make reliable information about our community accessible worldwide." }
+      { name: 'DHLTU Wiki Club', type: 'Club', location: 'Dr. Hilla Limann Technical University, Wa', detail: 'Technical University Club', description: "DHLTU Wiki Club is a student-led community at DHLTU dedicated to growing free knowledge. We organize training workshops, edit-a-thons, Photo walks and outreach to help students contribute to Wikipedia and other Wikimedia projects. Our focus is documenting local history, culture, and notable figures from our region. With OFWA’s support, we aim to build digital literacy and make reliable information about our community accessible worldwide." }
     ],
   },
   {
@@ -138,7 +137,7 @@ const ghanaRegionsData: GhanaRegion[] = [
     xPercent: 13,
     yPercent: 67,
     hubs: [
-      { name: 'Enchi Wiki Club', type: 'Club', location: 'Enchi', detail: 'College Wiki Club' },
+      { name: 'EnchiCoE Wiki Club', type: 'Club', location: 'Enchi College of Education, Enchi', detail: 'College Wiki Club' },
     ],
   },
   {
