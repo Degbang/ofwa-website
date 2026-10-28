@@ -1,35 +1,25 @@
+import { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
-import Home from './pages/Home/Home';
-import About from './pages/About/About';
-import Programs from './pages/Programs/Programs';
-import Events from './pages/Events/Events';
-import Gallery from './pages/Gallery/Gallery';
-import News from './pages/News/News';
-import Volunteer from './pages/Volunteer/Volunteer';
-import Partner from './pages/Partner/Partner';
-import Contact from './pages/Contact/Contact';
-import Donate from './pages/Donate/Donate';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { notFoundRoute, routes } from './routes';
 
 function App() {
+  const NotFound = notFoundRoute.component;
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/programs" element={<Programs />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/volunteer" element={<Volunteer />} />
-          <Route path="/partner" element={<Partner />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/donate" element={<Donate />} />
-          {/* Catch-all route to redirect back to Home */}
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </Layout>
+      <ErrorBoundary>
+        <Layout>
+          <Suspense fallback={<div role="status" aria-live="polite" className="sr-only">Loading page</div>}>
+            <Routes>
+              {routes.map(({ path, component: Page }) => (
+                <Route key={path} path={path} element={<Page />} />
+              ))}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </Layout>
+      </ErrorBoundary>
     </Router>
   );
 }

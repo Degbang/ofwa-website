@@ -1,19 +1,15 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, ArrowUpRight, Play } from 'lucide-react';
 import { VideoModal } from '../../components/VideoModal/VideoModal';
+import { PageHero } from '../../components/ui/PageHero';
+import { useScrollReveal } from '../../hooks/useScrollReveal';
 import styles from './Programs.module.css';
 import awcImg from '../../assets/web/programs-awc.webp';
 import kiwixImg from '../../assets/web/programs-kiwix.webp';
 import techImg from '../../assets/web/programs-tech.webp';
 import glamImg from '../../assets/web/programs-glam-nkrumah.webp';
 import wikiskillsImg from '../../assets/web/programs-wikiskills.webp';
-
-/*
- * The page reads like the lead of a Wikipedia article: one sentence per
- * program, with the program's name as the link. Hovering a name shows its
- * photo by the cursor; clicking goes to that program's own frame, which
- * carries a Wikipedia-style infobox of plain facts.
- */
 
 interface Program {
   id: string;
@@ -24,7 +20,7 @@ interface Program {
   facts: [label: string, value: React.ReactNode][];
   img: string;
   imgAlt: string;
-  /** Where the crop centres in the half-screen photo. */
+  /** Where the crop centres in the photo. */
   imgFocus?: string;
   /** An archival print shown mounted on paper instead of full-bleed. */
   print?: { credit: string; href: string };
@@ -181,14 +177,16 @@ const movement: Entry[] = [
 ];
 
 const EntryList: React.FC<{ heading: string; entries: Entry[] }> = ({ heading, entries }) => (
-  <div className={styles.listCol}>
-    <h2>{heading}</h2>
-    <ul>
+  <div>
+    <h2 className="subtitle">{heading}</h2>
+    <ul className={`rules ${styles.entries}`}>
       {entries.map((e) => (
-        <li key={e.name}>
+        <li key={e.name} className="reveal">
           <p className={styles.entryName}>
             {e.href ? (
-              <a href={e.href} target="_blank" rel="noopener noreferrer">{e.name}</a>
+              <a href={e.href} target="_blank" rel="noopener noreferrer">
+                {e.name} <ArrowUpRight size={15} />
+              </a>
             ) : (
               e.name
             )}
@@ -201,128 +199,117 @@ const EntryList: React.FC<{ heading: string; entries: Entry[] }> = ({ heading, e
   </div>
 );
 
-const canHover = () =>
-  typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
 const Programs: React.FC = () => {
+  useScrollReveal();
   const [videoId, setVideoId] = useState<string | null>(null);
   const closeVideo = useCallback(() => setVideoId(null), []);
 
-  // Photo that follows the cursor over a program name in the lead.
-  const [hovered, setHovered] = useState<number | null>(null);
-  const followerRef = useRef<HTMLDivElement>(null);
-  const moveFollower = (e: React.PointerEvent) => {
-    const el = followerRef.current;
-    if (!el) return;
-    // Sit above-right of the pointer so the hovered line stays readable;
-    // flip below / left when there isn't room.
-    const w = el.offsetWidth;
-    const h = el.offsetHeight;
-    const x = e.clientX + 24 + w > window.innerWidth ? e.clientX - 24 - w : e.clientX + 24;
-    const above = e.clientY - 28 - h;
-    const y = above > 72 ? above : e.clientY + 36;
-    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-  };
-
   return (
-    <div className={styles.page}>
+    <>
       <VideoModal videoId={videoId} onClose={closeVideo} />
 
-      {/* ░░ LEAD ░░ */}
-      <section className={`${styles.lead} snap-frame`} onPointerMove={canHover() ? moveFollower : undefined}>
-        <div className={styles.leadInner}>
-          <h1>OFWA runs five programs.</h1>
-          <ul className={styles.leadLines}>
+      <PageHero
+        kicker="Programs"
+        title="Five programs, one aim: more of Africa on the open web."
+        lede="Each program trains people, partners with institutions and puts something lasting on Wikipedia, Wikimedia Commons or a school computer."
+        media={{ src: '/img/kiwix-schools.webp', alt: 'Students at computers during a Kiwix4Schools session', caption: 'Kiwix 4 Schools Initiative' }}
+      />
+
+      {/* Index */}
+      <section className="section-tight">
+        <div className="container split">
+          <span className="eyebrow">In brief</span>
+          <ol className="rules">
             {programs.map((p, i) => (
               <li key={p.id}>
-                {p.lead[0]}
-                <a
-                  href={`#${p.id}`}
-                  onPointerEnter={() => setHovered(i)}
-                  onPointerLeave={() => setHovered(null)}
-                >
-                  {p.name}
+                <a href={`#${p.id}`} className={styles.indexRow}>
+                  <span className="small-caps">{String(i + 1).padStart(2, '0')}</span>
+                  <span className={styles.indexLead}>
+                    {p.lead[0]}
+                    <b>{p.name}</b>
+                    {p.lead[1]}
+                  </span>
+                  <ArrowRight size={18} />
                 </a>
-                {p.lead[1]}
               </li>
             ))}
-          </ul>
-        </div>
-
-        <div
-          ref={followerRef}
-          className={`${styles.follower} ${hovered !== null ? styles.followerOn : ''}`}
-          aria-hidden="true"
-        >
-          {programs.map((p, i) => (
-            <img key={p.id} src={p.img} alt="" className={i === hovered ? styles.followerImgOn : ''} />
-          ))}
+          </ol>
         </div>
       </section>
 
-      {/* ░░ ONE FRAME PER PROGRAM ░░ */}
+      {/* One chapter per program */}
       {programs.map((p, i) => (
-        <section
-          key={p.id}
-          id={p.id}
-          className={`${styles.chapter} ${i % 2 ? styles.chapterFlip : ''} snap-frame`}
-        >
-          <div className={`${styles.media} ${p.print ? styles.mediaPrint : ''}`}>
-            {p.print ? (
-              <figure className={styles.print}>
-                <img src={p.img} alt={p.imgAlt} loading="lazy" />
-                <figcaption>
-                  <a href={p.print.href} target="_blank" rel="noopener noreferrer">{p.print.credit}</a>
-                </figcaption>
-              </figure>
-            ) : (
-              <img src={p.img} alt={p.imgAlt} loading="lazy" style={{ objectPosition: p.imgFocus }} />
-            )}
-          </div>
-
-          <div className={styles.text}>
-            <h2>{p.name}</h2>
-            <p className={styles.body}>{p.body}</p>
-            <dl className={styles.infobox}>
-              {p.facts.map(([label, value]) => (
-                <div key={label}>
-                  <dt>{label}</dt>
-                  <dd>{value}</dd>
+        <section key={p.id} id={p.id} className={`section ${styles.chapter} ${i % 2 ? styles.flip : ''}`}>
+          <div className={`container ${styles.chapterGrid}`}>
+            <div className={`${styles.media} reveal`}>
+              {p.print ? (
+                <figure className={styles.print}>
+                  <img src={p.img} alt={p.imgAlt} loading="lazy" />
+                  <figcaption>
+                    <a href={p.print.href} target="_blank" rel="noopener noreferrer">{p.print.credit}</a>
+                  </figcaption>
+                </figure>
+              ) : (
+                <div className={`photo ${styles.photo}`}>
+                  <img src={p.img} alt={p.imgAlt} loading="lazy" style={{ objectPosition: p.imgFocus }} />
                 </div>
-              ))}
-            </dl>
-            <ul className={styles.links}>
-              {p.video && (
-                <li>
-                  <button type="button" onClick={() => setVideoId(p.video!.id)}>{p.video.label}</button>
-                </li>
               )}
-              {p.links.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} target="_blank" rel="noopener noreferrer">{l.label}</a>
-                </li>
-              ))}
-            </ul>
+            </div>
+
+            <div className={`${styles.text} reveal`}>
+              <span className="small-caps">{String(i + 1).padStart(2, '0')} / {String(programs.length).padStart(2, '0')}</span>
+              <h2 className="title">{p.name}</h2>
+              <p className={`lede ${styles.body}`}>{p.body}</p>
+
+              <dl className={`rules ${styles.facts}`}>
+                {p.facts.map(([label, value]) => (
+                  <div key={label}>
+                    <dt className="small-caps">{label}</dt>
+                    <dd>{value}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <ul className={styles.links}>
+                {p.video && (
+                  <li>
+                    <button type="button" className="link-arrow" onClick={() => setVideoId(p.video!.id)}>
+                      <Play size={14} /> {p.video.label}
+                    </button>
+                  </li>
+                )}
+                {p.links.map((l) => (
+                  <li key={l.href}>
+                    <a href={l.href} target="_blank" rel="noopener noreferrer" className="link-arrow">
+                      {l.label} <ArrowUpRight size={15} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
       ))}
 
-      {/* ░░ CAMPAIGNS, MOVEMENT, CLOSING ░░ */}
-      <section className={`${styles.closing} snap-frame`}>
-        <div className={styles.closingInner}>
-          <div className={styles.lists}>
-            <EntryList heading="Campaigns and contests" entries={campaigns} />
-            <EntryList heading="In the wider movement" entries={movement} />
-          </div>
-          <p className={styles.outro}>
-            Want one of these at your school, library or club? Write to{' '}
-            <a href="mailto:info@ofwafrica.org">info@ofwafrica.org</a> or use the{' '}
-            <Link to="/contact">contact form</Link>. To help run them,{' '}
-            <Link to="/volunteer">volunteer with us</Link>.
-          </p>
+      {/* Campaigns and the wider movement */}
+      <section className="section section-sand">
+        <div className={`container split-even`}>
+          <EntryList heading="Campaigns and contests" entries={campaigns} />
+          <EntryList heading="In the wider movement" entries={movement} />
         </div>
       </section>
-    </div>
+
+      {/* Closing */}
+      <section className="section section-dark">
+        <div className={`container ${styles.closing}`}>
+          <h2 className="title">Want one of these at your school, library or club?</h2>
+          <div className={styles.closingLinks}>
+            <Link to="/contact" className="btn btn-light">Get in touch</Link>
+            <Link to="/volunteer" className="link-arrow">Or help run them <ArrowRight size={16} /></Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

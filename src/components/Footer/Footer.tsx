@@ -1,136 +1,105 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Heart } from 'lucide-react';
+import { ArrowRight, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
+import { ExternalLink } from '../ui/ExternalLink';
 import styles from './Footer.module.css';
 
-interface FooterProps {
-  formspreeId?: string; // e.g. "xpzoqarg"
-}
+const social = [
+  { label: 'Facebook', href: 'https://www.facebook.com/ofwafrica/' },
+  { label: 'X (Twitter)', href: 'https://x.com/OFWAFRICA' },
+  { label: 'Instagram', href: 'https://www.instagram.com/ofwafrica/' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@ofwafrica' },
+  { label: 'LinkedIn', href: 'https://gh.linkedin.com/company/ofwafrica' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@ofwafrica/videos' },
+];
 
-export const Footer: React.FC<FooterProps> = () => {
-  // const [email, setEmail] = useState('');
-  // const [consent, setConsent] = useState(false);
-  // const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+export const Footer: React.FC = () => (
+  <footer className={`${styles.footer} dark-surface`}>
+    <div className={styles.weave} aria-hidden="true" />
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (!consent) return;
+    <div className={`container ${styles.top}`}>
+      <figure className={styles.photo}>
+        <img src="/img/volunteers-group.webp" alt="" loading="lazy" width={900} height={600} />
+        <figcaption>OFWA volunteers</figcaption>
+      </figure>
 
-  //   setStatus('submitting');
-
-  //   if (formspreeId) {
-  //     try {
-  //       const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
-  //         method: 'POST',
-  //         headers: { 'Content-Type': 'application/json' },
-  //         body: JSON.stringify({ email }),
-  //       });
-  //       if (response.ok) {
-  //         setStatus('success');
-  //         setEmail('');
-  //         setConsent(false);
-  //       } else {
-  //         setStatus('error');
-  //       }
-  //     } catch {
-  //       setStatus('error');
-  //     }
-  //   } else {
-  //     // Mock API delay
-  //     setTimeout(() => {
-  //       setStatus('success');
-  //       setEmail('');
-  //       setConsent(false);
-  //       setTimeout(() => setStatus('idle'), 3500);
-  //     }, 1200);
-  //   }
-  // };
-
-  const currentYear = new Date().getFullYear();
-
-  return (
-    <footer className={`${styles.siteFooter} snap-frame`}>
-      <div className={`container ${styles.footerGrid}`}>
-        <div className={styles.brandCol}>
-          <Link to="/" className={styles.brandHeader}>
-            <img className={styles.footerLogo} src="/assets/images/ofwa-logo-new.png" alt="OFWA Logo" />
-            {/* <div className={styles.footerLogoText}>
-              <p className={styles.footerBrandOpen}>Open <span>Foundation</span></p>
-              <p className={styles.footerBrandWestAfrica}>West Africa</p>
-            </div> */}
-          </Link>
-
-          <div className={styles.contactList}>
-            <div className={styles.contactItem}>
-              <MapPin size={15} className={styles.contactIcon} />
-              <span>52 Swaniker St, Accra, Ghana</span>
-            </div>
-            <div className={styles.contactItem}>
-              <Mail size={15} className={styles.contactIcon} />
-              <a href="mailto:info@ofwafrica.org">info@ofwafrica.org</a>
-            </div>
-            <div className={styles.contactItem}>
-              <Phone size={15} className={styles.contactIcon} />
-              <a href="tel:+233559959694">+233 55 995 9694</a>
-            </div>
-          </div>
-
-          <Link className={styles.footerDonatePill} to="/donate">
-            <Heart size={14} fill="currentColor" />
-            <span>Donate Now</span>
-          </Link>
-        </div>
-
-        <div className={styles.navGroup}>
-          <div className={styles.linksCol}>
-            <h4 className={styles.colTitle}>Navigate</h4>
-            <ul className={styles.colLinks}>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/programs">Programs</Link></li>
-              <li><Link to="/events">Events</Link></li>
-              <li><Link to="/news">News</Link></li>
-              <li><Link to="/volunteer">Volunteer</Link></li>
-              <li><Link to="/contact">Contact</Link></li>
-            </ul>
-          </div>
-
-          <div className={styles.linksCol}>
-            <h4 className={styles.colTitle}>Get Involved</h4>
-            <ul className={styles.colLinks}>
-              <li><Link to="/donate">Donate</Link></li>
-              <li><Link to="/partner">Partner With Us</Link></li>
-              <li><Link to="/volunteer">Volunteer</Link></li>
-            </ul>
-          </div>
-
-          <div className={styles.linksCol}>
-            <h4 className={styles.colTitle}>Follow Us</h4>
-            <ul className={styles.colLinks}>
-              <li><a href="https://www.facebook.com/ofwafrica/" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-              <li><a href="https://x.com/OFWAFRICA" target="_blank" rel="noopener noreferrer">Twitter / X</a></li>
-              <li><a href="https://www.instagram.com/ofwafrica/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-              <li><a href="https://www.tiktok.com/@ofwafrica" target="_blank" rel="noopener noreferrer">TikTok</a></li>
-              <li><a href="https://gh.linkedin.com/company/ofwafrica" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              <li><a href="https://www.youtube.com/@ofwafrica/videos" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-            </ul>
-          </div>
-        </div>
+      <div className={styles.ctaWrap}>
+        <h2 className={styles.ctaHeading}>Take part</h2>
+        <ul className={styles.big}>
+          <li><Link to="/volunteer">Volunteer <ArrowRight aria-hidden="true" /></Link></li>
+          <li><Link to="/partner">Partner with us <ArrowRight aria-hidden="true" /></Link></li>
+          {/* <li><Link to="/donate">Donate <ArrowRight aria-hidden="true" /></Link></li> */}
+        </ul>
       </div>
+    </div>
 
-      <div className={`container ${styles.footerBottom}`}>
-        <p>
-          Content licensed under{' '}
-          <a
-            href="https://creativecommons.org/licenses/by-sa/4.0/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            CC BY-SA 4.0
-          </a>{' '}
-          unless otherwise noted · © {currentYear} Open Foundation West Africa · Built for open knowledge.
+    <div className={`container ${styles.grid}`}>
+      <div className={styles.brandCol}>
+        <Link to="/" className={styles.brand} aria-label="Open Foundation West Africa, home">
+          <img src="/brand/ofwa-mark.png" alt="" width={52} height={52} />
+          <span aria-hidden="true">
+            <strong>OFWA</strong>
+            <small>Open Foundation West Africa</small>
+          </span>
+        </Link>
+        <p className={styles.blurb}>
+          A Ghana-based non-profit and Wikimedia affiliate building open knowledge, digital skills and cultural
+          preservation with communities across West Africa since 2016.
         </p>
+        <address className={styles.contact}>
+          <p><MapPin size={16} aria-hidden="true" /> <span>52 Swaniker St, Accra, Ghana</span></p>
+          <p><Mail size={16} aria-hidden="true" /> <a href="mailto:info@ofwafrica.org">info@ofwafrica.org</a></p>
+          <p><Phone size={16} aria-hidden="true" /> <a href="tel:+233559959694">+233 55 995 9694</a></p>
+        </address>
       </div>
-    </footer>
-  );
-};
+
+      <nav className={styles.col} aria-labelledby="footer-explore">
+        <h2 id="footer-explore">Explore</h2>
+        <ul>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/programs">Programs</Link></li>
+          <li><Link to="/hubs">Hubs and clubs</Link></li>
+          <li><Link to="/events">Events</Link></li>
+          <li><Link to="/news">News</Link></li>
+          <li><Link to="/gallery">Gallery</Link></li>
+        </ul>
+      </nav>
+
+      <nav className={styles.col} aria-labelledby="footer-involved">
+        <h2 id="footer-involved">Get involved</h2>
+        <ul>
+          <li><Link to="/volunteer">Volunteer</Link></li>
+          <li><Link to="/partner">Partner with us</Link></li>
+          {/* <li><Link to="/donate">Donate</Link></li> */}
+          <li><Link to="/contact">Contact</Link></li>
+        </ul>
+      </nav>
+
+      <nav className={styles.col} aria-labelledby="footer-follow">
+        <h2 id="footer-follow">Follow</h2>
+        <ul>
+          {social.map((s) => (
+            <li key={s.label}>
+              <ExternalLink href={s.href} bare>{s.label}</ExternalLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <div className={`container ${styles.bottom}`}>
+      <p>
+        Content is licensed{' '}
+        <ExternalLink href="https://creativecommons.org/licenses/by-sa/4.0/" bare>CC BY-SA 4.0</ExternalLink> unless
+        noted. &copy; {new Date().getFullYear()} Open Foundation West Africa.
+      </p>
+      <ul className={styles.legal}>
+        <li><Link to="/privacy">Privacy</Link></li>
+        <li><Link to="/accessibility">Accessibility</Link></li>
+      </ul>
+      <button type="button" className={styles.top2} onClick={() => window.scrollTo({ top: 0 })}>
+        Back to top <ArrowUp size={16} aria-hidden="true" />
+      </button>
+    </div>
+  </footer>
+);
