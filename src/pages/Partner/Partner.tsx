@@ -1,510 +1,217 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Send,
-  Building2,
-  GraduationCap,
-  Globe2,
-  Landmark,
-  ShieldCheck,
-  Award,
-  Handshake,
-  Sparkles,
-  CheckCircle2,
-  ArrowRight,
-  Clock,
-  Mail,
-  Users
-} from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
+import { PageHero } from '../../components/ui/PageHero';
+import { FormFeedback } from '../../components/ui/FormFeedback';
+import { useFormSubmit } from '../../lib/useFormSubmit';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
+import { partners } from '../../data/site';
 import styles from './Partner.module.css';
 
-const stats = [
-  { value: '50+', label: 'Global & Regional Partners' },
-  { value: '10M+', label: 'Knowledge Readers Reached' },
-  { value: '100+', label: 'University & Community Hubs' },
-  { value: '15+', label: 'West African Countries Impacted' },
-];
-
-const benefits = [
+const reasons = [
   {
-    icon: ShieldCheck,
-    num: '01',
-    title: 'Trusted Regional Reach',
-    desc: 'Deeply rooted in West Africa’s academic, tech, and cultural institutions with established networks across 15+ countries.',
+    title: 'Rooted in West Africa',
+    body: 'We work through schools, universities, libraries, archives and community hubs, with a team and volunteers on the ground in eight Ghanaian regions.',
   },
   {
-    icon: Award,
-    num: '02',
-    title: 'Measurable Proven Impact',
-    desc: 'Transparent tracking and reporting on articles created, editors trained, and cultural heritage digitized with verifiable metrics.',
+    title: 'Part of a global movement',
+    body: 'A recognised Wikimedia and Creative Commons affiliate, so the work we do together reaches the world through Wikipedia and Wikimedia Commons.',
   },
   {
-    icon: Globe2,
-    num: '03',
-    title: 'UN SDG Alignment',
-    desc: 'Direct contribution to UN Sustainable Development Goals: SDG 4 (Quality Education), SDG 5 (Gender Equality), and SDG 10 (Reduced Inequalities).',
+    title: 'Open by default',
+    body: 'Everything we produce is openly licensed. We report on what was made, who was trained and what it cost, in the open.',
   },
   {
-    icon: Handshake,
-    num: '04',
-    title: 'Flexible Collaboration Structures',
-    desc: 'Customized partnership frameworks tailored to your goals — from CSR project sponsorships and research grants to institutional MOUs.',
+    title: 'Aligned with the Sustainable Development Goals',
+    body: 'Our work supports SDG 4 (quality education), SDG 5 (gender equality) and SDG 10 (reduced inequalities).',
   },
 ];
 
 const models = [
   {
-    id: 'Corporate Sponsorship',
-    icon: Building2,
-    tag: 'Corporate & CSR',
-    title: 'Corporate Sponsorship',
-    body: 'Sponsor our events, edit-a-thons, or hub operations. Ideal for tech firms and companies with CSR commitments to education, digital literacy, and equity.',
-    highlights: ['Brand visibility across regional summits', ['Dedicated CSR impact reporting'], 'Co-branded hackathons & workshops'],
+    id: 'Corporate sponsorship',
+    title: 'Corporate sponsorship',
+    for: 'Companies and CSR teams',
+    body: 'Sponsor an edit-a-thon, a hub or a campaign, and see exactly what it made possible.',
+    points: ['Named support of a campaign or hub', 'Impact reporting for your CSR commitments', 'Co-branded workshops and hackathons'],
   },
   {
     id: 'Institutional MOU',
-    icon: GraduationCap,
-    tag: 'Academic Focus',
-    title: 'Institutional MOU',
-    body: 'Universities and colleges partner to establish open knowledge clubs, integrate Wikipedia research into curricula, and empower students.',
-    highlights: ['Campus Wiki Club establishment', 'Faculty & student training workshops', 'Academic paper & research open access'],
+    title: 'Institutional partnership',
+    for: 'Universities and colleges',
+    body: 'Set up an open-knowledge club, bring Wikipedia into the curriculum and train students and staff.',
+    points: ['A campus Wiki club', 'Faculty and student training', 'Open access for academic work'],
   },
   {
-    id: 'NGO / Civil Society',
-    icon: Globe2,
-    tag: 'Civil Society',
-    title: 'NGO & Civil Society',
-    body: 'Co-deliver regional open-data campaigns, share educational resources, and join advocacy for digital rights and open access across Africa.',
-    highlights: ['Joint grant applications & delivery', 'Shared open educational resources', 'Co-hosted regional symposiums'],
+    id: 'NGO and civil society',
+    title: 'NGO and civil society',
+    for: 'Non-profits and networks',
+    body: 'Co-deliver open-data campaigns, share learning resources and advocate together for open access.',
+    points: ['Joint grant applications and delivery', 'Shared open educational resources', 'Co-hosted regional events'],
   },
   {
-    id: 'Government / Institutional',
-    icon: Landmark,
-    tag: 'Public Sector (GLAM)',
-    title: 'Government & GLAM',
-    body: 'Collaborate with galleries, libraries, archives, and government agencies to digitise national heritage and train civil servants in open tools.',
-    highlights: ['Cultural heritage digitization', 'Public archive preservation', 'Civil servant open web training'],
+    id: 'Government and GLAM',
+    title: 'Government and GLAM',
+    for: 'Archives, libraries, museums, agencies',
+    body: 'Digitise national heritage and train staff to publish it openly.',
+    points: ['Cultural heritage digitisation', 'Public archive preservation', 'Open web training for staff'],
   },
 ];
 
 const steps = [
-  { num: '1', title: 'Submit Inquiry', desc: 'Fill out the partnership portal form with your organizational goals.' },
-  { num: '2', title: 'Discovery Session', desc: 'Our partnerships team schedules a 30-minute strategic alignment call.' },
-  { num: '3', title: 'Customized MOU', desc: 'We co-design a tailored partnership proposal and action roadmap.' },
+  { title: 'Write to us', body: 'Tell us who you are and what you would like to achieve.' },
+  { title: 'Talk it through', body: 'A short call to see where our work and your goals meet.' },
+  { title: 'Agree a plan', body: 'We draft a proposal or MOU with a clear scope, timeline and reporting.' },
 ];
+
+const empty = { name: '', email: '', organisation: '', type: models[0].id, message: '' };
 
 const Partner: React.FC = () => {
   useScrollReveal();
+  const [form, setForm] = useState(empty);
+  const { status, submit } = useFormSubmit('Partnership enquiry');
+  const busy = status === 'sending';
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    organisation: '',
-    type: 'Corporate Sponsorship',
-    message: '',
-  });
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const change = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  const choose = (id: string) => {
+    setForm((f) => ({ ...f, type: id }));
+    document.getElementById('enquire')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSelectType = (typeId: string) => {
-    setFormData((prev) => ({ ...prev, type: typeId }));
-    const formElement = document.getElementById('partner-form');
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('submitting');
-
-    const formspreeId = import.meta.env.VITE_FORMSPREE_PARTNER_ID;
-
-    if (formspreeId) {
-      try {
-        const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        if (response.ok) {
-          setStatus('success');
-          setFormData({ name: '', email: '', organisation: '', type: 'Corporate Sponsorship', message: '' });
-        } else {
-          setStatus('error');
-        }
-      } catch {
-        setStatus('error');
-      }
-    } else {
-      // Mock API delay
-      setTimeout(() => {
-        setStatus('success');
-        setFormData({ name: '', email: '', organisation: '', type: 'Corporate Sponsorship', message: '' });
-        setTimeout(() => setStatus('idle'), 4000);
-      }, 1200);
-    }
+    if (await submit(form)) setForm(empty);
   };
 
   return (
     <>
-      {/* HERO CONTAINER */}
-      <div className={`${styles.partnerHeroContainer} snap-frame`}>
-        {/* PAGE HERO */}
-        <section className={styles.pageHero}>
-        <div className="container">
-          <div className={`${styles.heroBadge} reveal`}>
-            <Sparkles size={14} />
-            <span>Strategic Collaboration & Open Impact</span>
-          </div>
-          <h1 className={`${styles.pageHeroTitle} reveal d1`}>
-            Partner With <span className={styles.heroHighlight}>OFWA</span>
-          </h1>
-          <p className={`${styles.pageHeroSub} reveal d2`}>
-            Together we close the digital & knowledge gap faster. We unite corporations, academic institutions, NGOs, and governments to build Africa’s open knowledge ecosystem.
-          </p>
+      <PageHero
+        kicker="Partner with us"
+        title="Build open knowledge with us."
+        lede="We work with companies, universities, civil society and public institutions to close the knowledge gap faster than any of us could alone."
+        image="/img/wikiskills-training.webp"
+        imageAlt="A WikiSkills for Librarians session in progress at the Goethe-Institut Ghana"
+        imagePosition="center 40%"
+      >
+        <a href="#enquire" className="btn btn-light">
+          Start a conversation <ArrowDown size={16} />
+        </a>
+      </PageHero>
 
-          <div className={`${styles.heroCtas} reveal d3`}>
-            <button
-              className={styles.btnHeroPrimary}
-              onClick={() => document.getElementById('partner-form')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <span>Start a Partnership</span>
-              <ArrowRight size={16} />
-            </button>
-            <button
-              className={styles.btnHeroSecondary}
-              onClick={() => document.getElementById('models-section')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              <span>Explore Models</span>
-            </button>
-          </div>
-
-          {/* HERO STATS STRIP */}
-          <div className={`${styles.heroStatsGrid} reveal d4`}>
-            {stats.map((s, i) => (
-              <div key={i} className={styles.statBox}>
-                <span className={styles.statValue}>{s.value}</span>
-                <span className={styles.statLabel}>{s.label}</span>
-              </div>
+      <section className="section">
+        <div className="container split">
+          <span className="eyebrow">Why OFWA</span>
+          <ul className="rules">
+            {reasons.map((r, i) => (
+              <li key={r.title} className={`${styles.reason} reveal`}>
+                <span className="small-caps">{String(i + 1).padStart(2, '0')}</span>
+                <h2 className="subtitle">{r.title}</h2>
+                <p>{r.body}</p>
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
-      </div>
-
-      {/* WHY PARTNER SECTION */}
-      <section className={`${styles.whyPartnerSection} snap-frame`}>
-        <div className="container">
-          <div className={styles.splitGrid}>
-            <div>
-              <span className="section-tag reveal">Why Collaborate</span>
-              <h2 className={`${styles.splitTitle} reveal d1`}>Why Partner With OFWA?</h2>
-              <p className={`${styles.splitSub} reveal d1`}>
-                Open Foundation West Africa provides a battle-tested infrastructure for community activation, open content creation, and institutional capacity building across West Africa.
-              </p>
-
-              <div className={styles.benefitsList}>
-                {benefits.map((b, i) => {
-                  const IconComp = b.icon;
-                  return (
-                    <div key={i} className={`${styles.benefitCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                      <div className={styles.benefitIconWrap}>
-                        <IconComp size={20} className={styles.benefitIcon} />
-                      </div>
-                      <div>
-                        <div className={styles.benefitHead}>
-                          <strong className={styles.benefitTitle}>{b.title}</strong>
-                          <span className={styles.benefitNum}>{b.num}</span>
-                        </div>
-                        <p className={styles.benefitDesc}>{b.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className={`${styles.splitImgCol} reveal d2`}>
-              <div className={styles.splitImgWrap}>
-                <img src="/assets/images/image 1.jpg" alt="OFWA Partners & Collaborators" />
-                <div className={styles.imgBadge}>
-                  <div className={styles.imgBadgeIcon}>
-                    <Users size={18} />
-                  </div>
-                  <div>
-                    <strong>Empowering West Africa</strong>
-                    <span>Building digital equality through open knowledge</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* PARTNERSHIP MODELS SECTION */}
-      <section id="models-section" className={`${styles.modelsSection} snap-frame`}>
+      <section className="section section-sand">
         <div className="container">
-          <div className={styles.modelsHead}>
-            <span className="section-tag reveal">Partnership Frameworks</span>
-            <h2 className={`${styles.modelsTitle} reveal d1`}>How We Can Work Together</h2>
-            <p className={`${styles.modelsSub} reveal d2`}>
-              We offer tailored collaboration structures to match your organizational goals, CSR metrics, and institutional focus.
-            </p>
-          </div>
-
-          <div className={styles.modelsGrid}>
-            {models.map((m, i) => {
-              const IconComp = m.icon;
-              return (
-                <div key={i} className={`${styles.modelCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                  <div className={styles.modelTag}>{m.tag}</div>
-                  <div className={styles.modelIconHeader}>
-                    <div className={styles.modelIconWrap}>
-                      <IconComp size={24} />
-                    </div>
-                    <h3 className={styles.modelTitle}>{m.title}</h3>
-                  </div>
-                  <p className={styles.modelBody}>{m.body}</p>
-
-                  <div className={styles.highlightsList}>
-                    {m.highlights.map((h, idx) => (
-                      <div key={idx} className={styles.highlightItem}>
-                        <CheckCircle2 size={14} className={styles.checkIcon} />
-                        <span>{h}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    className={styles.modelSelectBtn}
-                    onClick={() => handleSelectType(m.id)}
-                  >
-                    <span>Select Model</span>
-                    <ArrowRight size={14} />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIAL / TRUSTED NETWORK STRIP */}
-      <section className={`${styles.trustedSection} snap-frame`}>
-        <div className="container">
-          <span className="section-tag reveal">Our Global Network</span>
-          <h2 className={`${styles.trustedTitle} reveal d1`}>Trusted By Leading Organisations</h2>
-          <p className={`${styles.trustedSub} reveal d2`}>
-            We collaborate with global educational foundations, universities, media organizations, and technology leaders.
-          </p>
-
-          <div className={`${styles.partnersStripWrap} reveal d3`}>
-            <div className={styles.partnersStrip}>
-              <img src="/assets/images/partners-strip.png" alt="OFWA partner organisations" />
-            </div>
-          </div>
-
-          {/* PARTNER QUOTE CARD */}
-          <div className={`${styles.quoteCard} reveal d4`}>
-            <div className={styles.quoteIcon}>“</div>
-            <p className={styles.quoteText}>
-              Partnering with Open Foundation West Africa has amplified our ability to empower students, digitize local history, and build sustainable academic open access programs across universities in Ghana.
-            </p>
-            <div className={styles.quoteAuthor}>
-              <strong>Academic & Community Lead</strong>
-              <span>West African Higher Education Network</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PARTNERSHIP PORTAL / INQUIRY FORM */}
-      <section id="partner-form" className={`${styles.formSection} snap-frame`}>
-        <div className="container">
-          <div className={styles.formSectionGrid}>
-            {/* LEFT COLUMN: GUIDANCE & TIMELINE */}
-            <div className={styles.formGuidanceCol}>
-              <span className="section-tag reveal">Get in Touch</span>
-              <h2 className={`${styles.formTitle} reveal d1`}>Start a Strategic Conversation</h2>
-              <p className={`${styles.formSub} reveal d2`}>
-                Whether you have a specific initiative in mind or want to explore collaborative ideas, our partnerships team is ready to assist.
-              </p>
-
-              {/* TIMELINE STEPS */}
-              <div className={`${styles.stepsWrap} reveal d3`}>
-                <h4 className={styles.stepsHead}>What Happens Next?</h4>
-                <div className={styles.stepsList}>
-                  {steps.map((s, i) => (
-                    <div key={i} className={styles.stepItem}>
-                      <span className={styles.stepBadge}>{s.num}</span>
-                      <div>
-                        <strong className={styles.stepTitle}>{s.title}</strong>
-                        <p className={styles.stepDesc}>{s.desc}</p>
-                      </div>
-                    </div>
+          <span className="eyebrow">Ways to partner</span>
+          <h2 className="title" style={{ margin: '24px 0 56px', maxWidth: '14em' }}>Four ways to work together.</h2>
+          <ul className={styles.models}>
+            {models.map((m) => (
+              <li key={m.id} className="reveal">
+                <span className="small-caps">{m.for}</span>
+                <h3 className="subtitle">{m.title}</h3>
+                <p>{m.body}</p>
+                <ul>
+                  {m.points.map((p) => (
+                    <li key={p}>{p}</li>
                   ))}
-                </div>
-              </div>
-
-              {/* QUICK DIRECT CONTACT CARD */}
-              <div className={`${styles.directContactCard} reveal d4`}>
-                <div className={styles.directContactHeader}>
-                  <Mail size={18} className={styles.directIcon} />
-                  <strong>Prefer Direct Email?</strong>
-                </div>
-                <p>Reach out directly to our partnerships team:</p>
-                <a href="mailto:info@ofwafrica.org" className={styles.directEmailLink}>
-                  info@ofwafrica.org
-                </a>
-                <div className={styles.responseTime}>
-                  <Clock size={13} />
-                  <span>Average response time: &lt; 24-48 hours</span>
-                </div>
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN: PARTNER FORM */}
-            <div className={`${styles.formCardWrap} reveal d2`}>
-              <form className={`${styles.partnerForm} contact-form`} onSubmit={handleSubmit}>
-                <h3 className={styles.formCardHeader}>Partnership Inquiry</h3>
-                <p className={styles.formCardSub}>Fill out the details below and we will get back to you promptly.</p>
-
-                {status === 'success' && (
-                  <div className={styles.successBanner}>
-                    <CheckCircle2 size={20} />
-                    <div>
-                      <h3>Partnership Enquiry Submitted!</h3>
-                      <p>Thank you for reaching out. A member of our executive partnership team will contact you within 48 hours.</p>
-                    </div>
-                  </div>
-                )}
-
-                {status === 'error' && (
-                  <div className={styles.errorBanner}>
-                    <p>Something went wrong. Please try submitting again or email us directly at info@ofwafrica.org.</p>
-                  </div>
-                )}
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="name">Contact Name</label>
-                    <input
-                      className="form-input"
-                      id="name"
-                      type="text"
-                      placeholder="Your full name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      disabled={status === 'submitting'}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="email">Work Email</label>
-                    <input
-                      className="form-input"
-                      id="email"
-                      type="email"
-                      placeholder="work@organisation.org"
-                      value={formData.email}
-                      onChange={handleChange}
-                      disabled={status === 'submitting'}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="organisation">Organisation Name</label>
-                    <input
-                      className="form-input"
-                      id="organisation"
-                      type="text"
-                      placeholder="e.g. Acme Corp / Accra University"
-                      value={formData.organisation}
-                      onChange={handleChange}
-                      disabled={status === 'submitting'}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="type">Partnership Model</label>
-                    <select
-                      className="form-input"
-                      id="type"
-                      value={formData.type}
-                      onChange={handleChange}
-                      disabled={status === 'submitting'}
-                      required
-                    >
-                      <option value="Corporate Sponsorship">Corporate Sponsorship</option>
-                      <option value="Institutional MOU">Institutional MOU</option>
-                      <option value="NGO / Civil Society">NGO / Civil Society</option>
-                      <option value="Government / Institutional">Government / Institutional</option>
-                      <option value="Other">Other Collaboration</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label" htmlFor="message">Tell us about your goals</label>
-                  <textarea
-                    className="form-input form-textarea"
-                    id="message"
-                    rows={4}
-                    placeholder="Describe your organization's mission and how you'd like to collaborate with OFWA..."
-                    value={formData.message}
-                    onChange={handleChange}
-                    disabled={status === 'submitting'}
-                    required
-                  />
-                </div>
-
-                <button
-                  className="btn-orange"
-                  type="submit"
-                  style={{ width: '100%', justifyContent: 'center', cursor: status === 'submitting' ? 'not-allowed' : 'pointer' }}
-                  disabled={status === 'submitting'}
-                >
-                  {status === 'submitting' ? (
-                    <span className={styles.spinner} />
-                  ) : (
-                    <>
-                      <span>Submit Partnership Enquiry</span>
-                      <Send size={15} />
-                    </>
-                  )}
+                </ul>
+                <button type="button" className="link-arrow" onClick={() => choose(m.id)}>
+                  Enquire about this <ArrowRight size={16} />
                 </button>
-              </form>
-            </div>
-          </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* DIRECT DONATE / ALTERNATE CTA */}
-      <section className={`${styles.donateCta} snap-frame`}>
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <p className={`${styles.donateCtaTag} reveal`}>Direct Support</p>
-          <h2 className={`${styles.donateCtaH} reveal d1`}>Looking for Direct Financial Support?</h2>
-          <p className={`${styles.donateCtaSub} reveal d2`}>
-            Not ready for an institutional partnership yet? Individual and corporate donations directly power our training programs and regional community hubs.
-          </p>
-          <div className={`${styles.ctaBtnsGroup} reveal d3`}>
-            {/* <Link className={styles.btnDonateBig} to="/donate">
-              <Heart size={16} fill="currentColor" /> Donate Now
-            </Link> */}
-            <Link className={styles.btnVolunteerOutline} to="/volunteer">
-              <span>Join as Volunteer</span>
-              <ArrowRight size={15} />
-            </Link>
-          </div>
+      <section className="section">
+        <div className="container split">
+          <span className="eyebrow">How it works</span>
+          <ol className={styles.steps}>
+            {steps.map((s, i) => (
+              <li key={s.title} className="reveal">
+                <span className={styles.stepNo}>{i + 1}</span>
+                <h3 className="subtitle">{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className={`section-tight ${styles.logos}`} aria-label="Current partners">
+        <div className="container">
+          <span className="eyebrow">Already working with</span>
+          <ul>
+            {partners.map((p) => (
+              <li key={p.name}>
+                <img src={p.logo} alt={p.name} loading="lazy" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="enquire" className="section section-dark">
+        <div className="container split">
+          <span className="eyebrow eyebrow-light">Enquire</span>
+          <form className={`form-grid ${styles.form}`} onSubmit={onSubmit}>
+            <h2 className="title">Tell us about your organisation.</h2>
+            <div className={styles.pair}>
+              <label className="field">
+                <span>Your name</span>
+                <input name="name" type="text" autoComplete="name" value={form.name} onChange={change} required disabled={busy} />
+              </label>
+              <label className="field">
+                <span>Work email</span>
+                <input name="email" type="email" autoComplete="email" value={form.email} onChange={change} required disabled={busy} />
+              </label>
+            </div>
+            <div className={styles.pair}>
+              <label className="field">
+                <span>Organisation</span>
+                <input name="organisation" type="text" autoComplete="organization" value={form.organisation} onChange={change} required disabled={busy} />
+              </label>
+              <label className="field">
+                <span>Type of partnership</span>
+                <select name="type" value={form.type} onChange={change} disabled={busy}>
+                  {models.map((m) => (
+                    <option key={m.id} value={m.id}>{m.title}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <label className="field">
+              <span>What would you like to achieve?</span>
+              <textarea name="message" rows={4} value={form.message} onChange={change} required disabled={busy} />
+            </label>
+
+            <FormFeedback
+              status={status}
+              sentTitle="Thank you for reaching out."
+              sentBody="Our partnerships team will reply to arrange a short conversation."
+            />
+
+            <div>
+              <button className="btn btn-light" type="submit" disabled={busy}>
+                {busy ? 'Sending...' : <>Send enquiry <ArrowRight size={16} /></>}
+              </button>
+            </div>
+          </form>
         </div>
       </section>
     </>

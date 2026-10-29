@@ -1,89 +1,75 @@
-/* Premium Design Tokens */
+/* OFWA design tokens. Light, warm paper with the orange of the OFWA mark and a navy ink.
+   Brand values are placeholders sampled from ofwafrica.org (see public/brand/README.md). */
 :root {
-  /* Brand Typography */
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  /* Color System - Modernized Dark Mode First */
-  --black: #04060a;
-  --dark: #0b0f19;
-  --dark-glass: rgba(11, 15, 25, 0.7);
-  --dark2: #121826;
-  --dark2-glass: rgba(18, 24, 38, 0.75);
-  --dark3: #1a2338;
-  --white: #ffffff;
-  
-  /* Luxury Accents & Gradients */
-  --orange: #ff9f43;
-  --orange-dk: #e0832b;
-  --orange-glow: rgba(255, 159, 67, 0.35);
-  --orange-gradient: linear-gradient(135deg, #ff9f43 0%, #ff5252 100%);
-  --orange-gradient-hover: linear-gradient(135deg, #ff8c2e 0%, #eb3b3b 100%);
-  --dark-gradient: linear-gradient(180deg, #0b0f19 0%, #04060a 100%);
-  
-  /* Neutral Grays */
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
-  --gray-200: #e2e8f0;
-  --gray-300: #cbd5e1;
-  --gray-400: #94a3b8;
-  --gray-500: #64748b;
-  --gray-600: #475569;
-  --gray-700: #334155;
-  --gray-800: #1e293b;
-  --gray-900: #0f172a;
-  
-  /* Light theme accents (Cream backgrounds) */
-  --cream: #faf8f5;
-  --cream-dark: #f0ebe4;
-  --cream-accent: #fcfbfa;
+  /* Type */
+  --font-display: 'Newsreader Variable', Georgia, 'Times New Roman', serif;
+  --font-body: 'Libre Franklin Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: var(--font-display);
 
-  /* Dimensions & Spacing */
-  --nav-h: 92px;
+  /* Brand */
+  --brand: #b83509;          /* text, links and buttons: 4.8:1 or better on every light surface, 5.9:1 with white text */
+  --brand-bright: #e94e1b;   /* the mark's orange-red: shapes and rules only, never small text */
+  --amber: #ef7e07;
+  --coral: #f77261;
+  --sun: #ffe3bd;
+  --navy: #0b1523;
+  --sky: #69a1bb;
+  --leaf: #1f7a4d;
+
+  /* Surfaces and ink */
+  --paper: #f7f3ec;
+  --paper-2: #efe9de;
+  --card: #ffffff;
+  --ink: #101a28;
+  --ink-2: #3b4a5e;
+  --ink-3: #566478;          /* secondary text: 4.9:1 on the darkest light surface */
+  --focus: #0b1523;
+  --line: rgba(13, 27, 46, 0.12);
+  --line-strong: rgba(13, 27, 46, 0.22);
+
+  /* Layout */
+  --nav-h: 76px;
   --container-w: 1200px;
-  
-  /* Borders & Radii */
-  --r-sm: 6px;
-  --r-md: 12px;
-  --r-lg: 20px;
-  --r-xl: 32px;
-  
-  /* Shadows & Glows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --glow-light: 0 0 20px rgba(255, 159, 67, 0.15);
-  --glow-strong: 0 0 35px rgba(255, 159, 67, 0.3);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.07);
-}
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 36px;
+  --r-pill: 999px;
 
-/* Light Theme Variables Override */
-body.light-theme {
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(13, 27, 46, 0.06);
+  --shadow-md: 0 8px 24px rgba(13, 27, 46, 0.08);
+  --shadow-lg: 0 18px 48px rgba(13, 27, 46, 0.12);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Legacy names still used by pages that have not been reworked yet. Mapped to the light system. */
   --black: #ffffff;
-  --dark: #fcfbfa; /* Soft warm cream-white base background */
-  --dark-glass: rgba(252, 251, 250, 0.7);
-  --dark2: #ffffff; /* Solid white for cards/boxes */
-  --dark2-glass: rgba(255, 255, 255, 0.85);
-  --dark3: #f3f0ea; /* Lighter borders or background accents */
-  --white: #0a0e1a; /* Dark charcoal-blue for primary headings/text */
-
-  /* Inverted Gray Scale for readability on light backgrounds */
-  --gray-50: #0a0e1a;
-  --gray-100: #1a2233;
-  --gray-200: #2c384c;
-  --gray-300: #42526b;
-  --gray-400: #5c6e8a;
-  --gray-500: #7c8ea6;
+  --dark: var(--paper);
+  --dark-glass: rgba(251, 248, 243, 0.82);
+  --dark2: #ffffff;
+  --dark2-glass: rgba(255, 255, 255, 0.88);
+  --dark3: var(--paper-2);
+  --white: var(--ink);
+  --orange: var(--brand-bright);
+  --orange-dk: var(--brand);
+  --orange-glow: rgba(233, 78, 27, 0.18);
+  --orange-gradient: linear-gradient(135deg, var(--brand-bright), var(--amber));
+  --orange-gradient-hover: linear-gradient(135deg, var(--brand), var(--amber));
+  --gray-50: #0d1b2e;
+  --gray-100: #1a2a40;
+  --gray-200: #2c3b52;
+  --gray-300: #3b4a5e;
+  --gray-400: #55647a;
+  --gray-500: #566478;
   --gray-600: #ccd5e0;
   --gray-700: #e3e8f0;
   --gray-800: #f1f5f9;
   --gray-900: #f8fafc;
-  
-  --glass-border: 1px solid rgba(0, 0, 0, 0.06);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.06);
+  --cream: var(--paper);
+  --cream-dark: var(--paper-2);
+  --cream-accent: #fdfbf8;
+  --glass-border: 1px solid var(--line);
+  --glow-light: 0 0 0 transparent;
+  --glow-strong: 0 0 0 transparent;
+  --dark-gradient: linear-gradient(180deg, var(--paper), var(--paper-2));
 }
-

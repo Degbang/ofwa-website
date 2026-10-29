@@ -1,225 +1,201 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Scale, Lightbulb, ShieldCheck, UtensilsCrossed } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { PageHero } from '../../components/ui/PageHero';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
+import { boardMembers, coreTeam, hubLeaders, type Person } from '../../data/people';
 import styles from './About.module.css';
-import clsx from 'clsx';
 
-const values = [
+const pillars = [
   {
-    icon: <Users size={26} />,
-    title: 'Collaboration',
-    body: 'We believe in the power of the collective, co-creating solutions through meaningful partnerships rather than working in silos.',
-    number: '01',
-    tag: 'Togetherness',
+    title: 'Advocate',
+    body: 'We campaign for open licensing, fair access to knowledge and policy that supports it, and we represent African contributors in the global Wikimedia and Creative Commons movements.',
   },
   {
-    icon: <UtensilsCrossed size={26} />,
-    title: 'Afro-heritage',
-    body: 'We root our work in the pride of our identity, ensuring African narratives are owned, shaped, and told by Africans.',
-    number: '02',
-    tag: 'Diaspora',
+    title: 'Train',
+    body: 'We teach people to write, photograph and code for Wikipedia and its sister projects, and we build digital skills for women, students, librarians and developers.',
   },
   {
-    icon: <Scale size={26} />,
-    title: 'Equity & Inclusion',
-    body: 'We dismantle barriers to participation, creating a welcoming space where diverse voices are amplified, respected, and heard.',
-    number: '03',
-    tag: 'Inclusivity',
+    title: 'Consult',
+    body: 'We advise organisations on copyright, licensing and research, and on deploying offline knowledge with Kiwix where connectivity is poor.',
   },
   {
-    icon: <Lightbulb size={26} />,
-    title: 'Innovation',
-    body: 'We create platforms and embrace forward-thinking solutions, leveraging new technologies to find effective ways to capture and share knowledge.',
-    number: '04',
-    tag: 'Pioneering',
-  },
-  {
-    icon: <ShieldCheck size={26} />,
-    title: 'Transparency',
-    body: 'We work in the open with integrity, building trust by making our decisions, processes, and finances visible to our community and partners.',
-    number: '05',
-    tag: 'Integrity',
+    title: 'Digitise',
+    body: 'We work with archives, libraries and museums to put African cultural heritage online, openly licensed and findable.',
   },
 ];
 
-interface DriveFile {
-  id: string;
-  name: string;
-}
+const milestones = [
+  { year: '2016', text: 'OFWA is founded in Accra to grow open knowledge across West Africa.' },
+  { year: '2017', text: 'GLAM Ghana digitises records from the national archives, and Ghana hosts WikiIndaba, the conference for African Wikimedians.' },
+  { year: '2020', text: 'The Ghana Polls 2020 campaign builds Wikipedia coverage of the national elections.' },
+  { year: '2025', text: 'WikiSkills for Librarians begins with the Goethe-Institut Ghana, and the Africa Wiki Challenge launches in Accra.' },
+  { year: '2026', text: 'The Africa Wiki Challenge is launched in Nigeria on the theme Water for Life in Africa, and Kumasi hosts a Google Summer of Code training at KNUST.' },
+];
 
-const members = {
-  boardMembers: [
-    { name: 'Raphael Berchie', role: 'Board Chairman/ Co-Founder', image: '/assets/images/board members/raphael-berchie.jpg' },
-    { name: 'Ama Serwah Nerquaye-Tetteh', role: 'Vice Chairperson', image: '/assets/images/board members/ama-serwah.jpg' },
-    { name: 'Dr. George Tesilimi', role: 'Lecturer and Librarian- University of Health and Allied Sciences', image: '/assets/images/board members/george-tesilimi.jpg' },
-    { name: 'Jesse Akrofi-Asiedu', role: 'Digital Humanist and Open Advocate', image: '/assets/images/board members/jesse-akrofi-asiedu.jpg' },
-    { name: 'Jonathan Oberko', role: 'Principal Accounts - Accra Technical University', image: '/assets/images/board members/kweku-berko.jpg' },
-    { name: 'Philip Boakye Dua Oyinka', role: 'Creative Writing Trainer, Poet, Writer, Advisor', image: '/assets/images/board members/nana-asaase.jpg' },
-    { name: 'Felix Nartey', role: 'Advisor to the Board', image: '/assets/images/board members/felix-nartey.jpg' },
-  ],
-  hubLeaders: [
-    { name: 'Abdul-Rahim Ziblim', role: 'Tamale Wiki Hub Lead (President)', image: '/assets/images/hub leaders/abdul-rahim-ziblim.jpg' },
-    { name: 'Asamoah Daniel Kwame Oware', role: 'Kumasi WikiHub Lead (Assistant)', image: '/assets/images/hub leaders/asamoah-daniel-kwame-oware-headshot.jpg' },
-    { name: 'Lookman Sunday Ibrahim', role: 'Tamale Wiki Hub Lead (Vice)', image: '/assets/images/hub leaders/lookman-sunday-ibrahim.png' },
-    { name: 'Chris Ato Quamina', role: 'Walewale Hub Leader', image: '/assets/images/hub leaders/Chris Ato Quamina.png' },
-    { name: 'Mehetabel Enam Effe Akoto', role: 'Ho Wiki Hub Assistant Leader', image: '/assets/images/hub leaders/Mehetabel Enam Effe Akoto.jpeg' },
-    { name: 'Sharif Tiisu', role: 'UDS Wiki Tech Hub Leader', image: '/assets/images/hub leaders/Sharif Tiisu.jpeg' },
-    { name: 'Tieruzie Zacchaeus Zinanibe', role: 'DHLTU Wiki Club Leader', image: '/assets/images/hub leaders/Tieruzie Zacchaeus Zinanibe.jpeg' },
-    { name: 'Constantine Appiah', role: 'Ho Wiki Club Leader', image: '/assets/images/hub leaders/constantine-appiah.jpg' },
-    { name: 'Rexford Ameyaw', role: 'EnchiCoE Wiki Club Leader', image: '/assets/images/hub leaders/rexford-ameyaw.jpg' },
-  ],
-  coreTeam: [
-    { name: 'Jael Serwaa Boateng', role: 'Executive Director', image: '/assets/images/core team/jael-serwaa-boateng.webp' },
-    { name: 'Brian Ayiku Ocansey', role: 'Admin and Programs Coordinator', image: '/assets/images/core team/brian-ayiku-ocansey.webp' },
-    { name: 'Dickson Kojo Anane', role: 'Programs Officer', image: '/assets/images/core team/dickson-kojo-anane.webp' },
-    { name: 'Alfred Degbang', role: 'Technical Coordinator', image: '/assets/images/core team/alfred-degbang.webp' },
-    { name: 'Edmund Quansah', role: 'Media Strategist', image: '/assets/images/core team/edmund-quansah.webp' },
-  ],
+const values = [
+  { title: 'Collaboration', body: 'We co-create solutions through partnerships rather than working in silos.' },
+  { title: 'Afro-heritage', body: 'African narratives should be owned, shaped and told by Africans.' },
+  { title: 'Equity and inclusion', body: 'We remove barriers to taking part, so that many kinds of voices are heard.' },
+  { title: 'Innovation', body: 'We build platforms and use new technology to capture and share knowledge.' },
+  { title: 'Transparency', body: 'We work in the open, and make our decisions, processes and finances visible to our community and partners.' },
+];
+
+const groups = [
+  { id: 'team', label: 'Core team', people: coreTeam },
+  { id: 'board', label: 'Board', people: boardMembers },
+  { id: 'leaders', label: 'Hub leaders', people: hubLeaders },
+] as const;
+
+const initials = (name: string) =>
+  name
+    .replace(/^Dr\.?\s+/i, '')
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((p) => p[0])
+    .join('');
+
+const Portrait: React.FC<{ person: Person }> = ({ person }) => {
+  const [failed, setFailed] = useState(false);
+  return (
+    <li className={styles.person}>
+      <div className={styles.portrait}>
+        {failed ? (
+          <span className={styles.monogram}>{initials(person.name)}</span>
+        ) : (
+          <img src={person.image} alt={person.name} loading="lazy" onError={() => setFailed(true)} />
+        )}
+      </div>
+      <h3>{person.name}</h3>
+      <p>{person.role}</p>
+    </li>
+  );
 };
 
 const About: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'boardMembers' | 'coreTeam' | 'hubLeaders'>('boardMembers');
-  useScrollReveal(activeTab);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
-      const folder = import.meta.env.VITE_TEAM_FOLDER;
-      const url = `https://www.googleapis.com/drive/v3/files?q='${folder}' in parents and mimeType starts with 'image/' and trashed = false&fields=files(id,name)&key=${apiKey}`;
-
-      const response = await fetch(url);
-      const data = await response.json();
-      const files: DriveFile[] = data.files || [];
-
-      return files.map((file) => ({
-        full: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
-        alt: file.name.split('.')[0] || file.name,
-        cat: 'Team',
-        categories: ['team'],
-      }));
-    };
-
-    fetchImages().then((images) => {
-      members.coreTeam.forEach((member) => {
-        member.image = images.find((image) => image.alt === member.name)?.full || member.image;
-      });
-    });
-  }, []);
+  const [group, setGroup] = useState<(typeof groups)[number]['id']>('team');
+  useScrollReveal(group);
+  const active = groups.find((g) => g.id === group)!;
 
   return (
     <>
-      <div className={`${styles.heroMissionContainer} snap-frame`}>
-        <section className={styles.pageHero}>
-          <div className="container">
-            <p className={`${styles.pageHeroKicker} reveal`}>Our Story</p>
-            <h1 className={`${styles.pageHeroTitle} reveal d1`}>About Open Foundation<br />West Africa</h1>
-            <p className={`${styles.pageHeroSub} reveal d2`}>A nonprofit building open knowledge ecosystems across Africa, one community at a time.</p>
-          </div>
-        </section>
+      <PageHero
+        kicker="About OFWA"
+        title="Open knowledge, built by the people it describes."
+        lede="Open Foundation West Africa is a Ghana-based non-profit and a recognised Wikimedia and Creative Commons affiliate. Since 2016 we have helped communities write, keep and share their own knowledge."
+        image="/img/team-afrocreatives.webp"
+        imageAlt="The OFWA team and volunteers gathered outside the venue at the AfroCreatives 2025 launch"
+        imagePosition="center 60%"
+      />
 
-        <section className={styles.aboutSplit}>
-          <div className={styles.aboutSplitImg}>
-            <div className={`${styles.aboutSplitContentGoals} ${styles.aboutSplitContentLight}`}>
-              <span className="section-tag mission-title reveal">Our Vision</span>
-              <h2 className={`${styles.sectionHDark} reveal`}>What We're Working Towards</h2>
-              <p>An equitable digital landscape where African knowledge is freely shared by Africans, for everyone.</p>
-            </div>
-          </div>
-          <div className={styles.aboutSplitContent}>
-            <span className="section-tag mission-title reveal">Our Mission</span>
-            <h2 className={`${styles.sectionHDark} reveal d1`}>Contribution to the Open Movement</h2>
-            <p className={`${styles.bodyText} reveal d2`}>Co-creating the future of African open knowledge by building inclusive platforms and equipping communities with the tools to share their narratives.</p>
-            <button className={styles.getInvolvedBtn}>
-              <Link className="btn-orange reveal d4" to="/contact">Get Involved <ArrowRight size={16} /></Link>
-            </button>
-          </div>
-        </section>
-      </div>
-
-      <section className={`${styles.valuesSection} snap-frame`}>
-        <div className={styles.ambientGlow} />
-        <div className="container">
-          <div className={styles.valuesSectionHead}>
-            <span className="section-tag reveal">What Guides Us</span>
-            <h2 className={`${styles.sectionHLight} reveal d1`}>
-              Our Core <span>Values</span>
-            </h2>
-            <p className={`${styles.valuesSub} reveal d2`}>
-              The foundational principles steering our mission to democratize open knowledge across Africa.
+      {/* Vision and mission */}
+      <section className="section">
+        <div className={`container split-even`}>
+          <div className="reveal">
+            <span className="eyebrow">Our vision</span>
+            <p className={`serif-lede ${styles.statement}`}>
+              An equitable digital landscape where African knowledge is freely shared by Africans, for everyone.
             </p>
           </div>
-          <div className={styles.valuesGrid}>
-            {values.map((v, i) => (
-              <div key={i} className={`${styles.valueCard} reveal ${i > 0 ? `d${i}` : ''}`}>
-                <div className={styles.valueCardGlow} />
-                <div className={styles.valueCardHeader}>
-                  <div className={styles.valueCardIconWrap}>
-                    {v.icon}
-                  </div>
-                  <span className={styles.valueNumber}>{v.number}</span>
-                </div>
-                <div className={styles.valueCardContent}>
-                  <span className={styles.valueTag}>{v.tag}</span>
-                  <h3 className={styles.valueCardTitle}>{v.title}</h3>
-                  <p className={styles.valueCardBody}>{v.body}</p>
-                </div>
-                <div className={styles.valueCardLine} />
-              </div>
-            ))}
+          <div className="reveal">
+            <span className="eyebrow">Our mission</span>
+            <p className={`serif-lede ${styles.statement}`}>
+              To co-create the future of African open knowledge by building inclusive platforms and equipping communities
+              with the tools to share their own narratives.
+            </p>
           </div>
         </div>
       </section>
 
-      <section className={`${styles.teamSection} snap-frame`}>
-        <div className="container">
-          <div className={styles.teamSectionHead}>
-            <span className="section-tag reveal">Our People</span>
-            <h2 className={`${styles.sectionHLight} reveal d1`}>Meet Our <span>Community</span></h2>
-            <p className={`${styles.teamSub} reveal d2`}>
-              The dedicated individuals steering the movement and driving open knowledge across West Africa.
-            </p>
-          </div>
-
-          <div className={`${styles.tabContainer} reveal d3`}>
-            <button
-              className={clsx(styles.tabBtn, activeTab === 'boardMembers' && styles.tabBtnActive)}
-              onClick={() => setActiveTab('boardMembers')}
-            >
-              Board Members
-            </button>
-            <button
-              className={clsx(styles.tabBtn, activeTab === 'coreTeam' && styles.tabBtnActive)}
-              onClick={() => setActiveTab('coreTeam')}
-            >
-              Core Team
-            </button>
-            <button
-              className={clsx(styles.tabBtn, activeTab === 'hubLeaders' && styles.tabBtnActive)}
-              onClick={() => setActiveTab('hubLeaders')}
-            >
-              Hub Leaders
-            </button>
-          </div>
-
-          <div className={styles.memberGrid}>
-            {members[activeTab].map((m, i) => (
-              <div key={`${activeTab}-${i}`} className={`${styles.memberCard} reveal ${i > 0 ? `d${i % 4}` : ''}`}>
-                <div className={styles.memberCardImg}>
-                  <img
-                    src={m.image}
-                    alt={m.name}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/assets/images/team-member.png';
-                    }}
-                  />
-                </div>
-                <div className={styles.memberCardBody}>
-                  <h3 className={styles.memberCardName}>{m.name}</h3>
-                  <p className={styles.memberCardRole}>{m.role}</p>
-                </div>
-              </div>
+      {/* What we do */}
+      <section className="section section-sand">
+        <div className="container split">
+          <span className="eyebrow">How we work</span>
+          <ol className="rules">
+            {pillars.map((p, i) => (
+              <li key={p.title} className={`${styles.pillar} reveal`}>
+                <span className="small-caps">{String(i + 1).padStart(2, '0')}</span>
+                <h2 className="subtitle">{p.title}</h2>
+                <p>{p.body}</p>
+              </li>
             ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Milestones */}
+      <section className="section">
+        <div className="container split">
+          <span className="eyebrow">A decade of work</span>
+          <div>
+            <ol className={`rules ${styles.timeline}`}>
+              {milestones.map((m) => (
+                <li key={m.year} className="reveal">
+                  <time className={styles.year}>{m.year}</time>
+                  <p>{m.text}</p>
+                </li>
+              ))}
+            </ol>
+            <Link to="/programs" className="link-arrow" style={{ marginTop: 36 }}>
+              See every program <ArrowRight size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="section section-dark">
+        <div className="container split">
+          <span className="eyebrow eyebrow-light">What guides us</span>
+          <div>
+            <h2 className="title" style={{ maxWidth: '14em', marginBottom: 56 }}>
+              Five principles behind every program.
+            </h2>
+            <ol className={`rules ${styles.values}`}>
+              {values.map((v, i) => (
+                <li key={v.title} className="reveal">
+                  <span className="small-caps" style={{ color: 'rgba(247,243,236,0.55)' }}>{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="subtitle">{v.title}</h3>
+                  <p>{v.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      {/* People */}
+      <section className="section">
+        <div className="container">
+          <div className={styles.peopleHead}>
+            <div>
+              <span className="eyebrow">Our people</span>
+              <h2 className="title" style={{ marginTop: 24 }}>The people behind the work.</h2>
+            </div>
+            <div className="filters" role="group" aria-label="Choose a group">
+              {groups.map((g) => (
+                <button key={g.id} type="button" className="filter" aria-pressed={group === g.id} onClick={() => setGroup(g.id)}>
+                  {g.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <ul className={styles.people}>
+            {active.people.map((p) => (
+              <Portrait key={`${group}-${p.name}`} person={p} />
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Closing */}
+      <section className="section section-dark">
+        <div className={`container ${styles.closing}`}>
+          <h2 className="title">Help us write the next chapter.</h2>
+          <div className={styles.closingLinks}>
+            <Link to="/volunteer" className="btn btn-light">Volunteer</Link>
+            <Link to="/partner" className="btn btn-light">Partner with us</Link>
+            <Link to="/contact" className="link-arrow">Contact the team <ArrowRight size={16} /></Link>
           </div>
         </div>
       </section>

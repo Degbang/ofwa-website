@@ -1,93 +1,64 @@
-.modalOverlay {
+.overlay {
   position: fixed;
   inset: 0;
-  z-index: 2000;
-  background: rgba(4, 6, 10, 0.85);
-  backdrop-filter: blur(12px);
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
-  animation: fadeIn 0.3s ease forwards;
+  background: rgba(8, 14, 24, 0.88);
+  animation: fade 0.3s ease both;
 }
 
-.modalInner {
+.inner {
   position: relative;
-  width: min(960px, 100%);
-  background: var(--black);
-  border-radius: var(--r-lg);
-  overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 159, 67, 0.1);
-  border: var(--glass-border);
-  transform: scale(0.95);
-  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  width: min(1040px, 100%);
+  background: #000;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  --focus: #ffd9a8;
 }
 
-.modalClose {
+.inner:focus {
+  outline: none;
+}
+
+.close {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--white);
+  top: -56px;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.modalClose:hover {
-  background: var(--orange-gradient);
-  color: var(--black);
-  transform: rotate(90deg);
+.close:hover {
+  background: #fff;
+  color: #080f1a;
 }
 
-.videoFrame {
+.frame {
   position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  aspect-ratio: 16 / 9;
 }
 
-.videoFrame iframe {
+.frame iframe {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  border: none;
+  border: 0;
 }
 
-@keyframes fadeIn {
+@keyframes fade {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    transform: scale(0.92);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-@media (max-width: 600px) {
-  .modalOverlay {
-    padding: 12px;
-  }
-  
-  .modalClose {
-    top: 8px;
-    right: 8px;
-    width: 30px;
-    height: 30px;
   }
 }
